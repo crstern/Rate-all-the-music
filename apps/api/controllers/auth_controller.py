@@ -20,6 +20,9 @@ from apps.api.utils import (
 api = UserDto.api
 _user_basic = UserDto.user_basic
 _user_advanced = UserDto.user_advanced
+_user_login_validation = UserDto.user_login_validation
+_user_register_validation = UserDto.user_register_validation
+_user_login_info = UserDto.user_login_info
 
 
 @api.route('/login')
@@ -34,7 +37,11 @@ class LoginCollection(Resource):
     """
 
     @api.doc(
-        'Register user')
+        'Login user',
+        responses={
+            200: ('token', _user_login_info)
+        })
+    @api.expect(_user_login_validation, validate=True)
     def post(self):
         data = request.get_json()
 
@@ -56,20 +63,23 @@ class LoginCollection(Resource):
     @api.doc(
         'Register user',
         responses={
-            200: ('message', 'User was created')
+            200: ('data', _user_basic)
         })
+    @api.expect(_user_register_validation, validate=True)
     def post(self):
         data = request.get_json()
 
         created = create_new_user(data)
 
-        if created is True:
-            return response_with(resp.SUCCESS_200, value={'message': 'Usr created'})
+        data = api.marshal(created, _user_basic)
+
+        if created is not None:
+            return response_with(resp.SUCCESS_200, value={'data': data})
         else:
             return response_with(resp.INVALID_INPUT_422, value={'message': 'User was NOT created'})
 
 
-@api.route('/protected')
+@api.route('/get_current_user')
 class LoginCollection(Resource):
     """
     Collection for root - /protected - endpoints

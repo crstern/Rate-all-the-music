@@ -33,5 +33,12 @@ def handle_auth_error(ex):
     return response
 
 
+@app.errorhandler(ValueError)
+def handle_auth_error(ex):
+    response = jsonify(ex.error)
+    response.status_code = ex.status_code
+    return response
+
+
 if __name__ == '__main__':
     manager.run()

@@ -19,3 +19,18 @@ class UserDto:
         'username': fields.String(description='User username'),
         'hashed_password': fields.String(description='User password')
     })
+
+    user_register_validation = api.model('User register validation', {
+        'username': fields.String(description='User username', required=True),
+        'password': fields.String(description='User password', required=True),
+        'email':  fields.String(description='User password', required=True),
+    })
+
+    user_login_validation = api.model('User login validation', {
+        'username': fields.String(description='User username', required=True),
+        'password': fields.String(description='User password', required=True)
+    })
+
+    user_login_info = api.model('User logged in', {
+        'token': fields.String(description='User jwt token', read_only=True)
+    })

@@ -1,6 +1,7 @@
 """
 user related model
 """
+from sqlalchemy.orm import relationship
 
 from apps.extensions import db
 from .audit import Base
@@ -17,6 +18,8 @@ class User(Base):
     email = db.Column(db.String(255), unique=True, nullable=False)
     hashed_password = db.Column(db.String(255), unique=True, nullable=False)
     admin = db.Column(db.Boolean, default=False)
+    comments = relationship('Comment')
+    ratings = relationship('Rating')
 
     def __repr__(self):
         """

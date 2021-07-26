@@ -28,13 +28,13 @@ def create_new_user(data):
         db.session.commit()
     except Exception as e:
         print(e)
-        return False
-    return True
+        return None
+    return new_user
 
 
 def get_access_token(data):
     if not data or 'username' not in data or 'password' not in data:
-        raise AuthError('Username or password not provided')
+        raise AuthError('Username or password not provided', 422)
     user = User.query.filter_by(username=data['username']).first()
 
     if not user:
