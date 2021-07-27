@@ -17,9 +17,9 @@ class Rating(Base):
     number_of_stars = db.Column(db.Integer, default=5)
     title = db.Column(db.String(255), nullable=True)
     description = db.Column(db.Text, nullable=True)
-    artist_id = db.Column(db.String(255), db.ForeignKey('artist.public_id'), nullable=True)
-    album_id = db.Column(db.String(255), db.ForeignKey('album.public_id'), nullable=True)
-    user_id = db.Column(db.String(255), db.ForeignKey('user.public_id'), nullable=False)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'), nullable=True)
+    album_id = db.Column(db.Integer, db.ForeignKey('album.id'), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     likes = db.Column(db.Integer, default=0)
     comments = relationship('Comment')
 

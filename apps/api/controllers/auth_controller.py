@@ -7,13 +7,15 @@ from flask_restx import Resource
 from apps.api.dto import UserDto
 from apps.api.services import (
     create_new_user,
-    get_access_token
+    get_access_token,
+    upload_artists
 )
 from apps.api.utils import (
     response_with,
     responses as resp,
     token_required,
-    get_current_user
+    get_current_user,
+    AuthError,
 )
 
 
@@ -33,7 +35,7 @@ class LoginCollection(Resource):
     Args: Resource(Object)
 
     Returns:
-        json: data
+        json: token
     """
 
     @api.doc(
@@ -51,7 +53,7 @@ class LoginCollection(Resource):
 
 
 @api.route('/register')
-class LoginCollection(Resource):
+class RegisterCollection(Resource):
     """
     Collection for root - /register - endpoints
 
@@ -80,7 +82,7 @@ class LoginCollection(Resource):
 
 
 @api.route('/get_current_user')
-class LoginCollection(Resource):
+class UserCollection(Resource):
     """
     Collection for root - /protected - endpoints
 
@@ -103,4 +105,7 @@ class LoginCollection(Resource):
         data = api.marshal(user, _user_basic)
 
         return response_with(resp.SUCCESS_200, value={'data': data})
+
+
+
 

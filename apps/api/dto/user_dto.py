@@ -12,7 +12,7 @@ class UserDto:
 
     user_basic = api.model('User basic', {
         'username': fields.String(description='User username'),
-        'public_id': fields.String(description='User public id')
+        'id': fields.String(description='User public id')
     })
 
     user_advanced = api.model('User basic', {

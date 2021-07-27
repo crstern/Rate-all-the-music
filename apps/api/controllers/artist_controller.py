@@ -1,22 +1,16 @@
-"""
-Album related endpoints
-"""
-
-from flask import request
-from flask_restx import Resource
-
-from apps.api.dto import AlbumDto
-
+from apps.api.dto import ArtistDto
 from apps.api.utils import (
-    response_with,
-    responses as resp,
     token_required,
     get_current_user,
-    AuthError
-)
+    AuthError,
+    responses as resp,
+    response_with,
 
-api = AlbumDto.api
-_user_basic = AlbumDto.album_basic
+)
+from apps.api.services import upload_artists
+from flask_restx import Resource
+
+api = ArtistDto.api
 
 
 @api.route('/upload')
@@ -26,9 +20,12 @@ class UploadCollection(Resource):
 
     Args: Resource(Object)
 
+    Returns:
+        json: data
     """
+
     @api.doc(
-        'upload albums',
+        'upload artists',
     )
     @token_required
     def post(self):
@@ -37,6 +34,6 @@ class UploadCollection(Resource):
         if user.admin is not True:
             raise AuthError('This is possible only for admins', 403)
 
-        upload_albums()
+        upload_artists()
 
         return response_with(resp.SUCCESS_200)

@@ -24,6 +24,7 @@ class Config:
         f"{environ.get('DATABASE_HOST')}:{environ.get('DATABASE_PORT')}/{environ.get('DATABASE_NAME')}"
     )
     SECRET_KEY = environ.get('SECRET_KEY')
+    UPLOAD_FOLDER = environ.get('UPLOAD_FOLDER')
 
 
 class TestConfig(Config):

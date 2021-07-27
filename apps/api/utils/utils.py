@@ -10,14 +10,17 @@ from apps.api.models import User
 
 from functools import wraps
 from flask import (
-    _request_ctx_stack,
-    has_request_context,
     request,
     session,
-    jsonify,
 )
 
-secret_key = os.environ['SECRET_KEY']
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+SECRET_KEY = os.environ['SECRET_KEY']
+
+UPLOAD_FOLDER = os.environ['UPLOAD_FOLDER']
+
+path_to_images = os.path.join(os.getcwd(), 'images')
 
 
 def get_current_user():
@@ -26,7 +29,7 @@ def get_current_user():
 
     :return Request context user or None.
     """
-    current_user = User.query.filter_by(public_id=session['user_public_id']).first()
+    current_user = User.query.filter_by(id=session['user_id']).first()
     return current_user
 
 
@@ -42,12 +45,18 @@ def token_required(f):
             raise AuthError('Token is missing', 401)
 
         try:
-            data = jwt.decode(token, secret_key, algorithms="HS256")
-            current_user = User.query.filter_by(public_id=data['public_id']).first()
-            session['user_public_id'] = current_user.public_id
+            data = jwt.decode(token, SECRET_KEY, algorithms="HS256")
+            current_user = User.query.filter_by(id=data['id']).first()
+            session['user_id'] = current_user.id
         except Exception as e:
             print(e)
             raise AuthError('Authorization is invalid', 401)
 
         return f(*args, **kwargs)
     return decorated
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+

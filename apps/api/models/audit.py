@@ -2,6 +2,7 @@
 Audit base class related model
 """
 from apps.extensions import db
+import uuid
 
 
 class Base(db.Model):
@@ -15,5 +16,4 @@ class Base(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
-    id = db.Column(db.Integer)
-    public_id = db.Column(db.String(255), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)

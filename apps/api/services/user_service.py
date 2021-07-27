@@ -7,7 +7,7 @@ from flask import session
 from werkzeug.security import generate_password_hash, check_password_hash
 from apps.api.models import User
 from apps.extensions import db
-from apps.api.utils import AuthError, secret_key
+from apps.api.utils import AuthError, SECRET_KEY
 
 
 def create_new_user(data):
@@ -19,7 +19,6 @@ def create_new_user(data):
     """
     hashed_password = generate_password_hash(data['password'], method='sha256')
     data['hashed_password'] = hashed_password
-    data['public_id'] = str(uuid.uuid4())
     del data['password']
     new_user = User(**data)
 
@@ -42,10 +41,10 @@ def get_access_token(data):
 
     if check_password_hash(user.hashed_password, data['password']):
         token = jwt.encode({
-            'public_id': user.public_id,
+            'id': user.id,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-        }, secret_key)
-        session['public_id'] = user.public_id
+        }, SECRET_KEY)
+        session['id'] = user.id
         return token
     else:
         raise AuthError("Incorect password", 401)
