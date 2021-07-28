@@ -7,7 +7,7 @@ from apps.api.utils import (
     response_with,
 
 )
-from apps.api.services import upload_artists
+from apps.api.services import upload_artists, upload_albums
 from flask_restx import Resource
 
 api = ArtistDto.api

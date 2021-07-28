@@ -4,7 +4,8 @@ import os
 
 from apps.api.models import (
     Artist,
-    Image
+    Image,
+    Album
 )
 from apps.extensions import db
 from apps.api.utils import (
@@ -12,6 +13,7 @@ from apps.api.utils import (
     path_to_images
 )
 from .genre_service import get_or_create_genre
+from .artist_service import get_artists_ids
 
 import pandas as pd
 
@@ -24,13 +26,16 @@ def get_artist_names(file_path):
     return artists
 
 
-def valid_response(resp_content):
+def validate_artist(resp_content):
 
     if not isinstance(resp_content, list):
         return False
     resp_content = resp_content[0]
 
     if 'strArtist' not in resp_content or 'idArtist' not in resp_content:
+        return False
+
+    if Artist.query.filter_by(id=resp_content.get('idArtist')).first() is not None:
         return False
 
     validate_field(resp_content, 'strCountryCode')
@@ -69,21 +74,12 @@ def upload_artists():
         for artist_index, artist in enumerate(artists):
             artist = artist[1:-1]
             req_link = 'https://www.theaudiodb.com/api/v1/json/1/search.php?s=' + artist
-            if artist == 'Drake':
-                return
-            try:
-                resp = requests.get(req_link)
-                if resp.status_code != 200:
-                    print(resp.status_code)
-                    return
-            except Exception as e:
-                print(e)
-                raise ConflictError("Error during request for artist")
+            resp = requests.get(req_link)
 
             try:
                 resp_content = json.loads(resp.content.decode("UTF-8"))['artists']
 
-                if not valid_response(resp_content):
+                if not validate_artist(resp_content):
                     continue
                 resp_content = resp_content[0]
             except Exception as e:
@@ -112,7 +108,7 @@ def add_new_artist(artist, artist_index, file_index, resp_content):
 
         try:
             resp = requests.get(artist_image_link)
-            image_name = f'artist_{artist}_{file_index}{artist_index}.jpg'
+            image_name = f'artist_{resp_content.get("idArtist")}.jpg'
             image_path = os.path.join(path_to_images, image_name)
 
             with open(image_path, 'wb') as f:
@@ -148,6 +144,58 @@ def add_new_artist(artist, artist_index, file_index, resp_content):
         print('Successfully added', artist)
     except Exception as e:
         print(e)
-        raise ConflictError("Error while saving the artist")
 
 
+def upload_albums():
+    artist_ids = get_artists_ids()
+
+    for artist_id in artist_ids:
+        link = f'https://theaudiodb.com/api/v1/json/1/album.php?i={artist_id}'
+        albums = requests.get(link).json()['album']
+        if albums is None:
+            continue
+        for album in albums:
+            if validate_album(album) is False:
+                continue
+            image_obj = None
+            if album.get('strAlbumThumb'):
+                image_path = os.path.join(path_to_images, f"album_{album.get('idAlbum')}.jpg")
+                resp_image = requests.get(album.get('strAlbumThumb'))
+
+                with open(image_path, 'wb') as f:
+                    f.write(resp_image.content)
+                    image_obj = Image(path=image_path)
+                    db.session.add(image_obj)
+                    db.session.commit()
+            if album.get("strStyle") is None:
+                album["strStyle"] = "UNKNOWN"
+            album_genre = get_or_create_genre(album.get("strStyle"))
+            album_dict = {
+                "id": album.get('idAlbum'),
+                "artist_id": artist_id,
+                "name": album.get('strAlbum'),
+                "description": album.get('strDescriptionEN'),
+                "image_id": image_obj.id if image_obj is not None else None,
+                "release_year": album.get('intYearReleased'),
+                "genre": album_genre.id
+            }
+
+            try:
+                album_obj = Album(**album_dict)
+                db.session.add(album_obj)
+                db.session.commit()
+                print('Successfully added', album_obj.name)
+            except Exception as e:
+                print(e)
+                raise ConflictError("Error while saving the album")
+
+
+def validate_album(album):
+
+    if Album.query.filter_by(id=album.get('idAlbum')).first() is not None:
+        return False
+    if album.get('strReleaseFormat').lower() != 'album':
+        return False
+    if not isinstance(album.get('strAlbum'), str):
+        return False
+    return True

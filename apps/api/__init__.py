@@ -7,7 +7,8 @@ from flask import Blueprint
 from apps.api.controllers import (
     user_ns,
     image_ns,
-    artist_ns
+    artist_ns,
+    album_ns
 )
 
 
@@ -25,4 +26,6 @@ api = Api(
 api.add_namespace(user_ns)
 api.add_namespace(image_ns)
 api.add_namespace(artist_ns)
+api.add_namespace(album_ns)
+
 
