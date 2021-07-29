@@ -62,3 +62,19 @@ class ConflictError(Exception):
         super().__init__()
         self.error = error
         self.status_code = 409
+
+
+class ServerError(Exception):
+    """
+    *500* `Server error`
+
+    Raise if a general error raises
+    """
+
+    def __init__(self, error):
+        """
+        Server exception constructor
+        """
+        super().__init__()
+        self.error = error
+        self.status_code = 500

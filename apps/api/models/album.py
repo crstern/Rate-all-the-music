@@ -17,9 +17,9 @@ class Album(Base):
     artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    image_id = db.Column(db.Integer, nullable=True)
+    image_id = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=True)
     release_year = db.Column(db.Integer, nullable=True)
-    genre = db.Column(db.Integer, db.ForeignKey('genre.id'))
+    genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'), nullable=True)
     ratings = relationship("Rating")
 
     def __repr__(self):

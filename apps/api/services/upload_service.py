@@ -12,10 +12,13 @@ from apps.api.utils import (
     ConflictError,
     path_to_images
 )
+from .album_service import fetch_albums_by_artist_id
 from .genre_service import get_or_create_genre
 from .artist_service import get_artists_ids
 
 import pandas as pd
+
+from .image_service import extract_image
 
 
 def get_artist_names(file_path):
@@ -46,7 +49,7 @@ def validate_artist(resp_content):
     validate_field(resp_content, 'strWebsite')
     validate_field(resp_content, 'strFacebook')
 
-    if "strStyle" not in resp_content or resp_content["strStyle"] is None:
+    if resp_content.get('strStyle') is None:
         resp_content["strStyle"] = "UNKNOWN"
 
     return True
@@ -86,10 +89,10 @@ def upload_artists():
                 print(e)
                 raise ConflictError("Response content is not valid")
 
-            add_new_artist(artist, artist_index, file_index, resp_content)
+            add_new_artist(artist, resp_content)
 
 
-def add_new_artist(artist, artist_index, file_index, resp_content):
+def add_new_artist(artist, resp_content):
     """
     checks if artist can have an image attached,
     adds an image to db if so,
@@ -101,38 +104,21 @@ def add_new_artist(artist, artist_index, file_index, resp_content):
     :param resp_content: response from audio db
     :return:
     """
-    image_obj = None
+    image_obj = extract_image(resp_content)
 
-    if resp_content["strArtistThumb"] is not None:
-        artist_image_link = resp_content["strArtistThumb"]
-
-        try:
-            resp = requests.get(artist_image_link)
-            image_name = f'artist_{resp_content.get("idArtist")}.jpg'
-            image_path = os.path.join(path_to_images, image_name)
-
-            with open(image_path, 'wb') as f:
-                f.write(resp.content)
-                image_obj = Image(path=image_path)
-                db.session.add(image_obj)
-                db.session.commit()
-
-        except Exception as e:
-            print(e)
-            image_obj = None
-            print('image not saved')
-
-    artist_genre = get_or_create_genre(resp_content["strStyle"])
+    artist_genre = get_or_create_genre(resp_content.get("strStyle"))
 
     artist_dict = {
-        "name": resp_content['strArtist'],
-        "origin_country": resp_content['strCountryCode'],
-        "description": resp_content['strBiographyEN'],
-        "genre": artist_genre.id,
-        "website": resp_content['strWebsite'],
-        "facebook_link": resp_content['strFacebook'],
-        "members": resp_content['intMembers'],
-        "id": resp_content['idArtist']
+        "name": resp_content.get('strArtist'),
+        "origin_country": resp_content.get('strCountryCode'),
+        "description": resp_content.get('strBiographyEN'),
+        "genre_id": artist_genre.id,
+        "website": resp_content.get('strWebsite'),
+        "facebook_link": resp_content.get('strFacebook'),
+        "members": resp_content.get('intMembers'),
+        "id": resp_content.get('idArtist'),
+        "formed_year": resp_content.get('intFormedYear'),
+        "record_label": resp_content.get('strLabel')
     }
 
     if image_obj is not None:
@@ -150,52 +136,6 @@ def upload_albums():
     artist_ids = get_artists_ids()
 
     for artist_id in artist_ids:
-        link = f'https://theaudiodb.com/api/v1/json/1/album.php?i={artist_id}'
-        albums = requests.get(link).json()['album']
-        if albums is None:
-            continue
-        for album in albums:
-            if validate_album(album) is False:
-                continue
-            image_obj = None
-            if album.get('strAlbumThumb'):
-                image_path = os.path.join(path_to_images, f"album_{album.get('idAlbum')}.jpg")
-                resp_image = requests.get(album.get('strAlbumThumb'))
-
-                with open(image_path, 'wb') as f:
-                    f.write(resp_image.content)
-                    image_obj = Image(path=image_path)
-                    db.session.add(image_obj)
-                    db.session.commit()
-            if album.get("strStyle") is None:
-                album["strStyle"] = "UNKNOWN"
-            album_genre = get_or_create_genre(album.get("strStyle"))
-            album_dict = {
-                "id": album.get('idAlbum'),
-                "artist_id": artist_id,
-                "name": album.get('strAlbum'),
-                "description": album.get('strDescriptionEN'),
-                "image_id": image_obj.id if image_obj is not None else None,
-                "release_year": album.get('intYearReleased'),
-                "genre": album_genre.id
-            }
-
-            try:
-                album_obj = Album(**album_dict)
-                db.session.add(album_obj)
-                db.session.commit()
-                print('Successfully added', album_obj.name)
-            except Exception as e:
-                print(e)
-                raise ConflictError("Error while saving the album")
+        fetch_albums_by_artist_id(artist_id)
 
 
-def validate_album(album):
-
-    if Album.query.filter_by(id=album.get('idAlbum')).first() is not None:
-        return False
-    if album.get('strReleaseFormat').lower() != 'album':
-        return False
-    if not isinstance(album.get('strAlbum'), str):
-        return False
-    return True

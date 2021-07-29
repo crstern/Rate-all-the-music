@@ -12,8 +12,11 @@ from flask import Flask
 from config import config_by_name
 
 # Import extensions
-from .extensions import db, cors
-
+from .extensions import (
+    db,
+    cors,
+    pagination
+)
 
 
 def create_app(config_name):
@@ -30,5 +33,6 @@ def create_app(config_name):
     app.config.from_object(config_by_name[config_name])
     db.init_app(app)
     cors.init_app(app, resources={r"/*": {"origins": "*"}})
+    pagination.init_app(app, db)
 
     return app

@@ -12,6 +12,8 @@ from apps.api.utils import (
     AuthError,
     InvalidPayload,
     ConflictError,
+    ServerError,
+    NotFound
 )
 
 
@@ -37,6 +39,13 @@ def handle_auth_error(ex):
     return response
 
 
+@app.errorhandler(NotFound)
+def handle_auth_error(ex):
+    response = jsonify(ex.error)
+    response.status_code = ex.status_code
+    return response
+
+
 @app.errorhandler(InvalidPayload)
 def handle_auth_error(ex):
     response = jsonify(ex.error)
@@ -49,6 +58,14 @@ def handle_auth_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response
+
+
+@app.errorhandler(ServerError)
+def handle_auth_error(ex):
+    response = jsonify(ex.error)
+    response.status_code = ex.status_code
+    return response
+
 
 
 @app.errorhandler(ValueError)

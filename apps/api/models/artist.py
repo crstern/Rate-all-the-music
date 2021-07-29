@@ -16,10 +16,10 @@ class Artist(Base):
 
     name = db.Column(db.String(255), nullable=False)
     origin_country = db.Column(db.String(255))
-    image_id = db.Column(db.Integer, nullable=True)
+    image_id = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=True)
     description = db.Column(db.Text, nullable=True)
 
-    genre = db.Column(db.Integer, db.ForeignKey('genre.id'), nullable=False)
+    genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'), nullable=True)
     formed_year = db.Column(db.Integer, nullable=True)
     record_label = db.Column(db.String(255), nullable=True)
     website = db.Column(db.String(255), nullable=True)
