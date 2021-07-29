@@ -1,10 +1,21 @@
 import requests
 
-from apps.api.models import Artist, Image, Genre, Album
-from apps.api.utils import NotFound, InvalidPayload, ServerError
+from apps.api.models import (
+    Artist,
+    Image,
+    Genre,
+)
+from apps.api.utils import (
+    NotFound,
+    InvalidPayload,
+    ServerError
+)
 from apps.extensions import db
 from .album_service import fetch_albums_by_artist_id
-from .image_service import extract_image
+from .image_service import (
+    extract_image,
+    delete_image_by_id,
+)
 from .genre_service import get_or_create_genre
 
 
@@ -31,14 +42,17 @@ def get_artist_details_by_id(artist_id):
     if artist is None:
         raise NotFound("Artist not found")
 
-    image = Image.query.get(artist.image_id)
+    if artist.image_id:
+        image = Image.query.get(artist.image_id)
+        artist.image = image
+
     genre = Genre.query.get(artist.genre_id)
 
-    artist.image = image
     artist.genre = genre
 
     for i, album in enumerate(artist.albums):
-        album.image = Image.query.get(album.image_id)
+        if album.image_id:
+            album.image = Image.query.get(album.image_id)
         album.genre = Genre.query.get(album.genre_id)
 
         artist.albums[i] = album
@@ -47,11 +61,14 @@ def get_artist_details_by_id(artist_id):
 
 
 def pull_new_artist(data):
+    """
+    pulls new artist to db from audio db
+    :param data:
+    :return:
+    """
     if "artist_name" not in data:
         raise InvalidPayload("artist name is not in payload")
     artist_name = data.get('artist_name')
-    if Artist.query.filter_by(name=artist_name).first() is not None:
-        raise InvalidPayload("This artist already exists")
 
     api_link = 'https://www.theaudiodb.com/api/v1/json/1/search.php?s='
 
@@ -61,6 +78,9 @@ def pull_new_artist(data):
         raise InvalidPayload('This artist does not exist')
 
     fetched_artist = fetched_artist.get('artists')[0]
+
+    if Artist.query.filter_by(id=fetched_artist.get('idArtist')) is not None:
+        raise InvalidPayload("This artist already exists")
 
     artist_dict, image_obj, genre_obj = get_artist_details_from_fetched(fetched_artist)
 
@@ -79,12 +99,14 @@ def pull_new_artist(data):
 
 
 def delete_artist_by_id(artist_id):
+    """
+    delete artist by id
+    :param artist_id:
+    :return: None
+    """
     try:
         artist = get_artist_details_by_id(artist_id)
-        for album in artist.albums:
-            db.session.delete(album.image)
-            db.session.delete(album)
-        db.session.delete(artist.image)
+        delete_image_by_id(artist.image_id)
         db.session.delete(artist)
         db.session.commit()
     except Exception as e:
@@ -93,6 +115,11 @@ def delete_artist_by_id(artist_id):
 
 
 def get_artist_details_from_fetched(fetched_artist):
+    """
+    returns artist details from fetched artist from audio db
+    :param fetched_artist:
+    :return:
+    """
     image_obj = extract_image(fetched_artist)
     if fetched_artist.get('strStyle') is None:
         fetched_artist["strStyle"] = "UNKNOWN"

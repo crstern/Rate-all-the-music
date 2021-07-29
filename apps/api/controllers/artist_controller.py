@@ -1,5 +1,6 @@
 from apps.api.models import Artist
 from apps.api.services.artist_service import delete_artist_by_id
+from apps.api.utils.utils import check_if_user_is_admin
 from apps.extensions import pagination
 from apps.api.dto import ArtistDto
 from apps.api.utils import (
@@ -38,10 +39,7 @@ class UploadCollection(Resource):
     )
     @token_required
     def post(self):
-        user = get_current_user()
-
-        if user.admin is not True:
-            raise AuthError('This is possible only for admins', 403)
+        check_if_user_is_admin()
 
         upload_artists()
 
@@ -78,13 +76,17 @@ class ArtistByIdCollection(Resource):
     @api.doc(
         'delete artist by id'
     )
+    @token_required
     def delete(self, artist_id):
         """
         Returns details about an artist
         :param artist_id:
         :return: Artist
         """
+        check_if_user_is_admin()
+
         delete_artist_by_id(artist_id)
+
         return response_with(resp.SUCCESS_201)
 
 
@@ -119,3 +121,24 @@ class ArtistCollection(Resource):
     )
     def get(self):
         return pagination.paginate(Artist.query.order_by(Artist.name).all(), _artist_basic)
+
+
+@api.route('/<artist_id>/rating')
+class ArtistRatingCollection(Resource):
+    """
+    Collection for root - /rating - endpoints
+
+    Args: Resource(Object)
+
+    Returns:
+        json: data
+    """
+    @api.doc(
+        'Adds a rating to artist',
+        responses={
+            200: ('data', _artist_details)
+        }
+    )
+    def post(self, artist_id):
+        pass
+

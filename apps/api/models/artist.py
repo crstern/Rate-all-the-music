@@ -26,7 +26,7 @@ class Artist(Base):
     facebook_link = db.Column(db.String(255), nullable=True)
     members = db.Column(db.Integer, nullable=True)
 
-    albums = relationship("Album")
+    albums = relationship("Album", backref='artist', cascade="all, delete-orphan")
     ratings = relationship("Rating")
 
     db.UniqueConstraint('name', 'origin_country', name='uix_1')

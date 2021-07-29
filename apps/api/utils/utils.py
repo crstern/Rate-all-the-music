@@ -60,3 +60,9 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+def check_if_user_is_admin():
+    user = get_current_user()
+
+    if user.admin is not True:
+        raise AuthError('This is possible only for admins', 403)

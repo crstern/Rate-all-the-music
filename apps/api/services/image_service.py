@@ -4,10 +4,15 @@ import requests
 
 from apps.extensions import db
 from apps.api.models import Image
-from apps.api.utils import path_to_images
+from apps.api.utils import path_to_images, NotFound
 
 
 def extract_image(resp_content):
+    """
+    extracts and persists to db image of the artist
+    :param resp_content:
+    :return:
+    """
     image_obj = None
     if resp_content["strArtistThumb"] is not None:
         artist_image_link = resp_content["strArtistThumb"]
@@ -42,4 +47,16 @@ def extract_art_cover(album):
             db.session.add(image_obj)
             db.session.commit()
     return image_obj
+
+
+def delete_image_by_id(image_id):
+    image = Image.query.get(image_id)
+
+    if image is None:
+        raise NotFound('Image not found')
+
+    os.remove(image.path)
+
+    db.session.delete(image)
+    db.session.commit()
 

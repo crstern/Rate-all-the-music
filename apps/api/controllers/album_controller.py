@@ -16,6 +16,7 @@ from apps.api.services import (
     upload_albums,
     get_album_details_by_id
 )
+from apps.api.utils.utils import check_if_user_is_admin
 
 api = AlbumDto.api
 _album_basic = AlbumDto.album_basic
@@ -35,10 +36,7 @@ class UploadCollection(Resource):
     )
     @token_required
     def post(self):
-        user = get_current_user()
-
-        if user.admin is not True:
-            raise AuthError('This is possible only for admins', 403)
+        check_if_user_is_admin()
 
         upload_albums()
 

@@ -5,10 +5,12 @@ from flask_restx import Namespace, fields
 from .image_dto import ImageDto
 from .genre_dto import GenreDto
 from .album_dto import AlbumDto
+from .rating_dto import RatingDto
 
 _image_basic = ImageDto.image_basic
 _genre_basic = GenreDto.genre_basic
 _album_basic = AlbumDto.album_basic
+_rating_basic = RatingDto.rating_basic
 
 
 class ArtistDto:
@@ -27,6 +29,7 @@ class ArtistDto:
         'website': fields.String(description="Artist website"),
         'facebook_link': fields.String(description="Artist facebook page"),
         'albums': fields.Nested(_album_basic),
+        'ratings': fields.Nested(_rating_basic)
     })
 
     artist_basic = api.model('Artist details', {
