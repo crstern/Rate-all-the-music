@@ -27,7 +27,7 @@ class Artist(Base):
     members = db.Column(db.Integer, nullable=True)
 
     albums = relationship("Album", backref='artist', cascade="all, delete-orphan")
-    ratings = relationship("Rating")
+    ratings = relationship("Rating", backref='artist', cascade="all, delete-orphan")
 
     db.UniqueConstraint('name', 'origin_country', name='uix_1')
 

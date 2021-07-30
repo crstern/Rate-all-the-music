@@ -35,12 +35,7 @@ def get_artist_details_by_id(artist_id):
     :param artist_id:
     :return:
     """
-    print(artist_id, type(artist_id))
-    if not artist_id.isnumeric():
-        raise InvalidPayload("Artist_id must be integer")
-    artist = Artist.query.get(artist_id)
-    if artist is None:
-        raise NotFound("Artist not found")
+    artist = get_artist_by_id(artist_id)
 
     if artist.image_id:
         image = Image.query.get(artist.image_id)
@@ -57,6 +52,15 @@ def get_artist_details_by_id(artist_id):
 
         artist.albums[i] = album
 
+    return artist
+
+
+def get_artist_by_id(artist_id):
+    if not artist_id.isnumeric():
+        raise InvalidPayload("Artist_id must be integer")
+    artist = Artist.query.get(artist_id)
+    if artist is None:
+        raise NotFound("Artist not found")
     return artist
 
 

@@ -5,8 +5,6 @@ from apps.extensions import pagination
 from apps.api.dto import ArtistDto
 from apps.api.utils import (
     token_required,
-    get_current_user,
-    AuthError,
     responses as resp,
     response_with,
 )
@@ -14,6 +12,7 @@ from apps.api.services import (
     upload_artists,
     get_artist_details_by_id,
     pull_new_artist,
+    add_rating_to_artist
 )
 from flask_restx import Resource
 from flask import request
@@ -139,6 +138,11 @@ class ArtistRatingCollection(Resource):
             200: ('data', _artist_details)
         }
     )
+    @token_required
     def post(self, artist_id):
-        pass
+        artist = add_rating_to_artist(artist_id, request.get_json())
+
+        data = api.marshal(artist, _artist_details)
+
+        return response_with(resp.SUCCESS_200, value={'data': data})
 

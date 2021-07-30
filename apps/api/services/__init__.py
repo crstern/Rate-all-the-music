@@ -14,3 +14,6 @@ from .artist_service import (
 from .album_service import (
     get_album_details_by_id
 )
+from .rating_service import (
+    add_rating_to_artist
+)
