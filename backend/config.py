@@ -1,10 +1,11 @@
-from os import environ, path
+from os import environ, path, getcwd
 from dotenv import load_dotenv
+
 
 basedir = path.dirname(path.abspath(__file__))
 ENV = environ.get('IMDB', 'development')
 
-if ENV == 'productiones':
+if ENV == 'productions':
     dotenv_file = '.env.production'
 elif ENV == 'test':
     dotenv_file = '.env.test'
@@ -24,7 +25,7 @@ class Config:
         f"{environ.get('DATABASE_HOST')}:{environ.get('DATABASE_PORT')}/{environ.get('DATABASE_NAME')}"
     )
     SECRET_KEY = environ.get('SECRET_KEY')
-    UPLOAD_FOLDER = environ.get('UPLOAD_FOLDER')
+    UPLOAD_FOLDER = path.join(getcwd(), 'images')
 
 
 class TestConfig(Config):

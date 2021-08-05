@@ -4,8 +4,6 @@ import os
 
 from apps.api.models import (
     Artist,
-    Image,
-    Album
 )
 from apps.extensions import db
 from apps.api.utils import (
@@ -18,7 +16,7 @@ from .artist_service import get_artists_ids
 
 import pandas as pd
 
-from .image_service import extract_image
+from .image_service import extract_artist_image
 
 
 def get_artist_names(file_path):
@@ -68,13 +66,16 @@ def upload_artists():
     :return:
     """
     file_paths = []
+    artist_ids = get_artists_ids()
     for i in range(1, 4):
-        file_paths.append(f'D:\\Coding\\Licenta\\10000-MTV-Music-Artists-page-{i}.csv')
+        file_paths.append(os.path.join(os.path.abspath('.'), f'10000-MTV-Music-Artists-page-{i}.csv'))
 
     for file_index, file_path in enumerate(file_paths):
         artists = get_artist_names(file_path)
 
         for artist_index, artist in enumerate(artists):
+            if artist_index == 50:
+                return
             artist = artist[1:-1]
             req_link = 'https://www.theaudiodb.com/api/v1/json/1/search.php?s=' + artist
             resp = requests.get(req_link)
@@ -84,7 +85,10 @@ def upload_artists():
 
                 if not validate_artist(resp_content):
                     continue
+
                 resp_content = resp_content[0]
+                if resp_content.get("idArtist") in artist_ids:
+                    continue
             except Exception as e:
                 print(e)
                 raise ConflictError("Response content is not valid")
@@ -104,7 +108,7 @@ def add_new_artist(artist, resp_content):
     :param resp_content: response from audio db
     :return:
     """
-    image_obj = extract_image(resp_content)
+    image_obj = extract_artist_image(resp_content)
 
     artist_genre = get_or_create_genre(resp_content.get("strStyle"))
 

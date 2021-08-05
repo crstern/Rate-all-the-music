@@ -14,9 +14,12 @@ from apps.api.services import (
     upload_artists,
     get_artist_details_by_id,
     pull_new_artist,
+    upload_albums,
+    get_artists
 )
 from flask_restx import Resource
 from flask import request
+from .image_controller import api as image_ns
 
 api = ArtistDto.api
 _artist_details = ArtistDto.artist_details
@@ -42,6 +45,7 @@ class UploadCollection(Resource):
         check_if_user_is_admin()
 
         upload_artists()
+        upload_albums()
 
         return response_with(resp.SUCCESS_200)
 
@@ -120,7 +124,7 @@ class ArtistCollection(Resource):
         }
     )
     def get(self):
-        return pagination.paginate(Artist.query.order_by(Artist.name).all(), _artist_basic)
+        return pagination.paginate(get_artists(), _artist_basic)
 
 
 @api.route('/<artist_id>/rating')

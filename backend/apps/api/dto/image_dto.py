@@ -13,7 +13,7 @@ class ImageDto:
 
     image_basic = api.model('Image basic', {
         'id': fields.String(description='Image id'),
-        'path': fields.String(description='Image path')
+        'filename': fields.String(description='Image filename')
     })
 
     upload_parser = api.parser()

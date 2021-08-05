@@ -105,7 +105,9 @@ def response_with(response, value=None, error=None, headers=None, pagination=Non
     if pagination is not None:
         result.update({'pagination': pagination})
 
-    headers.update({'Access-Control-Allow-Origin': '*'})
+    headers.update({'Access-Control-Allow-Credentials': 'true'})
+    headers.update({'Access-Control-Allow-Methods': ['GET', 'POST', 'OPTIONS']})
+    headers.update({'Access-Control-Allow-Headers': ['Origin', 'Content-Type', 'Accept']})
     headers.update({'server': 'IMDB'})
-
+    
     return make_response(jsonify(result), response['http_code'], headers)

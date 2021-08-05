@@ -4,18 +4,17 @@ User related endpoints
 from flask import request, session
 from flask_restx import Resource
 
+
 from apps.api.dto import UserDto
 from apps.api.services import (
     create_new_user,
     get_access_token,
-    upload_artists
 )
 from apps.api.utils import (
     response_with,
     responses as resp,
     token_required,
     get_current_user,
-    AuthError,
 )
 
 
@@ -46,9 +45,8 @@ class LoginCollection(Resource):
     @api.expect(_user_login_validation, validate=True)
     def post(self):
         data = request.get_json()
-
         token = get_access_token(data)
-
+        api.logger.info("in login")
         return response_with(resp.SUCCESS_200, value={'token': token})
 
 

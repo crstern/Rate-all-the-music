@@ -13,7 +13,7 @@ from apps.api.utils import (
 from apps.extensions import db
 from .album_service import fetch_albums_by_artist_id
 from .image_service import (
-    extract_image,
+    extract_artist_image,
     delete_image_by_id,
 )
 from .genre_service import get_or_create_genre
@@ -29,13 +29,20 @@ def get_artists_ids():
     return result
 
 
+def get_artists():
+    artists = Artist.query.all()
+    for artist in artists:
+        if artist.image_id:
+            artist.image = Image.query.get(artist.image_id)
+        artist.genre = Genre.query.get(artist.genre_id)
+    return artists
+
 def get_artist_details_by_id(artist_id):
     """
     returns an artist specified by its id
     :param artist_id:
     :return:
     """
-    print(artist_id, type(artist_id))
     if not artist_id.isnumeric():
         raise InvalidPayload("Artist_id must be integer")
     artist = Artist.query.get(artist_id)
@@ -47,7 +54,6 @@ def get_artist_details_by_id(artist_id):
         artist.image = image
 
     genre = Genre.query.get(artist.genre_id)
-
     artist.genre = genre
 
     for i, album in enumerate(artist.albums):
@@ -120,7 +126,7 @@ def get_artist_details_from_fetched(fetched_artist):
     :param fetched_artist:
     :return:
     """
-    image_obj = extract_image(fetched_artist)
+    image_obj = extract_artist_image(fetched_artist)
     if fetched_artist.get('strStyle') is None:
         fetched_artist["strStyle"] = "UNKNOWN"
     genre_obj = get_or_create_genre(fetched_artist.get("strStyle"))
