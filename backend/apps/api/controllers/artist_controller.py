@@ -1,12 +1,9 @@
-from apps.api.models import Artist
 from apps.api.services.artist_service import delete_artist_by_id
 from apps.api.utils.utils import check_if_user_is_admin
 from apps.extensions import pagination
 from apps.api.dto import ArtistDto
 from apps.api.utils import (
     token_required,
-    get_current_user,
-    AuthError,
     responses as resp,
     response_with,
 )
@@ -19,7 +16,6 @@ from apps.api.services import (
 )
 from flask_restx import Resource
 from flask import request
-from .image_controller import api as image_ns
 
 api = ArtistDto.api
 _artist_details = ArtistDto.artist_details

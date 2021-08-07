@@ -80,3 +80,12 @@ def validate_album(album):
     return True
 
 
+def get_albums():
+    albums = Album.query.all()
+    for album in albums:
+        if album.image_id:
+            album.image = Image.query.get(album.image_id)
+    return albums
+
+
+

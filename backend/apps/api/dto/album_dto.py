@@ -28,5 +28,6 @@ class AlbumDto:
 
     album_basic = api.model('Album basic', {
         'name': fields.String(description="Album name"),
-        'artist_id': fields.String(description="Album's artist id")
+        'artist_id': fields.String(description="Album's artist id"),
+        'image': fields.Nested(_image_basic, description="Art cover of the album"),
     })

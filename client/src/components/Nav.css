@@ -1,0 +1,15 @@
+nav{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
+    background: #282c34;
+    color:white;
+}
+
+.nav-links{
+    display:flex;
+    width: 50%;
+    justify-content: space-around;
+    list-style: none;
+}

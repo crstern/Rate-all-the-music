@@ -3,6 +3,7 @@ Album related endpoints
 """
 
 from flask_restx import Resource
+from apps.extensions import pagination
 
 from apps.api.dto import AlbumDto
 from apps.api.utils import (
@@ -14,6 +15,7 @@ from apps.api.utils import (
 )
 from apps.api.services import (
     upload_albums,
+    get_albums,
     get_album_details_by_id
 )
 from apps.api.utils.utils import check_if_user_is_admin
@@ -53,14 +55,14 @@ class AlbumCollection(Resource):
         json: data
     """
     @api.doc(
-        'upload new album',
+        'get albums album',
         responses={
-            200: ("data", _album_details)
+            200: ("data", _album_basic)
         }
     )
-    def post(self):
-        pass
-    
+    def get(self):
+        return pagination.paginate(get_albums(), _album_basic)
+
     
 
 

@@ -13,7 +13,8 @@ from .artist_service import (
     get_artists
 )
 from .album_service import (
-    get_album_details_by_id
+    get_album_details_by_id,
+    get_albums
 )
 from .image_service import (
     get_image_by_id
