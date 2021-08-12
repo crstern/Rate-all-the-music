@@ -37,6 +37,7 @@ def get_artists():
         artist.genre = Genre.query.get(artist.genre_id)
     return artists
 
+
 def get_artist_details_by_id(artist_id):
     """
     returns an artist specified by its id

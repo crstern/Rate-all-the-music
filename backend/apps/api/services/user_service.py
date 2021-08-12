@@ -1,13 +1,13 @@
-import os
-import uuid
 import datetime
+from functools import wraps
+
 import jwt
 
-from flask import session
+from flask import session, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from apps.api.models import User
 from apps.extensions import db
-from apps.api.utils import AuthError, SECRET_KEY
+from apps.api.utils import AuthError, SECRET_KEY, SECRET_REFRESH_KEY
 
 
 def create_new_user(data):
@@ -31,20 +31,91 @@ def create_new_user(data):
     return new_user
 
 
+def get_new_access_token(req):
+    if 'x-refresh-token' not in req.headers:
+        raise AuthError('Refresh token is missing', 403)
+
+    refresh_token = req.headers.get('x-refresh-token')
+    try:
+        data = jwt.decode(refresh_token, SECRET_REFRESH_KEY, algorithms="HS256")
+        user = User.query.filter_by(id=data['id']).first()
+        access_token = jwt.encode({
+            'id': user.id,
+            'username': user.username,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+        }, SECRET_KEY)
+        session['user_id'] = user.id
+        return access_token
+    except Exception as e:
+        print(e)
+        raise AuthError('Authorization is invalid', 401)
+
+
 def get_access_token(data):
     if not data or 'username' not in data or 'password' not in data:
-        raise AuthError('Username or password not provided', 422)
+        raise AuthError('Username or password not provided', 403)
     user = User.query.filter_by(username=data['username']).first()
 
     if not user:
-        raise AuthError('Username does not exist', 404)
+        raise AuthError('Incorrect credentials', 403)
 
     if check_password_hash(user.hashed_password, data['password']):
         token = jwt.encode({
             'id': user.id,
+            'username': user.username,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
         }, SECRET_KEY)
-        session['id'] = user.id
+        session['user_id'] = user.id
         return token
     else:
-        raise AuthError("Incorect password", 401)
+        raise AuthError("Incorrect credentials", 403)
+
+
+def get_refresh_token():
+    user = get_current_user()
+    refresh_token = jwt.encode({
+        'id': user.id,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=365)
+    }, SECRET_REFRESH_KEY)
+    return refresh_token
+
+
+def get_current_user():
+    """
+    A proxy for the current user. If no user is logged in, this will be an empty user.
+
+    :return Request context user or None.
+    """
+    current_user = User.query.filter_by(id=session.get('user_id')).first()
+    return current_user
+
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if 'x-access-token' not in request.headers:
+            raise AuthError('Authorization header not found', 401)
+
+        token = request.headers['x-access-token']
+
+        if not token:
+            raise AuthError('Token is missing', 402)
+
+        try:
+            data = jwt.decode(token, SECRET_KEY, algorithms="HS256")
+            print(data)
+            current_user = User.query.filter_by(id=data['id']).first()
+            session['user_id'] = current_user.id
+        except Exception as e:
+            print(e)
+            raise AuthError('Authorization is invalid', 403)
+
+        return f(*args, **kwargs)
+    return decorated
+
+
+def check_if_user_is_admin():
+    user = get_current_user()
+
+    if user.admin is not True:
+        raise AuthError('This is possible only for admins', 403)

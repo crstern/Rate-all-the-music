@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {makeURL} from '../utils/config';
+import {Link} from 'react-router-dom';
 
 
 const Artists = () => {
@@ -8,28 +9,35 @@ const Artists = () => {
   },[page])
 
 
-  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [artists, setArtists] = useState([]);
   const [hasNext, setHasNext] = useState(true);
   const [hasPrev, setHasPrev] = useState(false);
 
-  const handleChangePage = (newPage) => {
+  const handleChangePage = async (newPage) => {
     setPage(newPage);
-    fetchItems(newPage)
+    await fetchItems(newPage);
+    scrollToTop();
   };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
 
   const fetchItems = async (page=1) => {
     const fetched = await fetch(makeURL(`/api/artists?page=${page}&size=${10}`));
     const data = await fetched.json();
     setArtists(data.data.map(item => (
-      <li key={item.name}>
-        <img src={makeURL("/api/images/" + item.image.filename)} alt={item.name + " picture"}/>
-        <h1>{item.name}</h1>
+      <li key={item.id}>
+          <img src={makeURL("/api/images/" + item.image.filename)} alt={item.name + " picture"}/>
+        <Link to={`/artists/${item.id}`}>
+          <h1>{item.name}</h1>
+        </Link>
       </li>
     )));
-    setLoading(false);
     setHasNext(data.pagination.hasNext);
     setHasPrev(data.pagination.hasPrev);
   };

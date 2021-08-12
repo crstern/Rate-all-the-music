@@ -1,6 +1,8 @@
 from .user_service import (
     create_new_user,
-    get_access_token
+    get_access_token,
+    get_refresh_token,
+    get_new_access_token
 )
 from .upload_service import (
     upload_artists,

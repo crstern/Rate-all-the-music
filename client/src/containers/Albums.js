@@ -1,9 +1,14 @@
-import React,  {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {makeURL} from '../utils/config';
+import {Link} from 'react-router-dom';
+import {UserContext} from "./UserContext";
 
 const Albums = () => {
   useEffect(() => {
-    fetchItems(page);
+    fetchItems(page).then(() => {
+        console.log("rerendering");
+      }
+    );
   },[])
 
   const [albums, setAlbums] = useState([]);
@@ -11,9 +16,10 @@ const Albums = () => {
   const [hasPrev, setHasPrev] = useState(false);
   const [page, setPage] = useState(1);
 
-  const handleChangePage = (newPage) => {
+  const handleChangePage = async (newPage) => {
     setPage(newPage);
-    fetchItems(newPage)
+    await fetchItems(newPage);
+    scrollToTop();
   };
 
 
@@ -24,15 +30,28 @@ const Albums = () => {
     setAlbums(data.data.map(item => (
       <li key={item.name}>
         <img src={makeURL("/api/images/" + item.image.filename)} alt={item.name + " cover"}/>
-        <h3>{item.name}</h3>
+        <Link to={`/albums/${item.id}`}>
+          <h3>{item.name}</h3>
+        </Link>
       </li>
     )));
     setHasNext(data.pagination.hasNext);
     setHasPrev(data.pagination.hasPrev);
   };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+  const [user, setUser] = useContext(UserContext);
+
   return (
     <div>
+      {user && <h1>Welcome {user.username}</h1>}
       <h1>Albums</h1>
+      {albums}
       <button onClick={() => handleChangePage(page - 1)} disabled={!hasPrev}>
         prev
       </button>
@@ -40,10 +59,8 @@ const Albums = () => {
       <button onClick={() => handleChangePage(page + 1)} disabled={!hasNext}>
         next
       </button>
-      {albums}
 
     </div>
-
   )
 }
 

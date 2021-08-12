@@ -1,10 +1,12 @@
 import requests
+from sqlalchemy import and_, not_
 
 from apps import db
 from apps.api.models import (
     Album,
     Image,
-    Genre
+    Genre,
+    Artist,
 )
 from .genre_service import get_or_create_genre
 from .image_service import extract_art_cover
@@ -29,6 +31,13 @@ def get_album_details_by_id(album_id):
 
     album.image = Image.query.get(album.image_id)
     album.genre = Genre.query.get(album.genre_id)
+    album.artist = Artist.query.get(album.artist_id)
+    album.other_albums = Album.query.filter(
+        Album.artist_id == album.artist_id,
+        not_(Album.id == album.id)
+    ).all()
+    for o_album in album.other_albums:
+        o_album.image = Image.query.get(o_album.image_id)
 
     return album
 

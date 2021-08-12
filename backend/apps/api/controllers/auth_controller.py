@@ -9,14 +9,14 @@ from apps.api.dto import UserDto
 from apps.api.services import (
     create_new_user,
     get_access_token,
+    get_refresh_token,
+    get_new_access_token
 )
 from apps.api.utils import (
     response_with,
     responses as resp,
-    token_required,
-    get_current_user,
 )
-
+from apps.api.services.user_service import get_current_user, token_required
 
 api = UserDto.api
 _user_basic = UserDto.user_basic
@@ -24,6 +24,7 @@ _user_advanced = UserDto.user_advanced
 _user_login_validation = UserDto.user_login_validation
 _user_register_validation = UserDto.user_register_validation
 _user_login_info = UserDto.user_login_info
+_new_access_token = UserDto.new_access_token
 
 
 @api.route('/login')
@@ -40,14 +41,23 @@ class LoginCollection(Resource):
     @api.doc(
         'Login user',
         responses={
-            200: ('token', _user_login_info)
+            200: ('data', _user_login_info)
         })
     @api.expect(_user_login_validation, validate=True)
     def post(self):
         data = request.get_json()
-        token = get_access_token(data)
-        api.logger.info("in login")
-        return response_with(resp.SUCCESS_200, value={'token': token})
+        access_token = get_access_token(data)
+        refresh_token = get_refresh_token()
+        user = get_current_user()
+        data = {
+            'access_token': access_token,
+            'refresh_token': refresh_token,
+            'user': user,
+        }
+        data = api.marshal(data, _user_login_info)
+        return response_with(resp.SUCCESS_200, value={
+            'data': data
+        })
 
 
 @api.route('/register')
@@ -105,5 +115,26 @@ class UserCollection(Resource):
         return response_with(resp.SUCCESS_200, value={'data': data})
 
 
+@api.route('/refresh_token')
+class RefreshToken(Resource):
+    """
+    Collection for root - /refresh_token - endpoints
 
+    Args: Resource(Object)
 
+    Returns:
+        json: data containing refreshed token
+    """
+    @api.doc(
+        'Refresh access_token',
+        responses={
+            '200': _new_access_token
+        }
+    )
+    def get(self):
+        access_token_obj = {
+            'access_token': get_new_access_token(request)
+        }
+        data = api.marshal(access_token_obj, _new_access_token)
+
+        return response_with(resp.SUCCESS_200, value={'data': data})

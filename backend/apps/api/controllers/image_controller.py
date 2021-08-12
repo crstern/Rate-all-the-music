@@ -18,9 +18,9 @@ from apps.api.utils import (
     UPLOAD_FOLDER,
     responses as resp,
     response_with,
-    token_required,
     path_to_images
 )
+from apps.api.services.user_service import token_required
 
 api = ImageDto.api
 _image_basic = ImageDto.image_basic

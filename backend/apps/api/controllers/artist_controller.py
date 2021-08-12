@@ -1,12 +1,11 @@
 from apps.api.services.artist_service import delete_artist_by_id
-from apps.api.utils.utils import check_if_user_is_admin
 from apps.extensions import pagination
 from apps.api.dto import ArtistDto
 from apps.api.utils import (
-    token_required,
     responses as resp,
     response_with,
 )
+from apps.api.services.user_service import token_required, check_if_user_is_admin
 from apps.api.services import (
     upload_artists,
     get_artist_details_by_id,

@@ -20,6 +20,7 @@ class ArtistDto:
     api = Namespace('artists', description='Artist related operations')
 
     artist_details = api.model('Artist details', {
+        'id': fields.Integer(description="Artist id"),
         'name': fields.String(description="Artist name"),
         'origin_country': fields.String(description="Artist origin country"),
         'image': fields.Nested(_image_basic, description="Image of the artist"),
@@ -33,6 +34,7 @@ class ArtistDto:
     })
 
     artist_basic = api.model('Artist details', {
+        'id': fields.Integer(description="Artist id"),
         'name': fields.String(description="Artist name"),
         'origin_country': fields.String(description="Artist origin country"),
         'image': fields.Nested(_image_basic, description="Image of the artist"),
