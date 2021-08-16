@@ -41,12 +41,14 @@ const Nav = () => {
           <li>Register</li>
         </Link>
         }
-
         {user &&
         <Link to={'/'} style={linkNavStyle} onClick={logout}>
           <li>Log out</li>
         </Link>
         }
+        {user &&
+        <li>{user.username}</li>
+          }
       </ul>
     </nav>
   )

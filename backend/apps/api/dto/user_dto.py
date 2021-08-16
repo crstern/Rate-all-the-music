@@ -12,12 +12,12 @@ class UserDto:
 
     user_basic = api.model('User basic', {
         'username': fields.String(description='User username'),
-        'id': fields.String(description='User public id')
+        'id': fields.String(description='User public id'),
+        'admin': fields.Boolean()
     })
 
     user_advanced = api.model('User basic', {
         'username': fields.String(description='User username'),
-        'hashed_password': fields.String(description='User password')
     })
 
     user_register_validation = api.model('User register validation', {
@@ -35,6 +35,10 @@ class UserDto:
         'access_token': fields.String(description='User jwt access token', read_only=True),
         'refresh_token': fields.String(description='User jwt refresh token', read_only=True),
         'user': fields.Nested(user_basic)
+    })
+
+    user_forgot_username = api.model('User email', {
+        'email': fields.String(description='User mail', required=True)
     })
 
     new_access_token = api.model('New access token', {

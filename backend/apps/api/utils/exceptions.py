@@ -34,7 +34,7 @@ class NotFound(Exception):
 
 class InvalidPayload(Exception):
     """
-    *404* `Invalid Payload`
+    *400* `Invalid Payload`
 
     Raise if a the payload does not meet the requirements
     """
@@ -71,10 +71,10 @@ class ServerError(Exception):
     Raise if a general error raises
     """
 
-    def __init__(self, error):
+    def __init__(self, error, status_code=500):
         """
         Server exception constructor
         """
         super().__init__()
         self.error = error
-        self.status_code = 500
+        self.status_code = status_code

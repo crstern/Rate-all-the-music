@@ -2,7 +2,9 @@ from .user_service import (
     create_new_user,
     get_access_token,
     get_refresh_token,
-    get_new_access_token
+    get_new_access_token,
+    token_required,
+    send_username
 )
 from .upload_service import (
     upload_artists,
@@ -20,4 +22,11 @@ from .album_service import (
 )
 from .image_service import (
     get_image_by_id
+)
+from .rating_service import (
+    add_new_rating,
+    get_all_ratings_for_album,
+    get_all_ratings_for_artist,
+    delete_rating_by_id,
+    update_rating_by_id,
 )

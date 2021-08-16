@@ -61,8 +61,6 @@ class AlbumCollection(Resource):
     def get(self):
         return pagination.paginate(get_albums(), _album_basic)
 
-    
-
 
 @api.route('/<album_id>')
 class AlbumByIdCollection(Resource):

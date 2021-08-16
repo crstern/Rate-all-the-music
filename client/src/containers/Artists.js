@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {makeURL} from '../utils/config';
 import {Link} from 'react-router-dom';
+import {scrollToTop} from "../utils/util";
 
 
 const Artists = () => {
@@ -20,12 +21,7 @@ const Artists = () => {
     scrollToTop();
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
+
 
   const fetchItems = async (page=1) => {
     const fetched = await fetch(makeURL(`/api/artists?page=${page}&size=${10}`));

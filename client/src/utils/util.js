@@ -6,4 +6,11 @@ export const getUrlFor = (websiteUrl) => {
   return "https://" + websiteUrl;
 }
 
+export const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
 export const cookies = new Cookies();

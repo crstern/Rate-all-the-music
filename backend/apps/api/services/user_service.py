@@ -3,11 +3,13 @@ from functools import wraps
 
 import jwt
 
-from flask import session, request
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import session, request
+from flask_mail import Message
+
 from apps.api.models import User
-from apps.extensions import db
-from apps.api.utils import AuthError, SECRET_KEY, SECRET_REFRESH_KEY
+from apps.extensions import db, mail
+from apps.api.utils import AuthError, SECRET_KEY, SECRET_REFRESH_KEY, NotFound
 
 
 def create_new_user(data):
@@ -98,7 +100,7 @@ def token_required(f):
 
         token = request.headers['x-access-token']
 
-        if not token:
+        if token is None or token == "":
             raise AuthError('Token is missing', 402)
 
         try:
@@ -119,3 +121,21 @@ def check_if_user_is_admin():
 
     if user.admin is not True:
         raise AuthError('This is possible only for admins', 403)
+
+
+def send_username(data):
+    user = User.query.filter_by(email=data.get('email')).first()
+    if user is None:
+        raise NotFound("User not found")
+    msg = Message('Your username', sender="mdatabase0@gmail.com", recipients=[user.email])
+    msg.body = f"""
+    Hello!
+    
+    Your username is {user.username}.
+    
+    Have a nice day!
+    """
+
+    mail.send(msg)
+
+

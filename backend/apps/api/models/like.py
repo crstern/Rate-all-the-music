@@ -7,19 +7,18 @@ from apps.extensions import db
 from .audit import Base
 
 
-class Comment(Base):
+class Like(Base):
     """
-    Comment database model
+    Like database model
     """
 
-    __tablename__ = 'comment'
+    __tablename__ = 'like'
 
-    content = db.Column(db.Text, nullable=False)
     rating_id = db.Column(db.Integer, db.ForeignKey('rating.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         """
-        User representation
+        Like representation
         """
-        return f'<User {self.name} >'
+        return f'<Like {self.rating_id} from {self.user_id} >'

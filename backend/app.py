@@ -25,6 +25,7 @@ manager = Manager(app)
 CORS(app)
 migrate = Migrate(app, db)
 
+
 manager.add_command('db', MigrateCommand)
 
 
@@ -41,36 +42,35 @@ def handle_auth_error(ex):
 
 
 @app.errorhandler(NotFound)
-def handle_auth_error(ex):
+def handle_not_found_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response
 
 
 @app.errorhandler(InvalidPayload)
-def handle_auth_error(ex):
+def handle_invalid_payload_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response
 
 
 @app.errorhandler(ConflictError)
-def handle_auth_error(ex):
+def handle_conflict_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response
 
 
 @app.errorhandler(ServerError)
-def handle_auth_error(ex):
+def handle_server_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response
 
 
-
 @app.errorhandler(ValueError)
-def handle_auth_error(ex):
+def handle_value_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response

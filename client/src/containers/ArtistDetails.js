@@ -2,7 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {makeURL} from '../utils/config';
 import {Link} from 'react-router-dom';
 import {getUrlFor} from '../utils/util';
-
+import axios from 'axios';
+import Ratings from "../components/Ratings";
+import {useRating} from "./RatingContext";
 
 
 const ArtistDetails = ({match}) => {
@@ -13,36 +15,43 @@ const ArtistDetails = ({match}) => {
   const [artist, setArtist] = useState({
     image: {},
     genre: {},
-    ratings: []
   });
 
-  const [albums, setAlbums] = useState([])
+  const [albums, setAlbums] = useState([]);
+  const [ratings, setRatings] = useRating();
 
-  const fetchItem = async (artistId) => {
-    const fetched = await fetch(makeURL(`/api/artists/${artistId}`));
-    const data = await fetched.json();
-    setArtist(data.data);
-    console.log(data.data);
-    setAlbums(data.data.albums.map(item => (
-      <li key={item.name}>
-        <img src={makeURL(`/api/images/${item.image.filename}`)} alt={item.name + " cover"}/>
-        <Link to={`/albums/${item.id}`}>
-          <h3>{item.name}</h3>
-        </Link>
-      </li>
-    )))
+  const fetchItem = (artistId) => {
+    axios({
+      method:'get',
+      url: makeURL(`/api/artists/${artistId}`)
+    }).then(response => {
+      const data = response.data.data;
+      console.log(data);
+      setArtist(data);
+      setAlbums(data.albums.map(item => (
+        <li key={item.name}>
+          <img src={makeURL(`/api/images/${item.image.filename}`)} alt={item.name + " cover"}/>
+          <Link to={`/albums/${item.id}`}>
+            <h3>{item.name}</h3>
+          </Link>
+        </li>
+      )));
+      setRatings(data.ratings);
+    });
   }
   return (
     <div>
       <h1>{artist.name}</h1>
       <p>{artist.origin_country}</p>
       <img src={makeURL(`/api/images/${artist.image.filename}`)}/>
-      {albums}
-      <p>{artist.formed_year}</p>
-      <p>{artist.genre.name}</p>
       <div>
         {artist.description}
       </div>
+      <Ratings id={artist.id} route={"artist"}/>
+      <div>{albums}</div>
+      <p>{artist.formed_year}</p>
+      <p>{artist.genre.name}</p>
+
       {artist.facebook_link &&
         <p>
           <a href={getUrlFor(artist.facebook_link)}>Facebook</a>
@@ -53,9 +62,6 @@ const ArtistDetails = ({match}) => {
         <a href={getUrlFor(artist.website)}>{artist.website}</a>
       </p>
       }
-      <div>
-        {artist.ratings}
-      </div>
     </div>
   )
 }

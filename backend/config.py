@@ -27,6 +27,14 @@ class Config:
     SECRET_KEY = environ.get('SECRET_KEY')
     UPLOAD_FOLDER = path.join(getcwd(), 'images')
 
+    MAIL_SERVER = "smtp.gmail.com"
+    MAIL_PORT = 456
+    MAIL_USERNAME = "mdatabase0@gmail.com"
+    MAIL_PASSWORD = "ImdbLicenta2k21"
+    MAIL_USE_TLS = False
+    SERVER_HOSTNAME = "127.0.0.1"
+    MAIL_USE_SSL = True
+
 
 class TestConfig(Config):
     DEBUG = True

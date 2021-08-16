@@ -14,7 +14,8 @@ from config import config_by_name
 # Import extensions
 from .extensions import (
     db,
-    pagination
+    pagination,
+    mail
 )
 
 
@@ -31,6 +32,7 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
     db.init_app(app)
+    mail.init_app(app)
     pagination.init_app(app, db)
 
     return app

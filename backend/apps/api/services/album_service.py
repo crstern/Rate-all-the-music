@@ -7,6 +7,7 @@ from apps.api.models import (
     Image,
     Genre,
     Artist,
+    Rating
 )
 from .genre_service import get_or_create_genre
 from .image_service import extract_art_cover
@@ -22,7 +23,7 @@ def get_album_details_by_id(album_id):
     :param album_id:
     :return:
     """
-    if not album_id.isnumeric():
+    if isinstance(album_id, int) or not album_id.isnumeric():
         raise InvalidPayload("album_id must be integer")
     album = Album.query.get(album_id)
 
@@ -35,6 +36,9 @@ def get_album_details_by_id(album_id):
     album.other_albums = Album.query.filter(
         Album.artist_id == album.artist_id,
         not_(Album.id == album.id)
+    ).all()
+    album.ratings = Rating.query.filter(
+        Rating.album_id == album.id
     ).all()
     for o_album in album.other_albums:
         o_album.image = Image.query.get(o_album.image_id)

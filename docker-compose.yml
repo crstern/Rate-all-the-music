@@ -23,8 +23,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
+      - "465:465"
     expose:
       - "5000"
+      - "465"
     volumes:
       - ./backend:/usr/src/app
     depends_on:

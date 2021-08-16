@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import {makeURL} from "../utils/config";
 import axios from 'axios';
 import {UserContext} from "./UserContext";
@@ -25,8 +25,8 @@ const Login = () => {
     e.preventDefault();
     axios.post(
       makeURL('/api/auth/login'), {
-        "username": "cristi",
-        "password": "pass"
+        "username": username,
+        "password": password
       })
       .then((response) => {
         const data = response.data.data;
@@ -34,9 +34,9 @@ const Login = () => {
         cookies.set('access_token', data.access_token);
         localStorage.setItem('refresh_token', data.refresh_token);
         history.push('/')
-        console.log(data);
       }).catch(err => {
-      setError(err.message)
+      setError(err.response.data);
+      console.log(err.response.data)
     })
   }
 
@@ -53,6 +53,7 @@ const Login = () => {
           <input type="submit" value="Submit"/>
         </div>
       </form>
+
     </div>
   )
 }

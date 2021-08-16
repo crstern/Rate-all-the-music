@@ -5,6 +5,7 @@ from flask_restx import Namespace, fields
 
 from .genre_dto import GenreDto
 from .image_dto import ImageDto
+from .rating_dto import RatingDto
 
 
 _genre_basic = GenreDto.genre_basic
@@ -15,6 +16,7 @@ _artist_basic = {
     'origin_country': fields.String(description="Artist origin country"),
     'image': fields.Nested(_image_basic, description="Image of the artist"),
 }
+_rating_basic = RatingDto.rating_basic
 
 
 class AlbumDto:
@@ -39,6 +41,7 @@ class AlbumDto:
         'genre': fields.Nested(_genre_basic, description="Album genre"),
         'release_year': fields.Integer(description="When the album was released"),
         'image': fields.Nested(_image_basic, description="Art cover of the album"),
+        'ratings': fields.Nested(_rating_basic),
         'artist': fields.Nested(_artist_basic),
         'other_albums': fields.Nested(album_basic)
     })
