@@ -7,7 +7,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session, request
 from flask_mail import Message
 
-from apps.api.models import User
+from apps.api.models import (
+    User,
+    Rating
+)
 from apps.extensions import db, mail
 from apps.api.utils import AuthError, SECRET_KEY, SECRET_REFRESH_KEY, NotFound
 
@@ -137,5 +140,16 @@ def send_username(data):
     """
 
     mail.send(msg)
+
+
+def get_user_by_username(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        raise NotFound("User not found")
+    user.ratings = Rating.query.filter(
+        Rating.user_id == user.id
+    ).all()
+    return user
+
 
 

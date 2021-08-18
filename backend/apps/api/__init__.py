@@ -9,7 +9,8 @@ from apps.api.controllers import (
     image_ns,
     artist_ns,
     album_ns,
-    rating_ns
+    rating_ns,
+    profile_ns
 )
 
 
@@ -29,5 +30,6 @@ api.add_namespace(image_ns)
 api.add_namespace(artist_ns)
 api.add_namespace(album_ns)
 api.add_namespace(rating_ns)
+api.add_namespace(profile_ns)
 
 

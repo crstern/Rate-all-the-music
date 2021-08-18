@@ -4,7 +4,8 @@ from .user_service import (
     get_refresh_token,
     get_new_access_token,
     token_required,
-    send_username
+    send_username,
+    get_user_by_username
 )
 from .upload_service import (
     upload_artists,
@@ -29,4 +30,6 @@ from .rating_service import (
     get_all_ratings_for_artist,
     delete_rating_by_id,
     update_rating_by_id,
+    update_like_rating,
+    update_unlike_rating,
 )

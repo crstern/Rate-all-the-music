@@ -1,0 +1,40 @@
+import React, {useState, useEffect} from 'react';
+import RatingCard from "../components/RatingCard";
+import axios from 'axios';
+import {makeURL} from "../utils/config";
+import {useRatings} from "../context/RatingContext";
+import Ratings from "../components/Ratings";
+
+const ProfileDetails = (props) => {
+  const [profile, setProfile] = useState({
+    ratings: [],
+    albums: []
+  })
+
+  const [ratings, setRatings] = useRatings();
+
+  const fetchProfile = (username) => {
+    console.log("fetching")
+    axios.get(
+      makeURL(`/api/profile/${username}`)
+    ).then(response => {
+      setProfile(response.data.data);
+      console.log(response.data.data.ratings);
+      setRatings(response.data.data.ratings);
+    }).catch(err => {
+      console.log(err.message)
+    })
+  }
+
+  useEffect(() => {
+    fetchProfile(props.match.params.username);
+  },[])
+
+  return (
+    <div>
+      <Ratings renderForm={false}/>
+    </div>
+  )
+}
+
+export default ProfileDetails;

@@ -3,7 +3,7 @@ import {cookies} from "../utils/util";
 import {makeURL} from "../utils/config";
 import axios from 'axios';
 import RatingCard from "./RatingCard";
-import {useRating} from "../containers/RatingContext";
+import {useRatings} from "../context/RatingContext";
 
 
 const RatingForm = (props) => {
@@ -16,7 +16,7 @@ const RatingForm = (props) => {
   const [ratingDescription, setRatingDescription] = useState(prevRating ?
     prevRating.description : "");
 
-  const [ratings, setRatings] = useRating();
+  const [ratings, setRatings] = useRatings();
 
   const handleSubmitRating = (e) => {
     e.preventDefault()
@@ -37,7 +37,15 @@ const RatingForm = (props) => {
       },
       url: apiUrl
     }).then(response => {
-      setRatings(response.data.data);
+      let auxRatings
+      if(props.update === true) {
+        auxRatings = ratings.filter(item => item.id !== prevRating.id);
+      }
+      else {
+        auxRatings = [...ratings];
+      }
+      auxRatings.push(response.data.data)
+      setRatings(auxRatings);
     }).catch(console.log)
   }
 

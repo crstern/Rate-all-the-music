@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Ratings from "../components/Ratings";
 import {scrollToTop} from "../utils/util";
-import {useRating} from "./RatingContext";
+import {useRatings} from "../context/RatingContext";
 
 const AlbumDetails = ({match}) => {
   useEffect(() => {
@@ -17,7 +17,7 @@ const AlbumDetails = ({match}) => {
     artist: {},
   });
   const [otherAlbums, setOtherAlbums] = useState([])
-  const [ratings, setRatings] = useRating()
+  const [ratings, setRatings] = useRatings()
 
   const fetchItem = (albumId) => {
     axios({
@@ -54,7 +54,7 @@ const AlbumDetails = ({match}) => {
         {album.description}
       </div>
       <br/>
-      <Ratings id={album.id} route={"album"}/>
+      <Ratings id={album.id} route={"album"} renderForm={true}/>
       <br/>
       <div>
         {otherAlbums}

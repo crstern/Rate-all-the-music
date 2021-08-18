@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {UserContext, useUser} from "./UserContext";
+import {UserContext, useUser} from "../context/UserContext";
 
 
 const Greetings = () => {

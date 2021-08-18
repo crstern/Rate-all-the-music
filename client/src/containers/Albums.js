@@ -1,17 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {makeURL} from '../utils/config';
 import {Link} from 'react-router-dom';
-import {UserContext} from "./UserContext";
+import {UserContext} from "../context/UserContext";
+import {useAlbums} from "../context/AlbumContext";
 
 const Albums = () => {
   useEffect(() => {
     fetchItems(page).then(() => {
-        console.log("rerendering");
       }
     );
   },[])
 
-  const [albums, setAlbums] = useState([]);
+  const [albums, setAlbums] = useAlbums();
+  const [renderAlbums, setRenderAlbums] = useState(null);
   const [hasNext, setHasNext] = useState(true);
   const [hasPrev, setHasPrev] = useState(false);
   const [page, setPage] = useState(1);
@@ -27,7 +28,8 @@ const Albums = () => {
     const fetched = await fetch(makeURL(`/api/albums?page=${page}&size=${10}`));
     const data = await fetched.json();
 
-    setAlbums(data.data.map(item => (
+    setAlbums(data.data);
+    setRenderAlbums(data.data.map(item => (
       <li key={item.name}>
         <img src={makeURL("/api/images/" + item.image.filename)} alt={item.name + " cover"}/>
         <Link to={`/albums/${item.id}`}>
@@ -51,7 +53,9 @@ const Albums = () => {
     <div>
       {user && <h1>Welcome {user.username}</h1>}
       <h1>Albums</h1>
-      {albums}
+      {renderAlbums &&
+        <div>{renderAlbums}</div>
+      }
       <button onClick={() => handleChangePage(page - 1)} disabled={!hasPrev}>
         prev
       </button>

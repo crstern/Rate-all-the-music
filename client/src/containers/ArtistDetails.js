@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {getUrlFor} from '../utils/util';
 import axios from 'axios';
 import Ratings from "../components/Ratings";
-import {useRating} from "./RatingContext";
+import {useRatings} from "../context/RatingContext";
 
 
 const ArtistDetails = ({match}) => {
@@ -18,7 +18,7 @@ const ArtistDetails = ({match}) => {
   });
 
   const [albums, setAlbums] = useState([]);
-  const [ratings, setRatings] = useRating();
+  const [ratings, setRatings] = useRatings();
 
   const fetchItem = (artistId) => {
     axios({
@@ -47,7 +47,7 @@ const ArtistDetails = ({match}) => {
       <div>
         {artist.description}
       </div>
-      <Ratings id={artist.id} route={"artist"}/>
+      <Ratings id={artist.id} route={"artist"} renderForm={true}/>
       <div>{albums}</div>
       <p>{artist.formed_year}</p>
       <p>{artist.genre.name}</p>

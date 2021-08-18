@@ -5,14 +5,14 @@ import axios from "axios";
 
 export const RatingContext = createContext();
 
-export const useRating = () => useContext(RatingContext);
+export const useRatings = () => useContext(RatingContext);
 
-export const RatingProvider = (props) => {
+export const RatingsProvider = (props) => {
   const [ratings, setRatings] = useState([]);
 
   return (
     <RatingContext.Provider value={[ratings, setRatings]}>
       {props.children}
     </RatingContext.Provider>
-  )
+  );
 }

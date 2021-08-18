@@ -14,7 +14,6 @@ export const UserProvider = ({children}) => {
   const [working, setWorking] = useState(true);
 
   const refreshToken = () => {
-    console.log('refreshing token')
     axios({
       method: 'get',
       url: makeURL('/api/auth/refresh_token'),
