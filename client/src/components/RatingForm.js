@@ -3,20 +3,21 @@ import {cookies} from "../utils/util";
 import {makeURL} from "../utils/config";
 import axios from 'axios';
 import RatingCard from "./RatingCard";
-import {useRating} from "../containers/RatingContext";
+import {useRatings} from "../context/RatingContext";
+import Star from '../components/Star';
+import StarsRating from "./StarsRating";
+import {StarsProvider, useStars} from "../context/StarContext";
 
 
 const RatingForm = (props) => {
   const prevRating = props.update === true ? props.rating : null;
-
-  const [ratingStars, setRatingStars] = useState(prevRating ?
-    prevRating.number_of_stars : 1)
+  const [ratingStars, setRatingStars] = useStars();
   const [ratingTitle, setRatingTitle] = useState(prevRating ?
     prevRating.title : "");
   const [ratingDescription, setRatingDescription] = useState(prevRating ?
     prevRating.description : "");
 
-  const [ratings, setRatings] = useRating();
+  const [ratings, setRatings] = useRatings();
 
   const handleSubmitRating = (e) => {
     e.preventDefault()
@@ -37,30 +38,35 @@ const RatingForm = (props) => {
       },
       url: apiUrl
     }).then(response => {
-      setRatings(response.data.data);
+      let auxRatings
+      if(props.update === true) {
+        auxRatings = ratings.filter(item => item.id !== prevRating.id);
+      }
+      else {
+        auxRatings = [...ratings];
+      }
+      auxRatings.push(response.data.data)
+      setRatings(auxRatings);
     }).catch(console.log)
   }
 
-  const handleChangeStars = (event) => {
-    setRatingStars(event.target.value);
-  }
-
-  const handleChangeTitle = (event) => {
-    setRatingTitle(event.target.value);
-  }
-
-  const handleChangeDescription = (event) => {
-    setRatingDescription(event.target.value);
+  const handleChange = (setter, event) => {
+    setter(event.target.value);
   }
 
   return (
     <form onSubmit={handleSubmitRating}>
       <label>Stars:</label><br/>
-      <input type={"number"} value={ratingStars} onChange={handleChangeStars}/><br/>
+      {/*<input type={"number"} value={ratingStars}*/}
+      {/*       onChange={(e) => handleChange(setRatingStars, e)}/>*/}
+      <StarsRating/>
+      <br/>
       <label>Title</label><br/>
-      <input type={"text"} value={ratingTitle} onChange={handleChangeTitle}/><br/>
+      <input type={"text"} value={ratingTitle}
+             onChange={(e) => handleChange(setRatingTitle, e)}/><br/>
       <label>Description</label><br/>
-      <input type={"text"} value={ratingDescription} onChange={handleChangeDescription}/><br/>
+      <input type={"text"} value={ratingDescription}
+             onChange={(e) => handleChange(setRatingDescription, e)}/><br/>
       <input type="submit" value="Submit"/>
     </form>
   )

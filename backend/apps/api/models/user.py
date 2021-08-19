@@ -18,7 +18,6 @@ class User(Base):
     email = db.Column(db.String(255), unique=True, nullable=False)
     hashed_password = db.Column(db.String(255), unique=True, nullable=False)
     admin = db.Column(db.Boolean, default=False)
-    likes = relationship('Like')
     ratings = relationship('Rating')
 
     def __repr__(self):

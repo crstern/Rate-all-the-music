@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {getUrlFor} from '../utils/util';
 import axios from 'axios';
 import Ratings from "../components/Ratings";
-import {useRating} from "./RatingContext";
+import {useRatings} from "../context/RatingContext";
 
 
 const ArtistDetails = ({match}) => {
@@ -18,7 +18,8 @@ const ArtistDetails = ({match}) => {
   });
 
   const [albums, setAlbums] = useState([]);
-  const [ratings, setRatings] = useRating();
+  const [ratings, setRatings] = useRatings();
+  const [error, setError] = useState(null);
 
   const fetchItem = (artistId) => {
     axios({
@@ -26,7 +27,7 @@ const ArtistDetails = ({match}) => {
       url: makeURL(`/api/artists/${artistId}`)
     }).then(response => {
       const data = response.data.data;
-      console.log(data);
+      console.log(response);
       setArtist(data);
       setAlbums(data.albums.map(item => (
         <li key={item.name}>
@@ -37,31 +38,40 @@ const ArtistDetails = ({match}) => {
         </li>
       )));
       setRatings(data.ratings);
+    }).catch(err => {
+      setError(err.response.data);
     });
   }
   return (
     <div>
-      <h1>{artist.name}</h1>
-      <p>{artist.origin_country}</p>
-      <img src={makeURL(`/api/images/${artist.image.filename}`)}/>
-      <div>
-        {artist.description}
-      </div>
-      <Ratings id={artist.id} route={"artist"}/>
-      <div>{albums}</div>
-      <p>{artist.formed_year}</p>
-      <p>{artist.genre.name}</p>
+      {error &&
+        <div>{error}</div>
+      }
+      {!error &&
+        <div>
+        <h1>{artist.name}</h1>
+          <p>{artist.origin_country}</p>
+          <img src={makeURL(`/api/images/${artist.image.filename}`)}/>
+          <div>
+          {artist.description}
+            </div>
+            <Ratings id={artist.id} route={"artist"} renderForm={true}/>
+            <div>{albums}</div>
+            <p>{artist.formed_year}</p>
+            <p>{artist.genre.name}</p>
 
-      {artist.facebook_link &&
-        <p>
-          <a href={getUrlFor(artist.facebook_link)}>Facebook</a>
-        </p>
-      }
-      {artist.website &&
-      <p>
-        <a href={getUrlFor(artist.website)}>{artist.website}</a>
-      </p>
-      }
+          {artist.facebook_link &&
+            <p>
+            <a href={getUrlFor(artist.facebook_link)}>Facebook</a>
+            </p>
+          }
+          {artist.website &&
+            <p>
+            <a href={getUrlFor(artist.website)}>{artist.website}</a>
+            </p>
+          }
+        </div>
+    }
     </div>
   )
 }

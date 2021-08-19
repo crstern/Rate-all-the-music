@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Ratings from "../components/Ratings";
 import {scrollToTop} from "../utils/util";
-import {useRating} from "./RatingContext";
+import {useRatings} from "../context/RatingContext";
 
 const AlbumDetails = ({match}) => {
   useEffect(() => {
@@ -16,8 +16,9 @@ const AlbumDetails = ({match}) => {
     image: {},
     artist: {},
   });
+  const [error, setError] = useState(null);
   const [otherAlbums, setOtherAlbums] = useState([])
-  const [ratings, setRatings] = useRating()
+  const [ratings, setRatings] = useRatings()
 
   const fetchItem = (albumId) => {
     axios({
@@ -37,6 +38,8 @@ const AlbumDetails = ({match}) => {
         </li>
       )));
       setRatings(data.ratings);
+    }).catch(err => {
+      setError(err.response.data);
     })
 
   }
@@ -44,21 +47,28 @@ const AlbumDetails = ({match}) => {
 
   return (
     <div>
-      <Link to={`/artists/${album.artist.id}`}>
-        <h1>{album.artist.name}</h1>
-      </Link>
+      {error &&
+      <div>{error}</div>
+      }
+      {!error &&
+      <div>
+        <Link to={`/artists/${album.artist.id}`}>
+          <h1>{album.artist.name}</h1>
+        </Link>
 
-      <h1>{album.name}</h1>
-      <img src={makeURL(`/api/images/${album.image.filename}`)}/>
-      <div>
-        {album.description}
+        <h1>{album.name}</h1>
+        <img src={makeURL(`/api/images/${album.image.filename}`)}/>
+        <div>
+          {album.description}
+        </div>
+        <br/>
+        <Ratings id={album.id} route={"album"} renderForm={true}/>
+        <br/>
+        <div>
+          {otherAlbums}
+        </div>
       </div>
-      <br/>
-      <Ratings id={album.id} route={"album"}/>
-      <br/>
-      <div>
-        {otherAlbums}
-      </div>
+      }
     </div>
   )
 }

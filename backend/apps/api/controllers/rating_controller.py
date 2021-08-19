@@ -1,17 +1,17 @@
-from apps.api.dto import RatingDto
 from apps.api.services import (
     token_required,
     add_new_rating,
     get_all_ratings_for_album,
-    get_all_ratings_for_artist,
+    update_like_rating,
+    update_unlike_rating,
     delete_rating_by_id,
-    update_rating_by_id
+    update_rating_by_id,
 )
 from apps.api.utils import (
     responses as resp,
     response_with,
 )
-
+from apps.api.dto import RatingDto
 from flask_restx import Resource
 from flask import request
 
@@ -46,10 +46,8 @@ class AlbumRatingCollection(Resource):
         RETURNS ALL RATINGS FOR THAT ALBUM
         """
         data = request.get_json()
-        add_new_rating(album_id, data, "album")
-
-        ratings = get_all_ratings_for_album(album_id)
-        data = api.marshal(ratings, _rating_basic)
+        rating = add_new_rating(album_id, data, "album")
+        data = api.marshal(rating, _rating_basic)
 
         return response_with(resp.SUCCESS_200, value={'data': data})
 
@@ -91,9 +89,8 @@ class ArtistRatingCollection(Resource):
         """
         data = request.get_json()
 
-        add_new_rating(artist_id, data, "artist")
-        ratings = get_all_ratings_for_artist(artist_id)
-        data = api.marshal(ratings, _rating_basic)
+        rating = add_new_rating(artist_id, data, "artist")
+        data = api.marshal(rating, _rating_basic)
 
         return response_with(resp.SUCCESS_200, value={'data': data})
 
@@ -115,19 +112,18 @@ class RatingByIdCollection(Resource):
     @api.doc(
         'Delete rating by id',
         responses={
-            200: ('data', _rating_basic),
+            200: 'success',
             404: 'not found'
         }
     )
     @token_required
     def delete(self, rating_id):
         """
-        Returns all the ratings that remained for that item
+        Returns success
         """
-        ratings = delete_rating_by_id(rating_id)
+        delete_rating_by_id(rating_id)
 
-        data = api.marshal(ratings, _rating_basic)
-        return response_with(resp.SUCCESS_200, value={'data': data})
+        return response_with(resp.SUCCESS_200)
 
     @api.doc(
         'Update rating by id',
@@ -139,11 +135,48 @@ class RatingByIdCollection(Resource):
     @token_required
     def put(self, rating_id):
         """
-        Returns all the ratings that remained for that item
+        Returns updated rating
         """
         data = request.get_json()
-        ratings = update_rating_by_id(rating_id, data)
+        rating = update_rating_by_id(rating_id, data)
 
-        data = api.marshal(ratings, _rating_basic)
+        data = api.marshal(rating, _rating_basic)
         return response_with(resp.SUCCESS_200, value={'data': data})
 
+
+@api.route('/like/<rating_id>')
+class LikeRating(Resource):
+    @api.doc('Like rating',
+             responses={
+                 200: _rating_basic,
+                 404: 'not found'
+             })
+    @token_required
+    def put(self, rating_id):
+        """
+        Returns updated rating
+        """
+        data = request.get_json()
+        rating = update_like_rating(rating_id, data)
+
+        data = api.marshal(rating, _rating_basic)
+        return response_with(resp.SUCCESS_200, value={'data': data})
+
+
+@api.route('/unlike/<rating_id>')
+class LikeRating(Resource):
+    @api.doc('Unlike rating',
+             responses={
+                 200: _rating_basic,
+                 404: 'not found'
+             })
+    @token_required
+    def put(self, rating_id):
+        """
+        Returns updated rating
+        """
+        data = request.get_json()
+        rating = update_unlike_rating(rating_id, data)
+
+        data = api.marshal(rating, _rating_basic)
+        return response_with(resp.SUCCESS_200, value={'data': data})

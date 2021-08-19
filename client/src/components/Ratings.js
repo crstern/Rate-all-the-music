@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {cookies} from "../utils/util";
 import {makeURL} from "../utils/config";
-import {useUser} from "../containers/UserContext";
+import {useUser} from "../context/UserContext";
 import RatingCard from "./RatingCard";
 import RatingForm from "../components/RatingForm"
 import axios from 'axios';
-import {useRating} from "../containers/RatingContext";
+import {useRatings} from "../context/RatingContext";
+import {StarsProvider} from "../context/StarContext";
 
 
 const Ratings = (props) => {
   const[user, setUser] = useUser();
 
-  const [ratings, setRatings] = useRating();
+  const [ratings, setRatings] = useRatings();
   const [renderRatings, setRenderRatings] = useState(null);
 
   useEffect(()=> {
@@ -24,7 +25,9 @@ const Ratings = (props) => {
     setRenderRatings(data.map(item => (
       <div key={item.id}>
         <br/>
-        <RatingCard rating={item}/>
+        <StarsProvider>
+          <RatingCard rating={item}/>
+        </StarsProvider>
         <br/>
       </div>
     )))
@@ -39,8 +42,10 @@ const Ratings = (props) => {
       }
     </div>
     <br/>
-    {user &&
-    <RatingForm route={props.route} id={props.id} update={false}/>
+    {user && props.renderForm &&
+      <StarsProvider>
+        <RatingForm route={props.route} id={props.id} update={false}/>
+      </StarsProvider>
     }
   </div>)
 }

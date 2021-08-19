@@ -11,7 +11,8 @@ from apps.api.services import (
     get_artist_details_by_id,
     pull_new_artist,
     upload_albums,
-    get_artists
+    get_artists,
+    get_artists_for_search
 )
 from flask_restx import Resource
 from flask import request
@@ -102,7 +103,9 @@ class ArtistCollection(Resource):
     @api.doc(
         'Add a new artist manually',
         responses={
-            200: ('data', _artist_details)
+            200: ('data', _artist_details),
+            404: "Not found",
+            400: "message"
         }
     )
     def post(self):
@@ -122,22 +125,14 @@ class ArtistCollection(Resource):
         return pagination.paginate(get_artists(), _artist_basic)
 
 
-@api.route('/<artist_id>/rating')
-class ArtistRatingCollection(Resource):
-    """
-    Collection for root - /rating - endpoints
+@api.route('/search/<search_term>')
+class SearchArtistCollection(Resource):
+    @api.doc('Search artist',
+             responses={
+                 200: ('data', _artist_basic)
+             })
+    def get(self, search_term):
+        artists = get_artists_for_search(search_term)
+        data = api.marshal(artists, _artist_basic)
 
-    Args: Resource(Object)
-
-    Returns:
-        json: data
-    """
-    @api.doc(
-        'Adds a rating to artist',
-        responses={
-            200: ('data', _artist_details)
-        }
-    )
-    def post(self, artist_id):
-        pass
-
+        return response_with(resp.SUCCESS_200, value={'data': data})

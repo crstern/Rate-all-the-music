@@ -4,7 +4,13 @@ Rating related model
 
 from apps.extensions import db
 from .audit import Base
+
 from sqlalchemy.orm import relationship
+
+association_table = db.Table('association', Base.metadata,
+                             db.Column('rating_id', db.ForeignKey('rating.id')),
+                             db.Column('user_id', db.ForeignKey('user.id'))
+                             )
 
 
 class Rating(Base):
@@ -20,6 +26,4 @@ class Rating(Base):
     artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'), nullable=True)
     album_id = db.Column(db.Integer, db.ForeignKey('album.id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    likes = relationship('Like')
-    number_of_likes = db.Column(db.Integer, default=0)
-
+    users_that_like = relationship('User', secondary=association_table)

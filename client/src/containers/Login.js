@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import { useHistory, Link } from "react-router-dom";
 import {makeURL} from "../utils/config";
 import axios from 'axios';
-import {UserContext} from "./UserContext";
+import {UserContext} from "../context/UserContext";
 import {cookies} from "../utils/util";
 
 

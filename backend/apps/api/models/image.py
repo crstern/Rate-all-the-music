@@ -12,4 +12,4 @@ class Image(Base):
     """
     __tablename__ = 'image'
 
-    filename = db.Column(db.String(255), nullable=False, unique=True)
+    filename = db.Column(db.String(255), nullable=True, unique=True)

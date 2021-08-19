@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import './Nav.css';
 import {Link} from "react-router-dom";
-import {useUser} from "../containers/UserContext";
+import {useUser} from "../context/UserContext";
 import {cookies} from "../utils/util";
 
 
@@ -17,8 +17,8 @@ const Nav = () => {
   const [user, setUser] = useUser();
 
   const logout = () => {
-    cookies.remove("refresh_token");
-    localStorage.removeItem("access_token");
+    cookies.remove("access_token");
+    localStorage.removeItem("refresh_token");
     setUser(null);
   }
 
@@ -33,6 +33,9 @@ const Nav = () => {
         </Link>
         <Link to={'/albums'} style={linkNavStyle}>
           <li>Albums</li>
+        </Link>
+        <Link to={'/search'} style={linkNavStyle}>
+          <li>Search</li>
         </Link>
         {!user &&
         <Link to={'/login'} style={linkNavStyle}>
@@ -50,8 +53,10 @@ const Nav = () => {
         </Link>
         }
         {user &&
-        <li>{user.username}</li>
-          }
+          <Link to={`/profile/${user.username}`} style={linkNavStyle} >
+            <li>{user.username}</li>
+          </Link>
+        }
       </ul>
     </nav>
   )
