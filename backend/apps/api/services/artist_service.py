@@ -86,7 +86,7 @@ def pull_new_artist(data):
 
     fetched_artist = fetched_artist.get('artists')[0]
 
-    if Artist.query.filter_by(id=fetched_artist.get('idArtist')) is not None:
+    if Artist.query.filter_by(id=fetched_artist.get('idArtist')).first() is not None:
         raise InvalidPayload("This artist already exists")
 
     artist_dict, image_obj, genre_obj = get_artist_details_from_fetched(fetched_artist)
@@ -147,6 +147,17 @@ def get_artist_details_from_fetched(fetched_artist):
     }
 
     return artist_dict, image_obj, genre_obj
+
+
+def get_artists_for_search(search_term):
+    artists = Artist.query.filter(Artist.name.ilike(f"%{search_term}%")).all()
+
+    for artist in artists:
+        if artist.image_id:
+            artist.image = Image.query.get(artist.image_id)
+        artist.genre = Genre.query.get(artist.genre_id)
+
+    return artists
 
 
 

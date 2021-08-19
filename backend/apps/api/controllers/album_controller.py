@@ -8,14 +8,14 @@ from apps.extensions import pagination
 from apps.api.dto import AlbumDto
 from apps.api.utils import (
     response_with,
-    responses as resp,
-    AuthError
+    responses as resp
 )
 from apps.api.services.user_service import get_current_user, token_required, check_if_user_is_admin
 from apps.api.services import (
     upload_albums,
     get_albums,
-    get_album_details_by_id
+    get_album_details_by_id,
+    get_albums_for_search
 )
 
 api = AlbumDto.api
@@ -82,4 +82,17 @@ class AlbumByIdCollection(Resource):
         album = get_album_details_by_id(album_id)
 
         data = api.marshal(album, _album_details)
+        return response_with(resp.SUCCESS_200, value={'data': data})
+
+
+@api.route('/search/<search_term>')
+class SearchAlbumCollection(Resource):
+    @api.doc('Search album',
+             responses={
+                 200: ('data', _album_basic)
+             })
+    def get(self, search_term):
+        albums = get_albums_for_search(search_term)
+        data = api.marshal(albums, _album_basic)
+
         return response_with(resp.SUCCESS_200, value={'data': data})

@@ -5,6 +5,7 @@ import {makeURL} from "../utils/config";
 import {cookies} from "../utils/util";
 import RatingForm from "./RatingForm";
 import {useRatings} from "../context/RatingContext";
+import StarsForCard from "./StarsForCard";
 
 
 const RatingCard = ({rating}) => {
@@ -58,16 +59,18 @@ const RatingCard = ({rating}) => {
   useEffect(() => {
     setUpdating(false);
   }, [ratings])
+
+
   return (<div>
     {updating===false &&
       <div>
-        <p>{rating.number_of_stars}</p>
+        <StarsForCard stars={rating.number_of_stars} />
         <h2>{rating.title}</h2>
         <p>{rating.description}</p>
         <p>Likes: {numberOfLikes}</p>
       </div>
     }
-    {user.id == rating.user_id &&
+    {user && user.id == rating.user_id &&
       <div>
         {updating &&
         <div>

@@ -6,6 +6,7 @@ import RatingCard from "./RatingCard";
 import RatingForm from "../components/RatingForm"
 import axios from 'axios';
 import {useRatings} from "../context/RatingContext";
+import {StarsProvider} from "../context/StarContext";
 
 
 const Ratings = (props) => {
@@ -24,7 +25,9 @@ const Ratings = (props) => {
     setRenderRatings(data.map(item => (
       <div key={item.id}>
         <br/>
-        <RatingCard rating={item}/>
+        <StarsProvider>
+          <RatingCard rating={item}/>
+        </StarsProvider>
         <br/>
       </div>
     )))
@@ -40,7 +43,9 @@ const Ratings = (props) => {
     </div>
     <br/>
     {user && props.renderForm &&
-    <RatingForm route={props.route} id={props.id} update={false}/>
+      <StarsProvider>
+        <RatingForm route={props.route} id={props.id} update={false}/>
+      </StarsProvider>
     }
   </div>)
 }

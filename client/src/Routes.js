@@ -10,16 +10,21 @@ import AlbumDetails from "./containers/AlbumDetails";
 import ForgotUsername from "./containers/ForgotUsername";
 import ForgotPassword from "./containers/ForgotPassword";
 import ProfileDetails from "./containers/ProfileDetails";
-import Search from './containers/Search'
+import SearchPage from './containers/SearchPage'
+import ArtistsPage from "./containers/ArtistsPage";
+import AlbumsPage from "./containers/AlbumsPage";
+import ImportPage from "./containers/ImportPage";
+import NotFoundPage from "./containers/NotFoundPage";
 
 const Routes = () => {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={Greetings}/>
-        <Route exact path="/artists" component={Artists} key={Date.now()}/>
-        <Route exact path="/albums" component={Albums}/>
-        <Route exact path="/search" component={Search}/>
+        <Route exact path="/artists" component={ArtistsPage} key={Date.now()}/>
+        <Route exact path="/albums" component={AlbumsPage}/>
+        <Route exact path="/search" component={SearchPage}/>
+        <Route exact path="/import" component={ImportPage}/>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
         <Route path="/artists/:id" component={ArtistDetails} />
@@ -27,6 +32,7 @@ const Routes = () => {
         <Route path="/forgot_username" component={ForgotUsername} />
         <Route path="/forgot_password" component={ForgotPassword} />
         <Route path="/profile/:username" component={ProfileDetails} />
+        <Route component={NotFoundPage} />
       </Switch>
     </div>
   );

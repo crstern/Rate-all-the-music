@@ -15,11 +15,13 @@ from .genre_service import get_or_create_genre
 from .artist_service import (
     get_artist_details_by_id,
     pull_new_artist,
-    get_artists
+    get_artists,
+    get_artists_for_search
 )
 from .album_service import (
     get_album_details_by_id,
-    get_albums
+    get_albums,
+    get_albums_for_search
 )
 from .image_service import (
     get_image_by_id

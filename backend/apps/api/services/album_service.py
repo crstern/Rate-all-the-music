@@ -101,4 +101,13 @@ def get_albums():
     return albums
 
 
+def get_albums_for_search(search_term):
+    albums = Album.query.filter(Album.name.ilike(f"%{search_term}%")).all()
+
+    for album in albums:
+        if album.image_id:
+            album.image = Image.query.get(album.image_id)
+
+    return albums
+
 
