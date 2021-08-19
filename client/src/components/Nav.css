@@ -2,9 +2,10 @@ nav{
     display:flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 10vh;
+    min-height: 8vh;
     background: #282c34;
     color:white;
+
 }
 
 .nav-links{
@@ -12,4 +13,12 @@ nav{
     width: 50%;
     justify-content: space-around;
     list-style: none;
+}
+
+nav h3 {
+    font-weight: 600;
+}
+
+.nav-links li {
+    font-weight: 400;
 }

@@ -1,0 +1,19 @@
+h1 {
+    color: white;
+}
+
+.artists-wraper{
+    display: flex;
+    justify-content: center;
+}
+.artists-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-gap: 20px;
+    width: 90%;
+    max-width: 90rem;
+}
+
+.artist img {
+    width: 100%;
+}
