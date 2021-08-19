@@ -12,7 +12,7 @@ const ArtistsPage = () => {
   const [hasPrev, setHasPrev] = useState(false);
 
   const fetchItems = async (page=1) => {
-    const fetched = await fetch(makeURL(`/api/artists?page=${page}&size=${10}`));
+    const fetched = await fetch(makeURL(`/api/artists?page=${page}&size=${12}`));
     const data = await fetched.json();
     setArtists(data.data);
     setHasNext(data.pagination.hasNext);
