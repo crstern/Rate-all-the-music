@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './Nav.css';
 import {Link} from "react-router-dom";
 import {useUser} from "../containers/UserContext";
@@ -6,6 +6,9 @@ import {cookies} from "../utils/util";
 
 
 const Nav = () => {
+  useEffect(() => {
+    console.log(cookies.get('access_token'));
+  },[])
   const linkNavStyle = {
     color: 'white',
     textDecoration: 'none'
