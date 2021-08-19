@@ -39,12 +39,12 @@ const Nav = () => {
         </Link>
         {!user &&
         <Link to={'/login'} style={linkNavStyle}>
-          <li>Log in</li>
+          <li className="nav-horizontal-line">Log in</li>
         </Link>
         }
         {!user &&
         <Link to={'/register'} style={linkNavStyle}>
-          <li>Register</li>
+          <li>Sign up</li>
         </Link>
         }
         {user &&

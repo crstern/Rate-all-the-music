@@ -9,11 +9,12 @@ h1 {
 .artists-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    grid-gap: 20px;
+    grid-gap: 25px;
     width: 90%;
     max-width: 90rem;
 }
 
 .artist img {
     width: 100%;
+    border-radius: 50%;
 }
