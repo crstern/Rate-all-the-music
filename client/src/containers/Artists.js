@@ -3,6 +3,7 @@ import {makeURL} from '../utils/config';
 import {Link} from 'react-router-dom';
 import {scrollToTop} from "../utils/util";
 import {useArtists} from "../context/ArtistContext";
+import './Artists.css';
 
 
 const Artists = () => {
@@ -12,12 +13,12 @@ const Artists = () => {
 
   const extractArtists = (data) => {
     setRenderArtists(data.map(item => (
-      <li key={item.id}>
+      <div key={item.id} className="artist">
           <img src={makeURL("/api/images/" + item.image.filename)} alt={item.name + " picture"}/>
         <Link to={`/artists/${item.id}`}>
           <h1>{item.name}</h1>
         </Link>
-      </li>
+      </div>
     )));
   };
 
@@ -27,11 +28,11 @@ const Artists = () => {
 
   return (
     <div>
-      <ul>
+      <div className="artists-wraper">
         {renderArtists &&
-        <div>{renderArtists}</div>
+        <div className="artists-container">{renderArtists}</div>
         }
-      </ul>
+      </div>
     </div>
   )
 }
