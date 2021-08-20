@@ -21,12 +21,11 @@ const Ratings = (props) => {
   ,[ratings]);
 
   function extractRatings(data) {
-    console.log(data)
     setRenderRatings(data.map(item => (
       <div key={item.id}>
         <br/>
         <StarsProvider>
-          <RatingCard rating={item}/>
+          <RatingCard rating={item} index={data.indexOf(item)}/>
         </StarsProvider>
         <br/>
       </div>

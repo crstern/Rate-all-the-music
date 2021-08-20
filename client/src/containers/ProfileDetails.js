@@ -14,12 +14,10 @@ const ProfileDetails = (props) => {
   const [ratings, setRatings] = useRatings();
 
   const fetchProfile = (username) => {
-    console.log("fetching")
     axios.get(
       makeURL(`/api/profile/${username}`)
     ).then(response => {
       setProfile(response.data.data);
-      console.log(response.data.data.ratings);
       setRatings(response.data.data.ratings);
     }).catch(err => {
       console.log(err.message)

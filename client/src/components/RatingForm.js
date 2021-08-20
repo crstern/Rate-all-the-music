@@ -38,14 +38,8 @@ const RatingForm = (props) => {
       },
       url: apiUrl
     }).then(response => {
-      let auxRatings
-      if(props.update === true) {
-        auxRatings = ratings.filter(item => item.id !== prevRating.id);
-      }
-      else {
-        auxRatings = [...ratings];
-      }
-      auxRatings.push(response.data.data)
+      const auxRatings = [...ratings]
+      auxRatings[props.index] = response.data.data;
       setRatings(auxRatings);
     }).catch(console.log)
   }

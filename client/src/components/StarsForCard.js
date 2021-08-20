@@ -4,7 +4,6 @@ const StarsForCard = ({stars}) => {
   const starClassInactive = "rating__star far fa-star";
   const starClassActive = "rating__star fas fa-star";
   const starClassNames = [];
-  console.log(stars)
   for(let i = 0; i < stars; i++)
     starClassNames.push(starClassActive);
 
