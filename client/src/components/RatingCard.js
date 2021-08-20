@@ -6,9 +6,10 @@ import {cookies} from "../utils/util";
 import RatingForm from "./RatingForm";
 import {useRatings} from "../context/RatingContext";
 import StarsForCard from "./StarsForCard";
+import {Link} from "react-router-dom";
 
 
-const RatingCard = ({rating}) => {
+const RatingCard = ({rating, index}) => {
   const userLikesRating = (current_user, rating) =>
     (rating.users_that_like.find(u => u.username === current_user.username) !== undefined)
 
@@ -45,8 +46,8 @@ const RatingCard = ({rating}) => {
       }
     }).then(response => {
       const newRating = response.data.data;
-      const auxRatings = ratings.filter(item => item.id !== rating.id)
-      auxRatings.push(newRating);
+      const auxRatings = [...ratings]
+      auxRatings[index] = newRating;
       setRatings(auxRatings);
       setNumberOfLikes(newRating.users_that_like.length);
       setLiked(userLikesRating(user, newRating));
@@ -62,8 +63,21 @@ const RatingCard = ({rating}) => {
 
 
   return (<div>
+    {rating.artist.name &&
+    <div>
+      <Link to={`/artists/${rating.artist.id}`}>
+        <p>{rating.artist.name}</p>
+      </Link>
+      <img src={makeURL("/api/images/" + rating.artist.filename)} alt={rating.artist.name + " cover"}/>
+    </div>}
+    {rating.album.name &&
+    <div>
+      <p>{rating.album.name}</p>
+      <img src={makeURL("/api/images/" + rating.album.filename)} alt={rating.album.name + " cover"}/>
+    </div>}
     {updating===false &&
       <div>
+
         <StarsForCard stars={rating.number_of_stars} />
         <h2>{rating.title}</h2>
         <p>{rating.description}</p>
@@ -74,7 +88,7 @@ const RatingCard = ({rating}) => {
       <div>
         {updating &&
         <div>
-         <RatingForm method={"put"} rating={rating} update={true}/>
+         <RatingForm method={"put"} rating={rating} update={true} index={index}/>
           <button onClick={() => setUpdating(false)}>Cancel</button>
         </div>
         }
