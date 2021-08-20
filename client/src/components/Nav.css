@@ -1,15 +1,31 @@
-nav{
-    display:flex;
-    justify-content: space-around;
+nav {
+    display: flex;
     align-items: center;
-    min-height: 10vh;
+    justify-content: space-between;
+    min-height: 8vh;
+    padding: 0 10em;
     background: #282c34;
     color:white;
+
 }
 
-.nav-links{
+.nav-links {
     display:flex;
-    width: 50%;
+    width: 30rem;
     justify-content: space-around;
     list-style: none;
+    font-size: 1rem;
+}
+
+nav h3 {
+    font-weight: 600;
+}
+
+.nav-links li {
+    font-weight: 600;
+}
+
+.nav-horizontal-line {
+    padding-left: 1.5em;
+    border-left: 1px solid #FFF;
 }

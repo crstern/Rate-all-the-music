@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './Nav.css';
 import {Link} from "react-router-dom";
 import {useUser} from "../context/UserContext";
@@ -6,6 +6,9 @@ import {cookies} from "../utils/util";
 
 
 const Nav = () => {
+  useEffect(() => {
+    console.log(cookies.get('access_token'));
+  },[])
   const linkNavStyle = {
     color: 'white',
     textDecoration: 'none'
@@ -36,12 +39,12 @@ const Nav = () => {
         </Link>
         {!user &&
         <Link to={'/login'} style={linkNavStyle}>
-          <li>Log in</li>
+          <li className="nav-horizontal-line">Log in</li>
         </Link>
         }
         {!user &&
         <Link to={'/register'} style={linkNavStyle}>
-          <li>Register</li>
+          <li>Sign up</li>
         </Link>
         }
         {user &&
