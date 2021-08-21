@@ -16,7 +16,7 @@ class Artist(Base):
 
     name = db.Column(db.String(255), nullable=False)
     origin_country = db.Column(db.String(255))
-    image_id = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=True)
+    image = db.Column(db.String, nullable=True)
     description = db.Column(db.Text, nullable=True)
 
     genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'), nullable=True)

@@ -68,12 +68,12 @@ const RatingCard = ({rating, index}) => {
       <Link to={`/artists/${rating.artist.id}`}>
         <p>{rating.artist.name}</p>
       </Link>
-      <img src={makeURL("/api/images/" + rating.artist.filename)} alt={rating.artist.name + " cover"}/>
+      <img src={makeURL("/api/images/" + rating.artist.image)} alt={rating.artist.name + " cover"}/>
     </div>}
     {rating.album.name &&
     <div>
       <p>{rating.album.name}</p>
-      <img src={makeURL("/api/images/" + rating.album.filename)} alt={rating.album.name + " cover"}/>
+      <img src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>
     </div>}
     {updating===false &&
       <div>

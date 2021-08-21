@@ -14,7 +14,7 @@ const Artists = () => {
   const extractArtists = (data) => {
     setRenderArtists(data.map(item => (
       <div key={item.id} className="artist">
-          <img src={makeURL("/api/images/" + item.image.filename)} alt={item.name + " picture"}/>
+          <img src={makeURL("/api/images/" + item.image)} alt={item.name + " picture"}/>
         <Link to={`/artists/${item.id}`}>
           <h1>{item.name}</h1>
         </Link>

@@ -36,9 +36,9 @@ class UploadCollection(Resource):
     @api.doc(
         'upload artists',
     )
-    @token_required
+    # @token_required
     def post(self):
-        check_if_user_is_admin()
+        # check_if_user_is_admin()
 
         upload_artists()
         upload_albums()

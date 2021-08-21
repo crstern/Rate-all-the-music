@@ -12,7 +12,6 @@ from apps.api.models import (
     Rating,
     Album,
     Artist,
-    Image
 )
 from apps.extensions import db, mail
 from apps.api.utils import AuthError, SECRET_KEY, SECRET_REFRESH_KEY, NotFound
@@ -156,10 +155,8 @@ def get_user_by_username(username):
     for rating in user.ratings:
         if rating.album_id:
             rating.album = Album.query.get(rating.album_id)
-            rating.album.filename = Image.query.get(rating.album.image_id).filename
         elif rating.artist_id:
             rating.artist = Artist.query.get(rating.artist_id)
-            rating.artist.filename = Image.query.get(rating.artist.image_id).filename
     return user
 
 

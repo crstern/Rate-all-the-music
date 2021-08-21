@@ -2,7 +2,6 @@ import requests
 
 from apps.api.models import (
     Artist,
-    Image,
     Genre,
 )
 from apps.api.utils import (
@@ -32,8 +31,6 @@ def get_artists_ids():
 def get_artists():
     artists = Artist.query.all()
     for artist in artists:
-        if artist.image_id:
-            artist.image = Image.query.get(artist.image_id)
         artist.genre = Genre.query.get(artist.genre_id)
     return artists
 
@@ -50,16 +47,10 @@ def get_artist_details_by_id(artist_id):
     if artist is None:
         raise NotFound("Artist not found")
 
-    if artist.image_id:
-        image = Image.query.get(artist.image_id)
-        artist.image = image
-
     genre = Genre.query.get(artist.genre_id)
     artist.genre = genre
 
     for i, album in enumerate(artist.albums):
-        if album.image_id:
-            album.image = Image.query.get(album.image_id)
         album.genre = Genre.query.get(album.genre_id)
 
         artist.albums[i] = album
@@ -95,7 +86,6 @@ def pull_new_artist(data):
         artist_obj = Artist(**artist_dict)
         db.session.add(artist_obj)
         db.session.commit()
-        artist_obj.image = image_obj
         artist_obj.genre = genre_obj
     except Exception as e:
         print(e)
@@ -143,7 +133,7 @@ def get_artist_details_from_fetched(fetched_artist):
         "id": fetched_artist.get('idArtist'),
         "formed_year": fetched_artist.get('intFormedYear'),
         "record_label": fetched_artist.get('strLabel'),
-        "image_id": image_obj.id if image_obj is not None else None
+        "image": image_obj
     }
 
     return artist_dict, image_obj, genre_obj
@@ -153,8 +143,6 @@ def get_artists_for_search(search_term):
     artists = Artist.query.filter(Artist.name.ilike(f"%{search_term}%")).all()
 
     for artist in artists:
-        if artist.image_id:
-            artist.image = Image.query.get(artist.image_id)
         artist.genre = Genre.query.get(artist.genre_id)
 
     return artists

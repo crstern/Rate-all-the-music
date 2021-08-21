@@ -75,7 +75,8 @@ class RegisterCollection(Resource):
     @api.doc(
         'Register user',
         responses={
-            200: ('data', _user_basic)
+            200: ('data', _user_basic),
+            422: 'invalid input'
         })
     @api.expect(_user_register_validation, validate=True)
     def post(self):

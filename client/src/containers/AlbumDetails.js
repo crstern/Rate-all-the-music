@@ -57,7 +57,7 @@ const AlbumDetails = ({match}) => {
         </Link>
 
         <h1>{album.name}</h1>
-        <img src={makeURL(`/api/images/${album.image.filename}`)}/>
+        <img src={makeURL(`/api/images/${album.image}`)}/>
         <div>
           {album.description}
         </div>

@@ -74,7 +74,7 @@ def upload_artists():
         artists = get_artist_names(file_path)
 
         for artist_index, artist in enumerate(artists):
-            if artist_index == 50:
+            if artist_index == 60:
                 return
             artist = artist[1:-1]
             req_link = 'https://www.theaudiodb.com/api/v1/json/1/search.php?s=' + artist
@@ -122,11 +122,10 @@ def add_new_artist(artist, resp_content):
         "members": resp_content.get('intMembers'),
         "id": resp_content.get('idArtist'),
         "formed_year": resp_content.get('intFormedYear'),
-        "record_label": resp_content.get('strLabel')
+        "record_label": resp_content.get('strLabel'),
+        "image": image_obj
     }
 
-    if image_obj is not None:
-        artist_dict['image_id'] = image_obj.id
     try:
         artist_obj = Artist(**artist_dict)
         db.session.add(artist_obj)

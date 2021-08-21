@@ -1,15 +1,11 @@
-import base64
 import os
 import requests
 import cv2
 import numpy as np
 
-from apps.extensions import db
-from apps.api.models import Image
 from apps.api.utils import (
     path_to_images,
-    NotFound,
-    InvalidPayload
+
 )
 
 
@@ -28,19 +24,11 @@ def extract_artist_image(artist):
             resp = requests.get(artist_image_link)
             resize_write_image(image_name, resp)
 
-            image_obj = Image(id=artist.get("idArtist"), filename=image_name)
-            try:
-                db.session.add(image_obj)
-                db.session.commit()
-            except Exception as e:
-                print(e)
-                image_obj = None
-
+            image_obj = image_name
         except Exception as e:
             print(e)
-            print('Image was not saved')
-            image_obj = None
     return image_obj
+
 
 
 def resize_write_image(image_name, resp):
@@ -59,35 +47,16 @@ def extract_art_cover(album):
         image_name = f'{album.get("idAlbum")}_album.jpg'
         resp = requests.get(album.get('strAlbumThumb'))
         resize_write_image(image_name, resp)
-        image_obj = Image(id=album.get("idAlbum"), filename=image_name)
-        try:
-            db.session.add(image_obj)
-            db.session.commit()
-        except Exception as e:
-            print(e)
-            image_obj = None
+        image_obj = image_name
+
     return image_obj
 
 
-def delete_image_by_id(image_id):
-    image = Image.query.get(image_id)
-
-    if image is None:
-        raise NotFound('Image not found')
-    path = os.path.join(path_to_images, image.filename)
+def delete_image_by_id(filename):
+    path = os.path.join(path_to_images, filename)
     os.remove(path)
 
-    db.session.delete(image)
-    db.session.commit()
 
-
-def get_image_by_id(image_id):
-    if not image_id.isnumeric():
-        raise InvalidPayload("Image_id must be integer")
-    image = Image.query.get(image_id)
-    if image is None:
-        raise NotFound('Image not found')
-    return image
 
 
 def get_image_file_by_id(image_id):

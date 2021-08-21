@@ -4,7 +4,6 @@ from sqlalchemy import and_, not_
 from apps import db
 from apps.api.models import (
     Album,
-    Image,
     Genre,
     Artist,
     Rating
@@ -30,7 +29,7 @@ def get_album_details_by_id(album_id):
     if album is None:
         raise NotFound("Album not found")
 
-    album.image = Image.query.get(album.image_id)
+
     album.genre = Genre.query.get(album.genre_id)
     album.artist = Artist.query.get(album.artist_id)
     album.other_albums = Album.query.filter(
@@ -40,8 +39,7 @@ def get_album_details_by_id(album_id):
     album.ratings = Rating.query.filter(
         Rating.album_id == album.id
     ).all()
-    for o_album in album.other_albums:
-        o_album.image = Image.query.get(o_album.image_id)
+
 
     return album
 
@@ -67,7 +65,7 @@ def fetch_albums_by_artist_id(artist_id):
                 "artist_id": artist_id,
                 "name": album.get('strAlbum'),
                 "description": album.get('strDescriptionEN'),
-                "image_id": image_obj.id if image_obj is not None else None,
+                "image": image_obj,
                 "release_year": album.get('intYearReleased'),
                 "genre_id": album_genre.id
             }
@@ -95,18 +93,13 @@ def validate_album(album):
 
 def get_albums():
     albums = Album.query.all()
-    for album in albums:
-        if album.image_id:
-            album.image = Image.query.get(album.image_id)
+
     return albums
 
 
 def get_albums_for_search(search_term):
     albums = Album.query.filter(Album.name.ilike(f"%{search_term}%")).all()
 
-    for album in albums:
-        if album.image_id:
-            album.image = Image.query.get(album.image_id)
 
     return albums
 

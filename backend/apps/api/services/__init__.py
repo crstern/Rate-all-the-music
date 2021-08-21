@@ -23,9 +23,7 @@ from .album_service import (
     get_albums,
     get_albums_for_search
 )
-from .image_service import (
-    get_image_by_id
-)
+
 from .rating_service import (
     add_new_rating,
     get_all_ratings_for_album,

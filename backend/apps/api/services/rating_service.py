@@ -2,7 +2,6 @@ from apps.api.models import (
     Rating,
     Album,
     Artist,
-    Image
 )
 from apps.extensions import db
 from .user_service import get_current_user
@@ -72,10 +71,8 @@ def get_rating_by_id(rating_id):
 
     if rating.album_id:
         rating.album = Album.query.get(rating.album_id)
-        rating.album.filename = Image.query.get(rating.album.image_id).filename
     elif rating.artist_id:
         rating.artist = Artist.query.get(rating.artist_id)
-        rating.artist.filename = Image.query.get(rating.artist.image_id).filename
 
     return rating
 
