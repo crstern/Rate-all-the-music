@@ -15,6 +15,7 @@ import ArtistsPage from "./containers/ArtistsPage";
 import AlbumsPage from "./containers/AlbumsPage";
 import ImportPage from "./containers/ImportPage";
 import NotFoundPage from "./containers/NotFoundPage";
+import GenresPage from "./containers/GenresPage";
 
 const Routes = () => {
   return (
@@ -26,11 +27,10 @@ const Routes = () => {
         <Route exact path="/search" component={SearchPage}/>
         <Route exact path="/import" component={ImportPage}/>
         <Route path="/login" component={Login}/>
+        <Route path="/genres" component={GenresPage}/>
         <Route path="/register" component={Register}/>
         <Route path="/artists/:id" component={ArtistDetails} />
         <Route path="/albums/:id" component={AlbumDetails} />
-        <Route path="/forgot_username" component={ForgotUsername} />
-        <Route path="/forgot_password" component={ForgotPassword} />
         <Route path="/profile/:username" component={ProfileDetails} />
         <Route component={NotFoundPage} />
       </Switch>

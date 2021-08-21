@@ -15,7 +15,13 @@ class ProfileDto:
     """
     api = Namespace('profile', description='Profile related operations')
 
+    profile_minimal = api.model('Profile minimal', {
+        'id': fields.Integer(),
+        'username': fields.String(description='User username')
+    })
+
     profile_basic = api.model('Profile basic', {
         'username': fields.String(description='User username'),
         'ratings': fields.List(fields.Nested(_rating_basic)),
+        # 'following': fields.List(fields.Nested(profile_minimal))
     })

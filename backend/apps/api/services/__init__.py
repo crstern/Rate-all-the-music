@@ -35,3 +35,4 @@ from .rating_service import (
     update_like_rating,
     update_unlike_rating,
 )
+from .genre_service import get_all_genres

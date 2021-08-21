@@ -4,3 +4,4 @@ from .image_dto import ImageDto
 from .artist_dto import ArtistDto
 from .rating_dto import RatingDto
 from .profile_dto import ProfileDto
+from .genre_dto import GenreDto

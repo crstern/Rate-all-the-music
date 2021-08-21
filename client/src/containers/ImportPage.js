@@ -42,15 +42,17 @@ const ImportPage = () => {
         <form onSubmit={handleSubmit}>
           <input type={"text"} value={artistName} onChange={handleChangeArtistName}/>
           <input type={"submit"} value={"submit"} />
+          {error &&
+          <p>
+            {error}
+          </p>}
         </form>
+
       }
       {loading === true &&
         <div>loading</div>
       }
-      {error &&
-      <p>
-        {error}
-      </p>}
+
     </div>
   )
 }

@@ -17,6 +17,7 @@ const ProfileDetails = (props) => {
     axios.get(
       makeURL(`/api/profile/${username}`)
     ).then(response => {
+      console.log(response.data.data);
       setProfile(response.data.data);
       setRatings(response.data.data.ratings);
     }).catch(err => {
