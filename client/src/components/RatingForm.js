@@ -19,6 +19,11 @@ const RatingForm = (props) => {
 
   const [ratings, setRatings] = useRatings();
 
+  useEffect(() => {
+    if(prevRating)
+      setRatingStars(prevRating.number_of_stars);
+  }, [])
+
   const handleSubmitRating = (e) => {
     e.preventDefault()
     const httpMethod = props.update === true ? "put" : "post";
@@ -39,7 +44,9 @@ const RatingForm = (props) => {
       url: apiUrl
     }).then(response => {
       const auxRatings = [...ratings]
-      auxRatings[props.index] = response.data.data;
+      if (props.update)
+        auxRatings[props.index] = response.data.data;
+      else auxRatings.push(response.data.data);
       setRatings(auxRatings);
     }).catch(console.log)
   }

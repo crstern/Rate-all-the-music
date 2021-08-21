@@ -19,7 +19,7 @@ class RatingDto:
     item_minimal = {
         "id": fields.Integer(),
         "name": fields.String(description="Artist/Album name"),
-        "filename": fields.String(description="Artist/Album image filename")
+        "image": fields.String(description="Artist/Album image filename")
     }
 
     rating_basic = api.model('rating basic', {
