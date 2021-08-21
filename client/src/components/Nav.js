@@ -1,63 +1,42 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import './Nav.css';
 import {Link} from "react-router-dom";
-import {useUser} from "../context/UserContext";
-import {cookies} from "../utils/util";
+import NavLinks from './NavLinks'; 
 
 
 const Nav = () => {
-  useEffect(() => {
-    console.log(cookies.get('access_token'));
-  },[])
   const linkNavStyle = {
     color: 'white',
     textDecoration: 'none'
   }
+  const [classNameLinks, setClassNameLinks] = useState("nav-links");
+  const [active, setActive] = useState(0);
 
-  const [user, setUser] = useUser();
-
-  const logout = () => {
-    cookies.remove("access_token");
-    localStorage.removeItem("refresh_token");
-    setUser(null);
-  }
+  useEffect(() => {
+    let newClass = "";
+    if (active === 1){
+      newClass = "active";
+    }
+    setClassNameLinks(`nav-links ${newClass}`);
+  }, [active])
 
   return (
     <nav>
-      <Link to={'/'} style={linkNavStyle}>
-        <h3>Logo</h3>
+      <div className="logo">
+      <Link to={'/'} style={linkNavStyle} className="logo-link">
+        <img src={require("./vinyl.png")}  alt="vinyl icon"/>
+        <h3>RATM</h3>
       </Link>
-      <ul className="nav-links">
-        <Link to={'/artists'} style={linkNavStyle}>
-          <li>Artists</li>
-        </Link>
-        <Link to={'/albums'} style={linkNavStyle}>
-          <li>Albums</li>
-        </Link>
-        <Link to={'/search'} style={linkNavStyle}>
-          <li>Search</li>
-        </Link>
-        {!user &&
-        <Link to={'/login'} style={linkNavStyle}>
-          <li className="nav-horizontal-line">Log in</li>
-        </Link>
-        }
-        {!user &&
-        <Link to={'/register'} style={linkNavStyle}>
-          <li>Sign up</li>
-        </Link>
-        }
-        {user &&
-        <Link to={'/'} style={linkNavStyle} onClick={logout}>
-          <li>Log out</li>
-        </Link>
-        }
-        {user &&
-          <Link to={`/profile/${user.username}`} style={linkNavStyle} >
-            <li>{user.username}</li>
-          </Link>
-        }
-      </ul>
+      </div>
+      <a href="#" className="toggle-button" onClick={() => {
+        setActive(1 - active);
+      }}>
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </a>
+      <NavLinks classNameLinks={classNameLinks}/>
+      
     </nav>
   )
 }

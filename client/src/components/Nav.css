@@ -1,31 +1,132 @@
 nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(1.5rem, 1fr) auto minmax(30rem, 80rem) minmax(1.5rem, 1fr);
     min-height: 8vh;
-    padding: 0 10em;
-    background: #282c34;
-    color:white;
-
+    background: rgba(40, 44, 52, .9);
+    color: #FFF;
 }
 
 .nav-links {
-    display:flex;
-    width: 30rem;
-    justify-content: space-around;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    grid-column-start: 3;
     list-style: none;
     font-size: 1rem;
+}
+
+.logo {
+    grid-column: 2 / span 1;
 }
 
 nav h3 {
     font-weight: 600;
 }
 
-.nav-links li {
-    font-weight: 600;
+a:link,
+a:visited {
+    font-style: inherit;
+    text-decoration: none;
+    font-weight: 700;
+    color: inherit;
 }
 
-.nav-horizontal-line {
-    padding-left: 1.5em;
-    border-left: 1px solid #FFF;
+.nav-links li {
+    margin-left: 2em;
+}
+
+.nav-links li:hover,
+.nav-links li.desaturated:hover {
+    color: rgb(141, 77, 252);
+}
+
+.nav-links li.desaturated {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.vertical-line {
+    border-right: 1px solid #FFF;
+    height: 1.3rem;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    display: block;
+    width: 2rem;
+    margin-right: .5em;
+}
+
+/*==========
+  Mobile 
+===========*/
+
+.toggle-button {
+    display: none;
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+}
+
+.toggle-button .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #FFF;
+    border-radius: 10px;
+}
+
+@media (max-width: 620px) {
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .toggle-button {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .nav-links li {
+        margin-left: 0;
+        margin-top: 1em;
+    }
+
+    .logo {
+        padding-left: 1em;
+    }
+
+    .vertical-line {
+        width: 1rem;
+        height: 1px;
+        background-color: #FFF;
+    }
+
+    .nav-links li {
+        font-size: 1.5rem;
+    }
+    
+    .mobile-text {
+        font-size: 2.5rem;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
 }
