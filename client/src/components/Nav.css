@@ -4,9 +4,8 @@ nav {
     justify-content: space-between;
     min-height: 8vh;
     padding: 0 10em;
-    background: #282c34;
-    color:white;
-
+    background: rgba(40, 44, 52, .9);
+    color: #FFF;
 }
 
 .nav-links {
@@ -22,10 +21,24 @@ nav h3 {
 }
 
 .nav-links li {
-    font-weight: 600;
+    font-weight: 700;
 }
 
-.nav-horizontal-line {
-    padding-left: 1.5em;
-    border-left: 1px solid #FFF;
+.nav-links li:hover,
+.nav-links li.desaturated:hover {
+    color: rgb(141, 77, 252);
+}
+
+.user:hover{
+    color: #FFF !important;
+}
+
+.nav-links li.desaturated {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.vertical-line {
+    border-right: 1px solid #FFF;
+    height: 1.3rem;
 }

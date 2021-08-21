@@ -37,14 +37,15 @@ const Nav = () => {
         <Link to={'/search'} style={linkNavStyle}>
           <li>Search</li>
         </Link>
+          <li className="vertical-line"></li>
         {!user &&
         <Link to={'/login'} style={linkNavStyle}>
-          <li className="nav-horizontal-line">Log in</li>
+          <li className="desaturated">Log in</li>
         </Link>
         }
         {!user &&
         <Link to={'/register'} style={linkNavStyle}>
-          <li>Sign up</li>
+          <li className="desaturated">Sign up</li>
         </Link>
         }
         {user &&
@@ -54,7 +55,7 @@ const Nav = () => {
         }
         {user &&
           <Link to={`/profile/${user.username}`} style={linkNavStyle} >
-            <li>{user.username}</li>
+            <li className="user">{user.username}</li>
           </Link>
         }
       </ul>
