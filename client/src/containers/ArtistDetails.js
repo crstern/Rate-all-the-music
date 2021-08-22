@@ -5,7 +5,7 @@ import {getUrlFor} from '../utils/util';
 import axios from 'axios';
 import Ratings from "../components/Ratings";
 import {useRatings} from "../context/RatingContext";
-
+import "./ArtistDetails.css"
 
 const ArtistDetails = ({match}) => {
   useEffect(() => {
@@ -30,12 +30,12 @@ const ArtistDetails = ({match}) => {
       console.log(response);
       setArtist(data);
       setAlbums(data.albums.map(item => (
-        <li key={item.name}>
+        <div className="albums" key={item.name}>
           <Link to={`/albums/${item.id}`}>
-            <img src={makeURL(`/api/images/${item.image}`)} alt={item.name + " cover"}/>
-            <h3>{item.name}</h3>
+            <img className="album-images" src={makeURL(`/api/images/${item.image}`)} alt={item.name + " cover"}/>
           </Link>
-        </li>
+          <h3>{item.name}</h3>
+        </div>
       )));
       setRatings(data.ratings);
     }).catch(err => {
@@ -48,28 +48,39 @@ const ArtistDetails = ({match}) => {
         <div>{error}</div>
       }
       {!error &&
-        <div>
+        <div className="container">
         <h1>{artist.name}</h1>
           <p>{artist.origin_country}</p>
-          <img src={makeURL(`/api/images/${artist.image}`)}/>
-          <div>
-          {artist.description}
+          <div className="img-description">
+            <div className="image">
+              <img src={makeURL(`/api/images/${artist.image}`)}/>
+              <div className="social-media">
+                <div className="year-name-facebook">
+                <p>{artist.formed_year}</p>
+                <p>{artist.genre.name}</p>
+            
+                {artist.facebook_link &&
+                  <p>
+                  <a className="icon-social-facebook" href={getUrlFor(artist.facebook_link)}></a>
+                  </p>
+                }
+                </div>
+                <div className="website">
+                {artist.website &&
+                  <p>
+                  <a href={getUrlFor(artist.website)}>{artist.website}</a>
+                  </p>
+                }
+                </div>
+              </div>
             </div>
+            <div className="description">
+              {artist.description}
+            </div>
+          </div>
             <Ratings id={artist.id} route={"artist"} renderForm={true} meanRatings={true}/>
-            <div>{albums}</div>
-            <p>{artist.formed_year}</p>
-            <p>{artist.genre.name}</p>
-
-          {artist.facebook_link &&
-            <p>
-            <a href={getUrlFor(artist.facebook_link)}>Facebook</a>
-            </p>
-          }
-          {artist.website &&
-            <p>
-            <a href={getUrlFor(artist.website)}>{artist.website}</a>
-            </p>
-          }
+            <div className="album-wraper">{albums}</div>
+            
         </div>
     }
     </div>

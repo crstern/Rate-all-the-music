@@ -16,6 +16,7 @@ h1 {
 
 .artist img {
     width: 100%;
+    max-width: 350px;
     border-radius: 8%;
     transition: transform 400ms;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
