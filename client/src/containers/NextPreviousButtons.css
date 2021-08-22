@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css');
+
+.slide {
+    cursor: pointer;
+    position: relative;
+    background-color: #ffacac;
+    color: #53488d;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 1;
+    border: none;
+    border-radius: 3px;
+    margin: 1em 1em 2em 1em;
+    padding: .5em 1em;
+}
+
+.slide.right i {
+    opacity: 0;
+    font-size: .7rem;
+    position: absolute;
+    top: 13.5px;
+    right: -1px;
+    transition: 200ms;
+    transition: transform 1;
+}
+
+.slide div {
+    transition: transform 0.8s;
+}
+
+.slide.right:hover div {
+    transform: translateX(-6px);
+}
+
+.slide.right:hover i {
+    opacity: 1;
+    transform: translateX(-6px);
+}
+
+.slide.left i {
+    opacity: 0;
+    font-size: .7rem;
+    position: absolute;
+    top: 13.5px;
+    left: -1px;
+    transition: 200ms;
+    transition: transform 1;
+}
+
+.slide.left:hover div {
+    transform: translateX(6px);
+}
+
+.slide.left:hover i {
+    opacity: 1;
+    transform: translateX(6px);
+}
+
+.page-num {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+    display: inline;
+    color: #FFF;
+}

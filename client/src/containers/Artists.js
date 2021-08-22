@@ -14,10 +14,10 @@ const Artists = () => {
   const extractArtists = (data) => {
     setRenderArtists(data.map(item => (
       <div key={item.id} className="artist">
-        <Link to={`/artists/${item.id}`}>
+          <Link to={`/artists/${item.id}`}>
           <img src={makeURL("/api/images/" + item.image)} alt={item.name + " picture"}/>
           <h1>{item.name}</h1>
-        </Link>
+          <Link />
       </div>
     )));
   };

@@ -3,6 +3,7 @@ import {makeURL} from '../utils/config';
 import {Link} from 'react-router-dom';
 import {UserContext} from "../context/UserContext";
 import {useAlbums} from "../context/AlbumContext";
+import './Albums.css';
 
 const Albums = () => {
   const [albums, setAlbums] = useAlbums();
@@ -10,12 +11,13 @@ const Albums = () => {
 
   const extractAlbums = (data) => {
     setRenderAlbums(data.map(item => (
-      <li key={item.name}>
+      <div key={item.name} className="album">
         <Link to={`/albums/${item.id}`}>
           <img src={makeURL("/api/images/" + item.image)} alt={item.name + " cover"}/>
           <h3>{item.name}</h3>
         </Link>
-      </li>
+        <h3>{item.name}</h3>
+      </div>
     )));
   };
 
@@ -25,11 +27,11 @@ const Albums = () => {
 
   return (
     <div>
-      <ul>
+      <div className="albums-wraper">
         {renderAlbums &&
-          <div>{renderAlbums}</div>
+          <div className="albums-container">{renderAlbums}</div>
         }
-      </ul>
+      </div>
     </div>
   )
 }

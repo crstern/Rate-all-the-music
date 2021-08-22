@@ -6,6 +6,7 @@ import {useAlbums} from "../context/AlbumContext";
 import {scrollToTop} from "../utils/util";
 import Artists from "./Artists";
 import Albums from "./Albums";
+import './NextPreviousButtons.css';
 
 const AlbumsPage = () =>{
   const [page, setPage] = useState(1);
@@ -35,12 +36,14 @@ const AlbumsPage = () =>{
     <div>
       <h1>Albums</h1>
       <Albums />
-      <button onClick={() => handleChangePage(page - 1)} disabled={!hasPrev}>
-        prev
+      <button onClick={() => handleChangePage(page - 1)} disabled={!hasPrev} className="slide left">
+        <div>Prev</div>
+        <i class="icon-arrow-left"></i>
       </button>
-      {page}
-      <button onClick={() => handleChangePage(page + 1)} disabled={!hasNext}>
-        next
+      <div className="page-num">{page}</div>
+      <button onClick={() => handleChangePage(page + 1)} disabled={!hasNext} className="slide right">
+        <div>Next</div>
+        <i class="icon-arrow-right"></i>
       </button>
     </div>
   )
