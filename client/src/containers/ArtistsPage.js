@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {scrollToTop} from "../utils/util";
 import {useArtists} from "../context/ArtistContext";
 import Artists from "./Artists";
+import './NextPreviousButtons.css';
 
 const ArtistsPage = () => {
   const [page, setPage] = useState(1);
@@ -33,12 +34,14 @@ const ArtistsPage = () => {
     <div>
       <h1>Artists</h1>
       <Artists />
-      <button onClick={() => handleChangePage(page - 1)} disabled={!hasPrev}>
-        prev
+      <button onClick={() => handleChangePage(page - 1)} disabled={!hasPrev} className="slide left">
+        <div>Prev</div>
+        <i class="icon-arrow-left"></i>
       </button>
-      {page}
-      <button onClick={() => handleChangePage(page + 1)} disabled={!hasNext}>
-        next
+      <div className="page-num">{page}</div>
+      <button onClick={() => handleChangePage(page + 1)} disabled={!hasNext} className="slide right">
+        <div>Next</div>
+        <i class="icon-arrow-right"></i>
       </button>
     </div>
   )
