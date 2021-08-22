@@ -118,7 +118,7 @@ def get_artist_details_from_fetched(fetched_artist):
     :return:
     """
     image_obj = extract_artist_image(fetched_artist)
-    if fetched_artist.get('strStyle') is None:
+    if fetched_artist.get('strStyle') is None or fetched_artist.get('strStyle') == "":
         fetched_artist["strStyle"] = "UNKNOWN"
     genre_obj = get_or_create_genre(fetched_artist.get("strStyle"))
 

@@ -31,7 +31,7 @@ const ProfileDetails = (props) => {
 
   return (
     <div>
-      <Ratings renderForm={false}/>
+      <Ratings renderForm={false} meanRatings={false}/>
     </div>
   )
 }

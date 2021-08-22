@@ -14,11 +14,21 @@ const Ratings = (props) => {
 
   const [ratings, setRatings] = useRatings();
   const [renderRatings, setRenderRatings] = useState(null);
+  const [ratingsMean, setRatingsMean] = useState(0);
 
   useEffect(()=> {
       extractRatings(ratings);
+      setRatingsMean(calculateRatingsMean(ratings));
     }
   ,[ratings]);
+
+  function calculateRatingsMean(ratings) {
+    let result = 0;
+    for (const rating of ratings){
+      result += rating.number_of_stars;
+    }
+    return result / ratings.length;
+  }
 
   function extractRatings(data) {
     setRenderRatings(data.map(item => (
@@ -34,6 +44,9 @@ const Ratings = (props) => {
 
   return (<div>
     <div>
+      {props.meanRatings === true && ratingsMean > 0 &&
+      <h3>Rating mean: {ratingsMean}</h3>
+      }
       {renderRatings &&
       <div>
         {renderRatings}

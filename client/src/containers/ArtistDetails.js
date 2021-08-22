@@ -31,8 +31,8 @@ const ArtistDetails = ({match}) => {
       setArtist(data);
       setAlbums(data.albums.map(item => (
         <li key={item.name}>
-          <img src={makeURL(`/api/images/${item.image}`)} alt={item.name + " cover"}/>
           <Link to={`/albums/${item.id}`}>
+            <img src={makeURL(`/api/images/${item.image}`)} alt={item.name + " cover"}/>
             <h3>{item.name}</h3>
           </Link>
         </li>
@@ -55,7 +55,7 @@ const ArtistDetails = ({match}) => {
           <div>
           {artist.description}
             </div>
-            <Ratings id={artist.id} route={"artist"} renderForm={true}/>
+            <Ratings id={artist.id} route={"artist"} renderForm={true} meanRatings={true}/>
             <div>{albums}</div>
             <p>{artist.formed_year}</p>
             <p>{artist.genre.name}</p>

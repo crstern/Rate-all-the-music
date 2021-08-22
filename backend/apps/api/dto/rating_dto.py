@@ -4,8 +4,6 @@ Rating data transfer object
 from flask_restx import Namespace, fields
 
 
-
-
 class RatingDto:
     """
     Rating data transfer object model
