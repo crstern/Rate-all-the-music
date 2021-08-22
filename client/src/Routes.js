@@ -13,6 +13,7 @@ import ImportPage from "./containers/ImportPage";
 import NotFoundPage from "./containers/NotFoundPage";
 import GenresPage from "./containers/GenresPage";
 import UploadForAdmins from "./containers/UploadForAdmins";
+import GenreDetails from "./containers/GenreDetails";
 
 const Routes = () => {
   return (
@@ -24,8 +25,9 @@ const Routes = () => {
         <Route exact path="/search" component={SearchPage}/>
         <Route exact path="/import" component={ImportPage}/>
         <Route exact path="/uploadForAdmins" component={UploadForAdmins} />
-        <Route path="/login" component={Login}/>
-        <Route path="/genres" component={GenresPage}/>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/genres" component={GenresPage}/>
+        <Route path="/genres/:name" component={GenreDetails} />
         <Route path="/register" component={Register}/>
         <Route path="/artists/:id" component={ArtistDetails} />
         <Route path="/albums/:id" component={AlbumDetails} />

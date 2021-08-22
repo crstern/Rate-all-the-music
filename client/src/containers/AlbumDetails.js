@@ -30,9 +30,9 @@ const AlbumDetails = ({match}) => {
 
       setOtherAlbums(data.other_albums.map(item => (
         <li key={item.name}>
-          <img src={makeURL("/api/images/" + item.image.filename)}
-               alt={item.name + " cover"}/>
           <Link to={`/albums/${item.id}`}>
+            <img src={makeURL("/api/images/" + item.image)}
+                 alt={item.name + " cover"}/>
             <h3>{item.name}</h3>
           </Link>
         </li>
@@ -62,7 +62,7 @@ const AlbumDetails = ({match}) => {
           {album.description}
         </div>
         <br/>
-        <Ratings id={album.id} route={"album"} renderForm={true}/>
+        <Ratings id={album.id} route={"album"} renderForm={true} meanRatings={true}/>
         <br/>
         <div>
           {otherAlbums}

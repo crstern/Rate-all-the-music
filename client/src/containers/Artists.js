@@ -15,9 +15,9 @@ const Artists = () => {
     setRenderArtists(data.map(item => (
       <div key={item.id} className="artist">
           <Link to={`/artists/${item.id}`}>
-            <img src={makeURL("/api/images/" + item.image)} alt={item.name + " picture"}/>
-          </Link>
+          <img src={makeURL("/api/images/" + item.image)} alt={item.name + " picture"}/>
           <h1>{item.name}</h1>
+          <Link />
       </div>
     )));
   };
@@ -28,6 +28,8 @@ const Artists = () => {
 
   return (
     <div>
+
+      <h3></h3>
       <div className="artists-wraper">
         {renderArtists &&
         <div className="artists-container">{renderArtists}</div>

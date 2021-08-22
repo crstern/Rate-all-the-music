@@ -1,5 +1,6 @@
 from apps.api.models import Genre
 from apps.extensions import db
+from apps.api.utils import NotFound
 
 
 def get_or_create_genre(name):
@@ -26,3 +27,10 @@ def get_all_genres():
     genres = Genre.query.all()
 
     return genres
+
+
+def get_genre_by_name(name):
+    genre = Genre.query.filter_by(name=name).first()
+    if genre is None:
+        raise NotFound('genre not found')
+    return genre

@@ -57,7 +57,7 @@ def fetch_albums_by_artist_id(artist_id):
             if validate_album(album) is False:
                 continue
             image_obj = extract_art_cover(album)
-            if album.get("strStyle") is None:
+            if album.get("strStyle") is None or album.get("strStyle") == "":
                 album["strStyle"] = "UNKNOWN"
             album_genre = get_or_create_genre(album.get("strStyle"))
             album_dict = {

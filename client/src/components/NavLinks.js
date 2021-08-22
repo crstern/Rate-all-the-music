@@ -41,7 +41,10 @@ const NavLinks = (props) => {
           <li className="desaturated"><Link to={'/register'} onClick={handleClickLink}>Sign up</Link></li>
         }
         {user &&
-          <li><Link to={'/'} onClick={logout} onClick={handleClickLink}>Log out</Link></li>
+          <li><Link to={'/'} onClick={() => {
+            handleClickLink()
+            logout();
+          }}>Log out</Link></li>
         }
         {user &&
             <li className="user"><Link to={`/profile/${user.username}`} style={linkNavStyle} onClick={handleClickLink}>{user.username}</Link></li>
