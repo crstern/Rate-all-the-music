@@ -17,7 +17,7 @@ const Artists = () => {
           <Link to={`/artists/${item.id}`}>
           <img src={makeURL("/api/images/" + item.image)} alt={item.name + " picture"}/>
           <h1>{item.name}</h1>
-          <Link />
+          </Link>
       </div>
     )));
   };
@@ -28,7 +28,6 @@ const Artists = () => {
 
   return (
     <div>
-
       <h3></h3>
       <div className="artists-wraper">
         {renderArtists &&
