@@ -55,7 +55,7 @@ const ArtistDetails = ({match}) => {
           <div>
           {artist.description}
             </div>
-            <Ratings id={artist.id} route={"artist"} renderForm={true} meanRatings={true}/>
+            <Ratings id={artist.id} route={"artist"} renderForm={true} meanRatings={true} renderItem={false}/>
             <div>{albums}</div>
             <p>{artist.formed_year}</p>
             <p>{artist.genre.name}</p>

@@ -62,7 +62,7 @@ const AlbumDetails = ({match}) => {
           {album.description}
         </div>
         <br/>
-        <Ratings id={album.id} route={"album"} renderForm={true} meanRatings={true}/>
+        <Ratings id={album.id} route={"album"} renderForm={true} renderItem={false} meanRatings={true}/>
         <br/>
         <div>
           {otherAlbums}
