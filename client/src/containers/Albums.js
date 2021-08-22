@@ -11,8 +11,8 @@ const Albums = () => {
   const extractAlbums = (data) => {
     setRenderAlbums(data.map(item => (
       <li key={item.name}>
-        <img src={makeURL("/api/images/" + item.image)} alt={item.name + " cover"}/>
         <Link to={`/albums/${item.id}`}>
+          <img src={makeURL("/api/images/" + item.image)} alt={item.name + " cover"}/>
           <h3>{item.name}</h3>
         </Link>
       </li>
