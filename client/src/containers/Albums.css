@@ -16,17 +16,11 @@ h3 {
 
 .album img {
     width: 100%;
-    max-width: 350px;
+    max-width: 300px;
     transition: transform 400ms;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .album img:hover {
     transform: scale(1.03);
-}
-
-@media (max-width: 740px) {
-    .albums-container{
-        max-width: 25rem;
-    }
 }
