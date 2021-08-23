@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import SearchForm from '../components/SearchForm';
-import Artists from "./Artists";
+import Artists from "../containers/Artists";
 import {useArtists} from "../context/ArtistContext";
 import {useAlbums} from "../context/AlbumContext";
-import Albums from "./Albums";
+import Albums from "../containers/Albums";
 import {Link} from 'react-router-dom';
 
 const SearchPage = () => {

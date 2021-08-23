@@ -3,17 +3,17 @@ import {Route, Switch} from "react-router-dom";
 import Greetings from "./containers/Greetings"
 import Login from "./containers/Login";
 import Register from "./containers/Register";
-import ArtistDetails from "./containers/ArtistDetails";
-import AlbumDetails from "./containers/AlbumDetails";
-import ProfileDetails from "./containers/ProfileDetails";
-import SearchPage from './containers/SearchPage'
-import ArtistsPage from "./containers/ArtistsPage";
-import AlbumsPage from "./containers/AlbumsPage";
-import ImportPage from "./containers/ImportPage";
-import NotFoundPage from "./containers/NotFoundPage";
-import GenresPage from "./containers/GenresPage";
-import UploadForAdmins from "./containers/UploadForAdmins";
-import GenreDetails from "./containers/GenreDetails";
+import ArtistDetails from "./pageDetails/ArtistDetails";
+import AlbumDetails from "./pageDetails/AlbumDetails";
+import ProfileDetails from "./pageDetails/ProfileDetails";
+import SearchPage from './pages/SearchPage'
+import ArtistsPage from "./pages/ArtistsPage";
+import AlbumsPage from "./pages/AlbumsPage";
+import ImportPage from "./pages/ImportPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import GenresPage from "./pages/GenresPage";
+import UploadForAdmins from "./pages/UploadForAdmins";
+import GenreDetails from "./pageDetails/GenreDetails";
 
 const Routes = () => {
   return (

@@ -31,7 +31,6 @@ const Ratings = (props) => {
   }
 
   function extractRatings(data) {
-    console.log(props.renderItem)
     setRenderRatings(data.map(item => (
       <div key={item.id}>
         <br/>

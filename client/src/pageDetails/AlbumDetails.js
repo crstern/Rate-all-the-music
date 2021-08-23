@@ -12,10 +12,7 @@ const AlbumDetails = ({match}) => {
     scrollToTop();
   }, [match])
 
-  const [album, setAlbum] = useState({
-    image: {},
-    artist: {},
-  });
+  const [album, setAlbum] = useState(null);
   const [error, setError] = useState(null);
   const [otherAlbums, setOtherAlbums] = useState([])
   const [ratings, setRatings] = useRatings()
@@ -51,7 +48,7 @@ const AlbumDetails = ({match}) => {
       {error &&
       <div>{error}</div>
       }
-      {!error &&
+      {!error && album &&
       <div>
         <Link to={`/artists/${album.artist.id}`}>
           <h1>{album.artist.name}</h1>
@@ -65,6 +62,7 @@ const AlbumDetails = ({match}) => {
         <div>
           <p>{album.total_note}/5</p>
         </div>
+        <p>Main genre: <Link to={`/genres/${album.genre.name}`} >{album.genre.name}</Link></p>
         <br/>
         <Ratings id={album.id} route={"album"} renderForm={true} renderItem={false} meanRatings={true}/>
         <br/>

@@ -29,7 +29,6 @@ def get_album_details_by_id(album_id):
     if album is None:
         raise NotFound("Album not found")
 
-
     album.genre = Genre.query.get(album.genre_id)
     album.artist = Artist.query.get(album.artist_id)
     album.other_albums = Album.query.filter(

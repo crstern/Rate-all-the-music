@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import {makeURL} from "../utils/config";
-import Genres from "./Genres";
+import Genres from "../containers/Genres";
 
 
 const GenresPage = () => {

@@ -63,16 +63,18 @@ const RatingCard = ({rating, index, renderItem}) => {
 
 
   return (<div>
-    {renderItem === true &&
+    {renderItem === true && rating.artist.image &&
     <div>
       <Link to={`/artists/${rating.artist.id}`}>
         <p>{rating.artist.name}</p>
       </Link>
       <img src={makeURL("/api/images/" + rating.artist.image)} alt={rating.artist.name + " cover"}/>
     </div>}
-    {renderItem === true &&
+    {renderItem === true && rating.album.image &&
     <div>
-      <p>{rating.album.name}</p>
+      <Link to={`/albums/${rating.album.id}`}>
+        <p>{rating.album.name}</p>
+      </Link>
       <img src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>
     </div>}
     {updating===false &&

@@ -1,23 +1,21 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {makeURL} from '../utils/config';
 import {Link} from 'react-router-dom';
-import {UserContext} from "../context/UserContext";
-import {useAlbums} from "../context/AlbumContext";
 import {scrollToTop} from "../utils/util";
-import Artists from "./Artists";
-import Albums from "./Albums";
-import './NextPreviousButtons.css';
+import {useArtists} from "../context/ArtistContext";
+import Artists from "../containers/Artists";
+import '../containers/NextPreviousButtons.css';
 
-const AlbumsPage = () =>{
+const ArtistsPage = () => {
   const [page, setPage] = useState(1);
-  const [albums, setAlbums] = useAlbums();
+  const [artists, setArtists] = useArtists();
   const [hasNext, setHasNext] = useState(true);
   const [hasPrev, setHasPrev] = useState(false);
 
   const fetchItems = async (page=1) => {
-    const fetched = await fetch(makeURL(`/api/albums?page=${page}&size=${12}`));
+    const fetched = await fetch(makeURL(`/api/artists?page=${page}&size=${12}`));
     const data = await fetched.json();
-    setAlbums(data.data);
+    setArtists(data.data);
     setHasNext(data.pagination.hasNext);
     setHasPrev(data.pagination.hasPrev);
   }
@@ -34,8 +32,8 @@ const AlbumsPage = () =>{
 
   return (
     <div>
-      <h1>Albums</h1>
-      <Albums />
+      <h1>Artists</h1>
+      <Artists />
       <button onClick={() => handleChangePage(page - 1)} disabled={!hasPrev} className="slide left">
         <div>Prev</div>
         <i class="icon-arrow-left"></i>
@@ -49,4 +47,4 @@ const AlbumsPage = () =>{
   )
 }
 
-export default AlbumsPage;
+export default ArtistsPage;
