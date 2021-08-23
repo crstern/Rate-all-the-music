@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300&display=swap');
+
+.rating-card-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.rating-card-items {
+    width: 60%;
+    padding: 2em;
+    border-radius: 1rem;
+    text-align: left;
+    background-color: #FFF;
+    position: relative;
+}
+
+.stars {
+    position: absolute;
+    top: 2.3rem;
+    right: 2rem;
+}
+
+.rating-card-items h2 {
+    margin-top: 0;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    background-color: #FFF;
+    margin: 0 1em;
+    padding: .5em 1em;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+    font-size: .8rem;
+    letter-spacing: 1;
+    border: 1px solid rgba(86, 25, 189, 1);
+    transition-duration: 300ms;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: rgba(86, 25, 189, 1);
+    color: #FFF;
+}
