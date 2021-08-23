@@ -14,7 +14,6 @@ const Albums = () => {
       <div key={item.name} className="album">
         <Link to={`/albums/${item.id}`}>
           <img src={makeURL("/api/images/" + item.image)} alt={item.name + " cover"}/>
-          <h3>{item.name}</h3>
         </Link>
       </div>
     )));
