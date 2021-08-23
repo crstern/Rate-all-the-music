@@ -79,7 +79,6 @@ const RatingCard = ({rating, index, renderItem}) => {
     </div>}
     {updating===false &&
       <div>
-
         <StarsForCard stars={rating.number_of_stars} />
         <h2>{rating.title}</h2>
         <p>{rating.description}</p>
