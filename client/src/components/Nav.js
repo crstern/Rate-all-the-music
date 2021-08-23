@@ -24,7 +24,7 @@ const Nav = () => {
     <nav>
       <div className="logo">
       <Link to={'/'} style={linkNavStyle} className="logo-link">
-        <img src={require("./vinyl.png")}  alt="vinyl icon"/>
+        <img src={require("../images/vinyl.png")} alt="vinyl icon"/>
         <h3>RATM</h3>
       </Link>
       </div>
