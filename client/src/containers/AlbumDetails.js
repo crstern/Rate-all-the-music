@@ -38,6 +38,7 @@ const AlbumDetails = ({match}) => {
         </li>
       )));
       setRatings(data.ratings);
+      console.log(data);
     }).catch(err => {
       setError(err.response.data);
     })
@@ -60,6 +61,9 @@ const AlbumDetails = ({match}) => {
         <img src={makeURL(`/api/images/${album.image}`)}/>
         <div>
           {album.description}
+        </div>
+        <div>
+          <p>{album.total_note}/5</p>
         </div>
         <br/>
         <Ratings id={album.id} route={"album"} renderForm={true} renderItem={false} meanRatings={true}/>

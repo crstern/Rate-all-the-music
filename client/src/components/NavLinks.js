@@ -32,6 +32,7 @@ const NavLinks = (props) => {
         <ul className={classNamesLinks}>
           <li><Link to={'/artists'} className="mobile-text" onClick={handleClickLink}>Artists</Link></li>
           <li><Link to={'/albums'} className="mobile-text" onClick={handleClickLink}>Albums</Link></li>
+          <li><Link to={'/genres'} className="mobile-text" onClick={handleClickLink}>Genres</Link></li>
           <li><Link to={'/search'} className="mobile-text" onClick={handleClickLink}>Search</Link></li>
           <li className="vertical-line"></li>
         {!user &&

@@ -21,6 +21,7 @@ class Album(Base):
     release_year = db.Column(db.Integer, nullable=True)
     genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'), nullable=True)
     ratings = relationship("Rating")
+    total_note = db.Column(db.Float, nullable=False, default=0)
 
     def __repr__(self):
         """

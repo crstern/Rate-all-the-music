@@ -10,6 +10,7 @@ def get_or_create_genre(name):
     :param name:
     :return: genre
     """
+    name = name.replace('/', '&')
     existing_genre = Genre.query.filter_by(name=name).first()
     if existing_genre is not None:
         return existing_genre

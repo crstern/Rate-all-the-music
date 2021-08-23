@@ -16,3 +16,4 @@ class Genre(Base):
 
     name = db.Column(db.String(255), nullable=False)
     artists = relationship('Artist')
+    image = db.Column(db.String(255), nullable=True)

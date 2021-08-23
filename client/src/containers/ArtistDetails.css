@@ -35,6 +35,11 @@
     justify-content: space-around;
 }
 
+.total-note-website {
+    display: flex;
+    justify-content: space-around;
+}
+
 .website {
     padding:0;
 }

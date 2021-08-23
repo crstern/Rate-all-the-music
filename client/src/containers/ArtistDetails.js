@@ -66,11 +66,14 @@ const ArtistDetails = ({match}) => {
                 }
                 </div>
                 <div className="website">
-                {artist.website &&
-                  <p>
-                  <a href={getUrlFor(artist.website)}>{artist.website}</a>
-                  </p>
-                }
+
+
+                  <div className={"total-note-website"}>
+                    <p>{artist.total_note}/5</p>
+                    {artist.website &&
+                    <a href={getUrlFor(artist.website)}>{artist.website}</a>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
@@ -78,7 +81,7 @@ const ArtistDetails = ({match}) => {
               {artist.description}
             </div>
           </div>
-            <Ratings id={artist.id} route={"artist"} renderForm={true} meanRatings={true} renderItem={false}/>
+            <Ratings id={artist.id} route={"artist"} renderForm={true} renderItem={false}/>
             <div className="album-wraper">{albums}</div>
             <p>{artist.formed_year}</p>
             <p>{artist.genre.name}</p>

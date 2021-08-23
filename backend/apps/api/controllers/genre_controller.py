@@ -4,7 +4,10 @@ from apps.api.utils import (
     responses as resp,
     response_with,
 )
-from apps.api.services import get_all_genres
+from apps.api.services import (
+    get_all_genres,
+    get_genre_by_name,
+)
 
 from apps.api.dto import GenreDto
 
@@ -37,4 +40,22 @@ class AllGenresCollection(Resource):
         genres = get_all_genres()
         data = api.marshal(genres, _genre_basic)
 
+        return response_with(resp.SUCCESS_200, value={'data': data})
+
+
+@api.route('/<genre_name>')
+class GenreByNameCollection(Resource):
+    api.doc(
+        'get genre by name',
+        responses={
+            200: ('data', _genre_basic),
+            404: "Not found"
+        }
+    )
+    def get(self, genre_name):
+        """
+        Returns genre object by name
+        """
+        genre = get_genre_by_name(genre_name)
+        data = api.marshal(genre, _genre_basic)
         return response_with(resp.SUCCESS_200, value={'data': data})

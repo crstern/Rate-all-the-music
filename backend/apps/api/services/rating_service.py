@@ -27,10 +27,17 @@ def add_new_rating(item_id, data, item_type):
         raise ServerError('Error, no user found', 404)
 
     rating = Rating(**data)
+
     if item_type == 'album':
         rating.album_id = item_id
+        album = get_album_details_by_id(rating.album_id)
+        album.total_note = calculate_total_note_per_album(rating.album_id, rating.number_of_stars)
+        db.session.commit()
     else:
         rating.artist_id = item_id
+        artist = get_artist_details_by_id(rating.artist_id)
+        artist.total_note = calculate_total_note_per_artist(rating.artist_id, rating.number_of_stars)
+        db.session.commit()
     rating.user_id = user.id
 
     try:
@@ -43,12 +50,27 @@ def add_new_rating(item_id, data, item_type):
     return rating
 
 
+def calculate_total_note_per_album(album_id, new_rating):
+    ratings = get_all_ratings_for_album(album_id)
+    result = new_rating
+    result += sum([rating.number_of_stars for rating in ratings])
+    result /= len(ratings) + 1
+    return result
+
+
+def calculate_total_note_per_artist(artist_id, new_rating):
+    ratings = get_all_ratings_for_artist(artist_id)
+    result = new_rating
+    result += sum([rating.number_of_stars for rating in ratings])
+    result /= len(ratings) + 1
+    return result
+
+
 def get_all_ratings_for_album(album_id):
     get_album_details_by_id(album_id)
-    _count = db.func.count('users_that_like')
-    ratings = db.session.query(Rating, _count).filter(
+    ratings = db.session.query(Rating).filter(
         Rating.album_id == album_id
-    ).order_by(_count.desc()).all()
+    ).all()
 
     return ratings
 

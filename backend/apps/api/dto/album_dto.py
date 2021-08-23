@@ -30,6 +30,7 @@ class AlbumDto:
         'artist_id': fields.String(description="Album's artist id"),
         'image': fields.String(description="Image of the cover"),
         'artist': fields.Nested(_artist_basic),
+        'total_note': fields.Float(),
     })
 
     album_details = api.model('Album basic', {
@@ -42,6 +43,7 @@ class AlbumDto:
         'image': fields.String(description="Image of the cover"),
         'ratings': fields.Nested(_rating_basic),
         'artist': fields.Nested(_artist_basic),
-        'other_albums': fields.Nested(album_basic)
+        'other_albums': fields.Nested(album_basic),
+        'total_note': fields.Float(),
     })
 

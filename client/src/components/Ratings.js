@@ -45,9 +45,6 @@ const Ratings = (props) => {
 
   return (<div>
     <div>
-      {props.meanRatings === true && ratingsMean > 0 &&
-      <h3>Rating mean: {ratingsMean}</h3>
-      }
       {renderRatings &&
       <div>
         {renderRatings}

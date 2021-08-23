@@ -25,7 +25,7 @@ class Artist(Base):
     website = db.Column(db.String(255), nullable=True)
     facebook_link = db.Column(db.String(255), nullable=True)
     members = db.Column(db.Integer, nullable=True)
-
+    total_note = db.Column(db.Float, nullable=False, default=0)
     albums = relationship("Album", backref='artist', cascade="all, delete-orphan")
     ratings = relationship("Rating")
 

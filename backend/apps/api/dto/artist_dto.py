@@ -29,7 +29,8 @@ class ArtistDto:
         'website': fields.String(description="Artist website"),
         'facebook_link': fields.String(description="Artist facebook page"),
         'albums': fields.Nested(_album_basic),
-        'ratings': fields.Nested(_rating_basic)
+        'ratings': fields.Nested(_rating_basic),
+        'total_note': fields.Float(),
     })
 
     artist_basic = api.model('Artist details', {
@@ -37,4 +38,5 @@ class ArtistDto:
         'name': fields.String(description="Artist name"),
         'origin_country': fields.String(description="Artist origin country"),
         'image': fields.String(description="Image of the artist"),
+        'total_note': fields.Float(),
     })
