@@ -15,7 +15,6 @@ const Albums = () => {
         <Link to={`/albums/${item.id}`}>
           <img src={makeURL("/api/images/" + item.image)} alt={item.name + " cover"}/>
         </Link>
-        <h3>{item.name}</h3>
       </div>
     )));
   };

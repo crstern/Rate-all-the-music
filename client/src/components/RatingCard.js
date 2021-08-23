@@ -9,7 +9,7 @@ import StarsForCard from "./StarsForCard";
 import {Link} from "react-router-dom";
 
 
-const RatingCard = ({rating, index}) => {
+const RatingCard = ({rating, index, renderItem}) => {
   const userLikesRating = (current_user, rating) =>
     (rating.users_that_like.find(u => u.username === current_user.username) !== undefined)
 
@@ -63,14 +63,14 @@ const RatingCard = ({rating, index}) => {
 
 
   return (<div>
-    {rating.artist.name &&
+    {renderItem === true &&
     <div>
       <Link to={`/artists/${rating.artist.id}`}>
         <p>{rating.artist.name}</p>
       </Link>
       <img src={makeURL("/api/images/" + rating.artist.image)} alt={rating.artist.name + " cover"}/>
     </div>}
-    {rating.album.name &&
+    {renderItem === true &&
     <div>
       <p>{rating.album.name}</p>
       <img src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>

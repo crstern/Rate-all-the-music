@@ -45,11 +45,10 @@ def add_new_rating(item_id, data, item_type):
 
 def get_all_ratings_for_album(album_id):
     get_album_details_by_id(album_id)
-
-    ratings = Rating.query.filter(
+    _count = db.func.count('users_that_like')
+    ratings = db.session.query(Rating, _count).filter(
         Rating.album_id == album_id
-    ).all()
-
+    ).order_by(_count.desc()).all()
 
     return ratings
 

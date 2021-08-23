@@ -78,9 +78,21 @@ const ArtistDetails = ({match}) => {
               {artist.description}
             </div>
           </div>
-            <Ratings id={artist.id} route={"artist"} renderForm={true} meanRatings={true}/>
+            <Ratings id={artist.id} route={"artist"} renderForm={true} meanRatings={true} renderItem={false}/>
             <div className="album-wraper">{albums}</div>
-            
+            <p>{artist.formed_year}</p>
+            <p>{artist.genre.name}</p>
+
+          {artist.facebook_link &&
+            <p>
+            <a href={getUrlFor(artist.facebook_link)}>Facebook</a>
+            </p>
+          }
+          {artist.website &&
+            <p>
+            <a href={getUrlFor(artist.website)}>{artist.website}</a>
+            </p>
+          }
         </div>
     }
     </div>

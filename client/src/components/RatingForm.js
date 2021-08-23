@@ -58,8 +58,6 @@ const RatingForm = (props) => {
   return (
     <form onSubmit={handleSubmitRating}>
       <label>Stars:</label><br/>
-      {/*<input type={"number"} value={ratingStars}*/}
-      {/*       onChange={(e) => handleChange(setRatingStars, e)}/>*/}
       <StarsRating/>
       <br/>
       <label>Title</label><br/>
