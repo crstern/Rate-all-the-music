@@ -1,7 +1,14 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css');
 
+.layout-container {
+    display:flex;
+    justify-content: center;
+}
+
 .container{
     margin: 0 3em;
+    width: 95%;
+    max-width: 100rem;
 }
 
 /*image and text style*/
@@ -38,6 +45,7 @@
 .total-note-website {
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 .website {
