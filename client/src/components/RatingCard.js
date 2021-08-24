@@ -62,7 +62,7 @@ const RatingCard = ({rating, index, renderItem}) => {
     setUpdating(false);
   }, [ratings])
 
-
+  
   return (
     <div>
       {renderItem === true && rating.artist.image &&
@@ -91,23 +91,25 @@ const RatingCard = ({rating, index, renderItem}) => {
           }
           <div className="buttons">
             {user && user.id == rating.user_id &&
-            <div>
+            <div class="form-and-cancel">
               {updating &&
               <div>
                 <RatingForm method={"put"} rating={rating} update={true} index={index}/>
-                <button className="button" onClick={() => setUpdating(false)}>Cancel</button>
+                <button className="button cancel" onClick={() => setUpdating(false)}>Cancel</button>
               </div>
               }
-              <button className="button" onClick={handleDeleteRating}>Delete</button>
               {updating === false &&
-              <button className="button" onClick={() => setUpdating(true)}>Update</button>
+              <div>
+                <button className="button" onClick={handleDeleteRating}>Delete</button>
+                <button className="button" onClick={() => setUpdating(true)}>Update</button>
+              </div>
               }
             </div>
             }
 
 
             {user && liked === false && updating===false &&
-            <button className="button" onClick={(e) => {
+            <button className="button like" onClick={(e) => {
               e.preventDefault();
               handleLikeButton("like");
             }}>Like</button>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useGenres} from "../context/GenreContext";
-
+import './Genres.css';
 
 const Genres = () => {
   const [genres, setGenres] = useGenres();
@@ -15,22 +15,23 @@ const Genres = () => {
   const extractGenres = (data) => {
     setRenderGenres(data.map(item => {
       if (item.name !== "") return (
-      <li key={item.name}>
-        <div style={{
-          background: item.image,
-          borderRadius: '10%',
-        }} >
-          <Link to={`/genres/${item.name}`}>
+      <div key={item.name}>
+        <Link to={`/genres/${item.name}`}>
+          <div className="genres-item" style={{
+            background: item.image, }} >
             <h3>{item.name}</h3>
-          </Link>
-        </div>
-      </li>
+          </div>
+        </Link>
+      </div>
     )}))
   }
 
   return (
-    <div>
-      {renderGenres}
+    <div className="genres-container">
+      <div className="genres-wraper">
+        {renderGenres}
+      </div>
+      <div className="quote"><p>Choose your genres</p></div>
     </div>
   )
 }

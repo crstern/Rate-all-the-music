@@ -29,12 +29,12 @@
 
 .buttons {
     display: flex;
-    justify-content: center;
 }
 
 .button {
     background-color: #FFF;
-    margin: 0 1em;
+    margin-right: 1em;
+    margin-top: 1em;
     padding: .5em 1em;
     font-family: 'Roboto Mono', monospace;
     font-weight: 300;
@@ -48,4 +48,22 @@
     cursor: pointer;
     background-color: rgba(86, 25, 189, 1);
     color: #FFF;
+}
+
+.form-and-cancel {
+    width: 100%;
+}
+
+.cancel {
+    position: absolute;
+    bottom: 2rem;
+    left: 8rem;
+}
+
+.like {
+    border-radius: 2rem;
+}
+
+.description-submited {
+    width: 30rem;
 }
