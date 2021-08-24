@@ -30,15 +30,13 @@ def get_album_details_by_id(album_id):
         raise NotFound("Album not found")
 
     album.genre = Genre.query.get(album.genre_id)
-    album.artist = Artist.query.get(album.artist_id)
     album.other_albums = Album.query.filter(
         Album.artist_id == album.artist_id,
         not_(Album.id == album.id)
     ).all()
     album.ratings = Rating.query.filter(
-        Rating.album_id == album.id
-    ).all()
-
+        album.id == Rating.album_id,
+    ).order_by(Rating.number_of_likes.desc()).all()[:3]
 
     return album
 

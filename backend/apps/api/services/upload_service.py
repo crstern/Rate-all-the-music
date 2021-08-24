@@ -71,10 +71,10 @@ def upload_artists():
         file_paths.append(os.path.join(os.path.abspath('.'), f'10000-MTV-Music-Artists-page-{i}.csv'))
 
     for file_index, file_path in enumerate(file_paths):
-        artists = get_artist_names(file_path)
+        artists = get_artist_names(file_path) # retrieve the list of artists
 
         for artist_index, artist in enumerate(artists):
-            if artist_index == 60:
+            if artist_index == 60: # insert only the first 60 artists
                 return
             artist = artist[1:-1]
             req_link = 'https://www.theaudiodb.com/api/v1/json/1/search.php?s=' + artist
@@ -84,10 +84,12 @@ def upload_artists():
                 resp_content = json.loads(resp.content.decode("UTF-8"))['artists']
 
                 if not validate_artist(resp_content):
+                    # validate data
                     continue
 
                 resp_content = resp_content[0]
                 if resp_content.get("idArtist") in artist_ids:
+                    # check if the artist is already in database
                     continue
             except Exception as e:
                 print(e)

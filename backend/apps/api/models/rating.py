@@ -27,3 +27,4 @@ class Rating(Base):
     album_id = db.Column(db.Integer, db.ForeignKey('album.id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     users_that_like = relationship('User', secondary=association_table)
+    number_of_likes = db.Column(db.Integer, nullable=False, default=0)

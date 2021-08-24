@@ -30,7 +30,8 @@ class RatingDto:
         "album_id": fields.Integer(description="Album for rating"),
         "album": fields.Nested(item_minimal, description="album minimal details"),
         "user_id": fields.Integer(description="User that made the rating"),
-        "users_that_like": fields.List(fields.Nested(_profile_minimal), description="Users that appreciate the post")
+        "users_that_like": fields.List(fields.Nested(_profile_minimal), description="Users that appreciate the post"),
+        "number_of_likes": fields.Integer(description="Number of likes")
     })
 
     rating_validation = api.model('rating album', {

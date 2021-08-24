@@ -130,7 +130,7 @@ def update_like_rating(rating_id, data):
     user = get_user_by_username(data.get('username'))
 
     rating.users_that_like.append(user)
-
+    rating.number_of_likes += 1
     try:
         db.session.add(rating)
         db.session.commit()
@@ -146,6 +146,7 @@ def update_unlike_rating(rating_id, data):
     user = get_user_by_username(data.get('username'))
 
     rating.users_that_like.remove(user)
+    rating.number_of_likes -= 1
 
     try:
         db.session.add(rating)

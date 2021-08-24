@@ -110,6 +110,7 @@ const RatingCard = ({rating, index, renderItem}) => {
           e.preventDefault();
           handleLikeButton("like");
         }}>Like</button>
+
         }
         {user && liked === true &&
         <button className="button" onClick={(e) => {
