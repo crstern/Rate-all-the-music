@@ -11,27 +11,18 @@ import {StarsProvider} from "../context/StarContext";
 
 const Ratings = (props) => {
   const[user, setUser] = useUser();
-
+  const [ratingArraySize, setRatingArraySize] = useState(3);
   const [ratings, setRatings] = useRatings();
   const [renderRatings, setRenderRatings] = useState(null);
-  const [ratingsMean, setRatingsMean] = useState(0);
 
   useEffect(()=> {
-      extractRatings(ratings);
-      setRatingsMean(calculateRatingsMean(ratings));
+      extractRatings(ratings, ratingArraySize);
     }
-  ,[ratings]);
+  ,[ratings, ratingArraySize]);
 
-  function calculateRatingsMean(ratings) {
-    let result = 0;
-    for (const rating of ratings){
-      result += rating.number_of_stars;
-    }
-    return result / ratings.length;
-  }
 
-  function extractRatings(data) {
-    setRenderRatings(data.map(item => (
+  function extractRatings(data, size) {
+    setRenderRatings(data.slice(0, size).map(item => (
       <div key={item.id}>
         <br/>
         <StarsProvider>
@@ -42,6 +33,10 @@ const Ratings = (props) => {
     )))
   }
 
+  function handleReadMoreRatings() {
+    setRatingArraySize(ratings.length)
+  }
+
   return (<div>
     <div>
       {renderRatings &&
@@ -50,6 +45,9 @@ const Ratings = (props) => {
       </div>
       }
     </div>
+    {ratings.length > 3 && ratingArraySize === 3 &&
+      <button className={"button"} onClick={handleReadMoreRatings}>Read more ratings</button>
+    }
     <br/>
     {user && props.renderForm &&
       <StarsProvider>

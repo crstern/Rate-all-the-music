@@ -7,6 +7,7 @@ from apps.api.utils import (
 from apps.api.services import (
     get_all_genres,
     get_genre_by_name,
+    get_genres_for_search
 )
 
 from apps.api.dto import GenreDto
@@ -58,4 +59,17 @@ class GenreByNameCollection(Resource):
         """
         genre = get_genre_by_name(genre_name)
         data = api.marshal(genre, _genre_basic)
+        return response_with(resp.SUCCESS_200, value={'data': data})
+
+
+@api.route('/search/<search_term>')
+class SearchGenreCollection(Resource):
+    @api.doc('Search genre',
+             responses={
+                 200: ('data', _genre_basic)
+             })
+    def get(self, search_term):
+        artists = get_genres_for_search(search_term)
+        data = api.marshal(artists, _genre_basic)
+
         return response_with(resp.SUCCESS_200, value={'data': data})

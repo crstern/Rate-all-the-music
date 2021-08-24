@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import {makeURL} from "../utils/config";
 import Genres from "../containers/Genres";
+import {useGenres} from "../context/GenreContext";
 
 
 const GenresPage = () => {
-  const [genres, setGenres] = useState([])
+  const [genres, setGenres] = useGenres();
   useEffect(() => {
     axios({
       method: 'get',
@@ -19,7 +20,7 @@ const GenresPage = () => {
   return (
     <div>
       <h1>Genres</h1>
-      <Genres genres={genres}/>
+      <Genres/>
     </div>
   )
 }

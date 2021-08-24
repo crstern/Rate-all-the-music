@@ -36,7 +36,7 @@ def get_album_details_by_id(album_id):
     ).all()
     album.ratings = Rating.query.filter(
         album.id == Rating.album_id,
-    ).order_by(Rating.number_of_likes.desc()).all()[:3]
+    ).order_by(Rating.number_of_likes.desc()).all()
 
     return album
 
@@ -96,8 +96,6 @@ def get_albums():
 
 def get_albums_for_search(search_term):
     albums = Album.query.filter(Album.name.ilike(f"%{search_term}%")).all()
-
-
     return albums
 
 

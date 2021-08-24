@@ -6,6 +6,7 @@ import {UserProvider} from "./context/UserContext";
 import {RatingsProvider} from "./context/RatingContext";
 import {ArtistsProvider} from "./context/ArtistContext";
 import {AlbumsProvider} from "./context/AlbumContext";
+import {GenresProvider} from "./context/GenreContext";
 
 
 function App() {
@@ -15,8 +16,10 @@ function App() {
         <ArtistsProvider>
           <AlbumsProvider>
             <UserProvider>
-              <Nav />
-              <Routes/>
+              <GenresProvider>
+                <Nav />
+                <Routes/>
+              </GenresProvider>
             </UserProvider>
           </AlbumsProvider>
         </ArtistsProvider>

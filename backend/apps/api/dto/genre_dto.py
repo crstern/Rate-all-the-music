@@ -32,5 +32,7 @@ class GenreDto:
         'id': fields.String(description='genre id'),
         'name': fields.String(description='Name of the genre'),
         'artists': fields.List(fields.Nested(_artist_basic, description="representative artists")),
-        'albums': fields.List(fields.Nested(_album_basic, description="representative albums"))
+        'albums': fields.List(fields.Nested(_album_basic, description="representative albums")),
+        'image': fields.String(description='Image of the genre'),
+
     })

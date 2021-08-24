@@ -35,5 +35,6 @@ from .rating_service import (
 )
 from .genre_service import (
     get_all_genres,
-    get_genre_by_name
+    get_genre_by_name,
+    get_genres_for_search
 )
