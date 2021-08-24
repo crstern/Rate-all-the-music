@@ -43,7 +43,7 @@ const ArtistDetails = ({match}) => {
     });
   }
   return (
-    <div>
+    <div className="layout-container">
       {error &&
         <div>{error}</div>
       }
@@ -65,16 +65,12 @@ const ArtistDetails = ({match}) => {
                   </p>
                 }
                 </div>
-                <div className="website">
-
-
                   <div className={"total-note-website"}>
                     <p>{artist.total_note}/5</p>
                     {artist.website &&
                     <a href={getUrlFor(artist.website)}>{artist.website}</a>
                     }
                   </div>
-                </div>
               </div>
             </div>
             <div className="description">
@@ -83,19 +79,6 @@ const ArtistDetails = ({match}) => {
           </div>
             <Ratings id={artist.id} route={"artist"} renderForm={true} renderItem={false}/>
             <div className="album-wraper">{albums}</div>
-            <p>{artist.formed_year}</p>
-            <p>{artist.genre.name}</p>
-
-          {artist.facebook_link &&
-            <p>
-            <a href={getUrlFor(artist.facebook_link)}>Facebook</a>
-            </p>
-          }
-          {artist.website &&
-            <p>
-            <a href={getUrlFor(artist.website)}>{artist.website}</a>
-            </p>
-          }
         </div>
     }
     </div>

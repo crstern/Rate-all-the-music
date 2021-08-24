@@ -11,7 +11,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     grid-gap: 25px;
-    width: min(90%, 90rem);
+    width: min(90%, 120rem);
 }
 
 .artist img {

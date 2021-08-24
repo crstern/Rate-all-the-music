@@ -5,6 +5,7 @@ import {cookies} from "../utils/util";
 
 const UploadForAdmins = () => {
   const [status, setStatus] = useState("press the button")
+  const [error, setError] = useState('');
   const makeRequest = () => {
     setStatus("loading");
     axios({

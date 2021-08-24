@@ -7,7 +7,7 @@ import RatingForm from "./RatingForm";
 import {useRatings} from "../context/RatingContext";
 import StarsForCard from "./StarsForCard";
 import {Link} from "react-router-dom";
-
+import "./RatingCard.css";
 
 const RatingCard = ({rating, index, renderItem}) => {
   const userLikesRating = (current_user, rating) =>
@@ -62,7 +62,8 @@ const RatingCard = ({rating, index, renderItem}) => {
   }, [ratings])
 
 
-  return (<div>
+  return (
+  <div>
     {renderItem === true && rating.artist.image &&
     <div>
       <Link to={`/artists/${rating.artist.id}`}>
@@ -77,41 +78,50 @@ const RatingCard = ({rating, index, renderItem}) => {
       </Link>
       <img src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>
     </div>}
-    {updating===false &&
-      <div>
-        <StarsForCard stars={rating.number_of_stars} />
-        <h2>{rating.title}</h2>
-        <p>{rating.description}</p>
-        <p>Likes: {numberOfLikes}</p>
-      </div>
-    }
-    {user && user.id == rating.user_id &&
-      <div>
-        {updating &&
-        <div>
-         <RatingForm method={"put"} rating={rating} update={true} index={index}/>
-          <button onClick={() => setUpdating(false)}>Cancel</button>
+    <div className="rating-card-container">
+      <div className="rating-card-items">
+        {updating===false &&
+            <div>
+              <div className="stars"><StarsForCard stars={rating.number_of_stars}/></div>
+              <h2>{rating.title}</h2>
+              <p>{rating.description}</p>
+              <p>Likes: {numberOfLikes}</p>
+            </div>
+        }
+        <div className="buttons">
+        {user && user.id == rating.user_id &&
+          <div>
+            {updating &&
+            <div>
+            <RatingForm method={"put"} rating={rating} update={true} index={index}/>
+              <button className="button" onClick={() => setUpdating(false)}>Cancel</button>
+            </div>
+            }
+          <button className="button" onClick={handleDeleteRating}>Delete</button>
+            {updating === false &&
+              <button className="button" onClick={() => setUpdating(true)}>Update</button>
+            }
+          </div>
+        }
+        
+
+        {user && liked === false &&
+        <button className="button" onClick={(e) => {
+          e.preventDefault();
+          handleLikeButton("like");
+        }}>Like</button>
+
+        }
+        {user && liked === true &&
+        <button className="button" onClick={(e) => {
+          e.preventDefault();
+          handleLikeButton("unlike");
+        }}>Unlike</button>
+        }
         </div>
-        }
-      <button onClick={handleDeleteRating}>Delete</button>
-        {updating === false &&
-          <button onClick={() => setUpdating(true)}>Update</button>
-        }
       </div>
-    }
-    {user && liked === false &&
-    <button onClick={(e) => {
-      e.preventDefault();
-      handleLikeButton("like");
-    }}>Like</button>
-    }
-    {user && liked === true &&
-    <button onClick={(e) => {
-      e.preventDefault();
-      handleLikeButton("unlike");
-    }}>Unlike</button>
-    }
-    </div>);
+    </div>
+  </div>);
 }
 
 export default RatingCard;
