@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f48bbd2f3611
+Revision ID: 7808e35c4de1
 Revises: 
-Create Date: 2021-08-25 15:00:27.331736
+Create Date: 2021-08-25 15:26:45.044328
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f48bbd2f3611'
+revision = '7808e35c4de1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -86,14 +86,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['album_id'], ['album.id'], ),
     sa.ForeignKeyConstraint(['artist_id'], ['artist.id'], ),
     sa.ForeignKeyConstraint(['username'], ['user.username'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('username')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('association',
-    sa.Column('rating_username', sa.String(), nullable=True),
-    sa.Column('user_username', sa.String(length=255), nullable=True),
-    sa.ForeignKeyConstraint(['rating_username'], ['rating.username'], ),
-    sa.ForeignKeyConstraint(['user_username'], ['user.username'], )
+    sa.Column('rating_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['rating_id'], ['rating.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], )
     )
     # ### end Alembic commands ###
 

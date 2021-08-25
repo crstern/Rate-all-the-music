@@ -149,7 +149,7 @@ def get_user_by_username(username):
     if user is None:
         raise NotFound("User not found")
     user.ratings = Rating.query.filter(
-        Rating.user_id == user.id
+        Rating.username == user.username
     ).order_by(Rating.created_at).all()
 
     for rating in user.ratings:

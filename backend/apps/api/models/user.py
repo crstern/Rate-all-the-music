@@ -7,7 +7,6 @@ from apps.extensions import db
 from .audit import Base
 
 
-
 class User(Base):
     """
     User database model

@@ -66,24 +66,24 @@ const RatingCard = ({rating, index, renderItem}) => {
   
   return (
     <div>
-      {renderItem === true && rating.artist.image &&
-      <div>
-        <Link to={`/artists/${rating.artist.id}`}>
-          <p>{rating.artist.name}</p>
-        </Link>
-        <img src={makeURL("/api/images/" + rating.artist.image)} alt={rating.artist.name + " cover"}/>
-      </div>}
-      {renderItem === true && rating.album.image &&
-      <div>
-        <Link to={`/albums/${rating.album.id}`}>
-          <p>{rating.album.name}</p>
-        </Link>
-        <img src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>
-      </div>}
       <div className="rating-card-container">
         <div className="rating-card-items">
           {updating===false &&
           <div>
+            {renderItem === true && rating.artist.image &&
+            <div>
+              <Link to={`/artists/${rating.artist.id}`}>
+                <p>{rating.artist.name}</p>
+              </Link>
+              <img src={makeURL("/api/images/" + rating.artist.image)} alt={rating.artist.name + " cover"}/>
+            </div>}
+            {renderItem === true && rating.album.image &&
+            <div>
+              <Link to={`/albums/${rating.album.id}`}>
+                <p>{rating.album.name}</p>
+              </Link>
+              <img src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>
+            </div>}
             <Link to={`/profile/${rating.username}`} >
               <p className={"user"}>{rating.username}</p>
             </Link>
