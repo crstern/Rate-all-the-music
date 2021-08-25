@@ -8,6 +8,7 @@ import {useRatings} from "../context/RatingContext";
 import StarsForCard from "./StarsForCard";
 import {Link} from "react-router-dom";
 import './RatingCard.css';
+import UpdateRatingForm from "./UpdateRatingForm";
 
 
 const RatingCard = ({rating, index, renderItem}) => {
@@ -96,7 +97,7 @@ const RatingCard = ({rating, index, renderItem}) => {
             <div class="form-and-cancel">
               {updating &&
               <div>
-                <RatingForm method={"put"} rating={rating} update={true} index={index}/>
+                <UpdateRatingForm rating={rating} index={index}/>
                 <button className="button cancel" onClick={() => setUpdating(false)}>Cancel</button>
               </div>
               }
