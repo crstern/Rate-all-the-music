@@ -7,7 +7,7 @@ import {useRatings} from "../context/RatingContext";
 import Star from '../components/Star';
 import StarsRating from "./StarsRating";
 import {StarsProvider, useStars} from "../context/StarContext";
-import "./RatingForm.css";
+// import "./RatingForm.css";
 
 
 const RatingForm = (props) => {
@@ -48,9 +48,9 @@ const RatingForm = (props) => {
   }
 
   return (
-    <div>
-      <div>
-        <form className="form-container" onSubmit={handleSubmitRating}>
+    <div className="form-layout-submit">
+      <div className="form-wraper-submit">
+        <form className="form-container-submit" onSubmit={handleSubmitRating}>
           <StarsRating/>
           <label className="title">Title</label>
           <input className="rating-input" type={"text"} value={ratingTitle}

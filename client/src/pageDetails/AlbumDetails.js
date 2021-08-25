@@ -27,13 +27,13 @@ const AlbumDetails = ({match}) => {
       setAlbum(data);
 
       setOtherAlbums(data.other_albums.map(item => (
-        <li key={item.name}>
+        <div className="albums" key={item.name}>
           <Link to={`/albums/${item.id}`}>
-            <img src={makeURL("/api/images/" + item.image)}
+            <img className="album-images" src={makeURL("/api/images/" + item.image)}
                  alt={item.name + " cover"}/>
           </Link>
           <h3>{item.name}</h3>
-        </li>
+        </div>
       )));
       setRatings(data.ratings);
       console.log(data);
@@ -51,25 +51,35 @@ const AlbumDetails = ({match}) => {
       }
       {!error && album &&
       <div className="container">
-        <Link to={`/artists/${album.artist.id}`}>
-          <h1>{album.artist.name}</h1>
-        </Link>
+        
+          <Link to={`/artists/${album.artist.id}`}>
+            <h1>{album.artist.name}</h1>
+          </Link>
 
-        <h1>{album.name}</h1>
-        <img src={makeURL(`/api/images/${album.image}`)}/>
-        <div className="img-description">
-          {album.description}
-        </div>
-        <div>
-          <p>{album.total_note}/5</p>
-        </div>
-        <p>Main genre: <Link to={`/genres/${album.genre.name}`} >{album.genre.name}</Link></p>
-        <br/>
-        <Ratings id={album.id} route={"album"} renderForm={true} renderItem={false} meanRatings={true}/>
-        <br/>
-        <div>
-          {otherAlbums}
-        </div>
+          <h1>{album.name}</h1>
+
+          <div className="img-description">
+            <div className="image">
+              <img src={makeURL(`/api/images/${album.image}`)}/>
+              <div className="social-media">
+                <div className="year-name-facebook">
+                  <p>{album.total_note}/5</p>
+                  <p><Link to={`/genres/${album.genre.name}`} >{album.genre.name}</Link></p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="description">
+              {album.description}
+            </div>
+          </div>
+
+          <Ratings id={album.id} route={"album"} renderForm={true} renderItem={false} meanRatings={true}/>
+          <br/>
+          <div className="album-wraper">
+            {otherAlbums}
+          </div>
+        
       </div>
       }
     </div>

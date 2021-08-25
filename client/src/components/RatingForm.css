@@ -62,3 +62,26 @@ textarea {
     background-color: rgba(86, 25, 189, 1);
     color: #FFF;
 }
+
+/* submit form styling */
+
+.form-container-submit {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.form-layout-submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-wraper-submit {
+    width: 60%;
+    padding: 2em;
+    border-radius: 1rem;
+    text-align: left;
+    background-color: #FFF;
+    position: relative;
+}
