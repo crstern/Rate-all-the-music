@@ -21,6 +21,7 @@ const GenresPage = () => {
     <div>
       <h1>Genres</h1>
       <Genres/>
+      <div className="quote"><p>Choose your genres</p></div>
     </div>
   )
 }

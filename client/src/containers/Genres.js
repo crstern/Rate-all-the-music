@@ -31,7 +31,6 @@ const Genres = () => {
       <div className="genres-wraper">
         {renderGenres}
       </div>
-      <div className="quote"><p>Choose your genres</p></div>
     </div>
   )
 }

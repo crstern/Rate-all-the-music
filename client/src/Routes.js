@@ -12,7 +12,7 @@ import AlbumsPage from "./pages/AlbumsPage";
 import ImportPage from "./pages/ImportPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import GenresPage from "./pages/GenresPage";
-import UploadForAdmins from "./pages/UploadForAdmins";
+import UploadAll from "./pages/UploadAll";
 import GenreDetails from "./pageDetails/GenreDetails";
 
 const Routes = () => {
@@ -24,7 +24,7 @@ const Routes = () => {
         <Route exact path="/albums" component={AlbumsPage}/>
         <Route exact path="/search" component={SearchPage}/>
         <Route exact path="/import" component={ImportPage}/>
-        <Route exact path="/uploadForAdmins" component={UploadForAdmins} />
+        <Route exact path="/uploadAll" component={UploadAll} />
         <Route exact path="/login" component={Login}/>
         <Route exact path="/genres" component={GenresPage}/>
         <Route path="/genres/:name" component={GenreDetails} />

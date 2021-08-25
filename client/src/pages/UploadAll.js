@@ -3,8 +3,8 @@ import {makeURL} from "../utils/config";
 import axios from 'axios';
 import {cookies} from "../utils/util";
 
-const UploadForAdmins = () => {
-  const [status, setStatus] = useState("press the button")
+const UploadAll = () => {
+  const [status, setStatus] = useState("If you have admin rights, press the button to upload all the artists")
   const [error, setError] = useState('');
   const makeRequest = () => {
     setStatus("loading");
@@ -24,11 +24,11 @@ const UploadForAdmins = () => {
 
   return (
     <div>
-      <p>Upload for admins</p>
-      <button onClick={()=>makeRequest()}>Upload</button>
+      <h3>Upload for admins</h3>
+      <button className={"button"} onClick={()=>makeRequest()}>Upload</button>
       <p>{status}</p>
     </div>
   )
 }
 
-export default UploadForAdmins
+export default UploadAll
