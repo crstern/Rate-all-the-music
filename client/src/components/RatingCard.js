@@ -84,6 +84,9 @@ const RatingCard = ({rating, index, renderItem}) => {
         <div className="rating-card-items">
           {updating===false &&
           <div>
+            <Link to={`/profile/${rating.username}`} >
+              <p className={"user"}>{rating.username}</p>
+            </Link>
             <div className="stars"><StarsForCard stars={rating.number_of_stars}/></div>
             {rating.title.length > 0 &&
             <h2>{rating.title}</h2>}
@@ -93,8 +96,8 @@ const RatingCard = ({rating, index, renderItem}) => {
           </div>
           }
           <div className="buttons">
-            {user && user.id == rating.user_id &&
-            <div class="form-and-cancel">
+            {user && user.username === rating.username &&
+            <div className="form-and-cancel">
               {updating &&
               <div>
                 <UpdateRatingForm rating={rating} index={index}/>

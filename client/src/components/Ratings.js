@@ -37,6 +37,10 @@ const Ratings = (props) => {
     setRatingArraySize(ratings.length)
   }
 
+  function handleReadLessRatings() {
+    setRatingArraySize(3)
+  }
+
   return (<div>
     <div>
       {renderRatings &&
@@ -46,7 +50,10 @@ const Ratings = (props) => {
       }
     </div>
     {ratings.length > 3 && ratingArraySize === 3 &&
-      <button className={"button"} onClick={handleReadMoreRatings}>Read more ratings</button>
+    <button className={"button"} onClick={handleReadMoreRatings}>Show more ratings</button>
+    }
+    {ratings.length > 3 && ratingArraySize > 3 &&
+    <button className={"button"} onClick={handleReadLessRatings}>Show less ratings</button>
     }
     <br/>
     {user && props.renderForm &&
