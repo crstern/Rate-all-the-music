@@ -34,12 +34,6 @@ const SearchPage = () => {
       <h1>Genres</h1>
       }
       <Genres />
-      <div>
-        <div>You can't find an artist?</div>
-        <Link to={"/import"} >
-          Import an artist
-        </Link>
-      </div>
     </div>
 
   )
