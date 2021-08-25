@@ -11,17 +11,22 @@ import "./RatingForm.css";
 
 
 const RatingForm = (props) => {
+  const prevRating = props.rating;
   const [ratingStars, setRatingStars] = useStars();
-  const [ratingTitle, setRatingTitle] = useState("");
-  const [ratingDescription, setRatingDescription] = useState("");
+  const [ratingTitle, setRatingTitle] = useState(prevRating.title);
+  const [ratingDescription, setRatingDescription] = useState(prevRating.description);
 
   const [ratings, setRatings] = useRatings();
 
+  useEffect(() => {
+    if(prevRating)
+      setRatingStars(prevRating.number_of_stars);
+  }, [])
 
   const handleSubmitRating = (e) => {
     e.preventDefault()
-    const httpMethod = "post"
-    const apiUrl = makeURL(`/api/ratings/${props.route}/${props.id}`)
+    const httpMethod = "put"
+    const apiUrl = makeURL(`/api/ratings/${prevRating.id}`);
 
 
     axios({
@@ -37,7 +42,7 @@ const RatingForm = (props) => {
       url: apiUrl
     }).then(response => {
       const auxRatings = [...ratings]
-      auxRatings.push(response.data.data);
+      auxRatings[props.index] = response.data.data;
       setRatings(auxRatings);
     }).catch(console.log)
   }
@@ -55,7 +60,7 @@ const RatingForm = (props) => {
              onChange={(e) => handleChange(setRatingTitle, e)}/>
       <label className="description">Description</label>
       <textarea rows="3" cols="50" type={"text"} value={ratingDescription}
-             onChange={(e) => handleChange(setRatingDescription, e)}/>
+                onChange={(e) => handleChange(setRatingDescription, e)}/>
       <input className="submit" type="submit" value="Submit"/>
     </form>
   )
