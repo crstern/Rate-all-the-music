@@ -7,6 +7,7 @@ import {useRatings} from "../context/RatingContext";
 import Star from '../components/Star';
 import StarsRating from "./StarsRating";
 import {StarsProvider, useStars} from "../context/StarContext";
+import "./RatingForm.css";
 
 
 const RatingForm = (props) => {
@@ -58,17 +59,15 @@ const RatingForm = (props) => {
   }
 
   return (
-    <form onSubmit={handleSubmitRating}>
-      <label>Stars:</label><br/>
+    <form className="form-container" onSubmit={handleSubmitRating}>
       <StarsRating/>
-      <br/>
-      <label>Title</label><br/>
-      <input type={"text"} value={ratingTitle}
-             onChange={(e) => handleChange(setRatingTitle, e)}/><br/>
-      <label>Description</label><br/>
-      <input type={"text"} value={ratingDescription}
-             onChange={(e) => handleChange(setRatingDescription, e)}/><br/>
-      <input type="submit" value="Submit"/>
+      <label className="title">Title</label>
+      <input className="rating-input" type={"text"} value={ratingTitle}
+             onChange={(e) => handleChange(setRatingTitle, e)}/>
+      <label className="description">Description</label>
+      <textarea rows="3" cols="50" type={"text"} value={ratingDescription}
+             onChange={(e) => handleChange(setRatingDescription, e)}/>
+      <input className="submit" type="submit" value="Submit"/>
     </form>
   )
 }
