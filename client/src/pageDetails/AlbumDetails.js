@@ -5,6 +5,7 @@ import axios from 'axios';
 import Ratings from "../components/Ratings";
 import {scrollToTop} from "../utils/util";
 import {useRatings} from "../context/RatingContext";
+import "./AlbumDetails.css";
 
 const AlbumDetails = ({match}) => {
   useEffect(() => {
@@ -44,19 +45,19 @@ const AlbumDetails = ({match}) => {
 
 
   return (
-    <div>
+    <div className="layout-container">
       {error &&
       <div>{error}</div>
       }
       {!error && album &&
-      <div>
+      <div className="container">
         <Link to={`/artists/${album.artist.id}`}>
           <h1>{album.artist.name}</h1>
         </Link>
 
         <h1>{album.name}</h1>
         <img src={makeURL(`/api/images/${album.image}`)}/>
-        <div>
+        <div className="img-description">
           {album.description}
         </div>
         <div>
