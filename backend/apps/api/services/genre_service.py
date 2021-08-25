@@ -17,14 +17,11 @@ def get_or_create_genre(name):
     existing_genre = Genre.query.filter_by(name=name).first()
     if existing_genre is not None:
         return existing_genre
-    try:
-        color = random.sample(genre_colors)
-        genre_obj = Genre(name=name, image=color)
-        db.session.add(genre_obj)
-        db.session.commit()
-    except Exception as e:
-        print(e)
-        return None
+    color = random.sample(genre_colors, 1)[0]
+    genre_obj = Genre(name=name, image=color)
+    db.session.add(genre_obj)
+    db.session.commit()
+
     return genre_obj
 
 
@@ -42,5 +39,5 @@ def get_genre_by_name(name):
 
 
 def get_genres_for_search(search_term):
-    genres = Genre.query.filter(Genre.name.ilike(f"%{search_term}%")).all()
+    genres = Genre.query.filter(Genre.name.ilike(f"%{search_term}%")).all()[:10]
     return genres

@@ -31,6 +31,7 @@ const RatingForm = (props) => {
       makeURL(`/api/ratings/${prevRating.id}`) :
       makeURL(`/api/ratings/${props.route}/${props.id}`)
 
+
     axios({
       method: httpMethod,
       data: {
@@ -53,6 +54,7 @@ const RatingForm = (props) => {
 
   const handleChange = (setter, event) => {
     setter(event.target.value);
+
   }
 
   return (

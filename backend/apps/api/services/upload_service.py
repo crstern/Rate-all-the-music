@@ -47,8 +47,8 @@ def validate_artist(resp_content):
     validate_field(resp_content, 'strWebsite')
     validate_field(resp_content, 'strFacebook')
 
-    if resp_content.get('strStyle') is None:
-        resp_content["strStyle"] = "UNKNOWN"
+    if resp_content.get('strGenre') is None:
+        resp_content["strGenre"] = "UNKNOWN"
 
     return True
 
@@ -112,7 +112,7 @@ def add_new_artist(artist, resp_content):
     """
     image_obj = extract_artist_image(resp_content)
 
-    artist_genre = get_or_create_genre(resp_content.get("strStyle"))
+    artist_genre = get_or_create_genre(resp_content.get("strGenre"))
 
     artist_dict = {
         "name": resp_content.get('strArtist'),

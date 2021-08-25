@@ -118,9 +118,9 @@ def get_artist_details_from_fetched(fetched_artist):
     :return:
     """
     image_obj = extract_artist_image(fetched_artist)
-    if fetched_artist.get('strStyle') is None or fetched_artist.get('strStyle') == "":
-        fetched_artist["strStyle"] = "UNKNOWN"
-    genre_obj = get_or_create_genre(fetched_artist.get("strStyle"))
+    if fetched_artist.get('strGenre') is None or fetched_artist.get('strGenre') == "":
+        fetched_artist["strGenre"] = "UNKNOWN"
+    genre_obj = get_or_create_genre(fetched_artist.get("strGenre"))
 
     artist_dict = {
         'name': fetched_artist.get('strArtist'),
@@ -140,7 +140,7 @@ def get_artist_details_from_fetched(fetched_artist):
 
 
 def get_artists_for_search(search_term):
-    artists = Artist.query.filter(Artist.name.ilike(f"%{search_term}%")).all()
+    artists = Artist.query.filter(Artist.name.ilike(f"%{search_term}%")).all()[:10]
 
     for artist in artists:
         artist.genre = Genre.query.get(artist.genre_id)

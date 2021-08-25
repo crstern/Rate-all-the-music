@@ -54,9 +54,9 @@ def fetch_albums_by_artist_id(artist_id):
             if validate_album(album) is False:
                 continue
             image_obj = extract_art_cover(album)
-            if album.get("strStyle") is None or album.get("strStyle") == "":
-                album["strStyle"] = "UNKNOWN"
-            album_genre = get_or_create_genre(album.get("strStyle"))
+            if album.get("strGenre") is None or album.get("strGenre") == "":
+                album["strGenre"] = "UNKNOWN"
+            album_genre = get_or_create_genre(album.get("strGenre"))
             album_dict = {
                 "id": album.get('idAlbum'),
                 "artist_id": artist_id,
@@ -95,7 +95,7 @@ def get_albums():
 
 
 def get_albums_for_search(search_term):
-    albums = Album.query.filter(Album.name.ilike(f"%{search_term}%")).all()
+    albums = Album.query.filter(Album.name.ilike(f"%{search_term}%")).all()[:10]
     return albums
 
 

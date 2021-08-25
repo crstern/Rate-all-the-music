@@ -5,7 +5,7 @@ export const StarsContext = createContext();
 export const useStars = () => useContext(StarsContext);
 
 export const StarsProvider = (props) => {
-  const [stars, setStars] = useState(0);
+  const [stars, setStars] = useState(1);
 
   return (
     <StarsContext.Provider value={[stars, setStars]}>

@@ -84,8 +84,10 @@ const RatingCard = ({rating, index, renderItem}) => {
           {updating===false &&
           <div>
             <div className="stars"><StarsForCard stars={rating.number_of_stars}/></div>
-            <h2>{rating.title}</h2>
-            <p>{rating.description}</p>
+            {rating.title.length > 0 &&
+            <h2>{rating.title}</h2>}
+            {rating.description.length > 0 &&
+            <p>{rating.description}</p>}
             <p>Likes: {numberOfLikes}</p>
           </div>
           }
