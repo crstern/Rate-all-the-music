@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {makeURL} from "../utils/config";
 import {useHistory} from "react-router-dom";
 import axios from 'axios';
+import './ImportPage.css';
 
 const ImportPage = () => {
   const [artistName, setArtistName] = useState("");
@@ -36,23 +37,26 @@ const ImportPage = () => {
   }
 
   return (
-    <div>
-      <h1>Import new artist</h1>
-      {loading === false &&
-        <form onSubmit={handleSubmit}>
-          <input type={"text"} value={artistName} onChange={handleChangeArtistName}/>
-          <input type={"submit"} value={"submit"} />
-          {error &&
-          <p>
-            {error}
-          </p>}
-        </form>
+    <div className="import-container">
+      <div className="import-item">
+        <h1>Here you can import a new artist</h1>
+        {loading === false &&
+          <form className="form-container" onSubmit={handleSubmit}>
+            <input className="import-input" type={"text"} value={artistName} placeholder="ex. Snoop Dogg" onChange={handleChangeArtistName}/>
+            <input className="import-button" type={"submit"} value={"import!"} />
+            {error &&
+            <p>
+              {error}
+            </p>}
+          </form>
+        }
 
-      }
-      {loading === true &&
-        <div>loading</div>
-      }
+        {loading === true &&
+          <div>loading</div>
+        }
 
+      </div>
+      <div className="svg-image"></div>
     </div>
   )
 }
