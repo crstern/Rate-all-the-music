@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400;600&display=swap');
+
+.search-form-wraper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 85vh;
+}
+
+.search-form,
+.find-artist-link {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    width: 40%;
+    height: 33rem;
+    margin: 0 4em;
+    border-radius: 2em;
+    font-family: 'Yanone Kaffeesatz';
+    color: #000;
+    background-color: #FFF;
+}
+
+.search-form h1 {
+    font-size: 4rem;
+    padding: 0 2em;
+    margin-top: 1em;
+    margin-bottom: 1.2em;
+    color: rgb(20, 47, 121);
+}
+
+.search-input {
+    outline: none;
+    width: 17rem;
+    border-top: hidden;
+    border-right: hidden;
+    border-left: hidden;
+    border-bottom: 2px solid #53488d;
+    margin-bottom: 4rem;
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 1px;
+}
+
+.submit-input {
+    cursor: pointer;
+    width: 5rem;
+    background-color: #FFF;
+    margin-right: 1em;
+    margin-top: 1em;
+    padding: .5em 1em;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+    font-size: .8rem;
+    letter-spacing: 1px;
+    border: 1px solid rgb(20, 47, 121);
+    border-radius: .5em;
+    transition-duration: 300ms;
+}
+
+.submit-input:hover {
+    cursor: pointer;
+    background-color: rgb(20, 47, 121);
+    color: #FFF;
+}
+
+.search-form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}

@@ -7,7 +7,7 @@ import {useRatings} from "../context/RatingContext";
 import Star from '../components/Star';
 import StarsRating from "./StarsRating";
 import {StarsProvider, useStars} from "../context/StarContext";
-import "./RatingForm.css";
+// import "./RatingForm.css";
 
 
 const RatingForm = (props) => {
@@ -50,16 +50,20 @@ const RatingForm = (props) => {
   }
 
   return (
-    <form className="form-container" onSubmit={handleSubmitRating}>
-      <StarsRating/>
-      <label className="title">Title</label>
-      <input className="rating-input" type={"text"} value={ratingTitle}
-             onChange={(e) => handleChange(setRatingTitle, e)}/>
-      <label className="description">Description</label>
-      <textarea rows="3" cols="50" type={"text"} value={ratingDescription}
-             onChange={(e) => handleChange(setRatingDescription, e)}/>
-      <input className="submit" type="submit" value="Submit"/>
-    </form>
+    <div className="form-layout-submit">
+      <div className="form-wraper-submit">
+        <form className="form-container-submit" onSubmit={handleSubmitRating}>
+          <StarsRating/>
+          <label className="title">Title</label>
+          <input className="rating-input" type={"text"} value={ratingTitle}
+                onChange={(e) => handleChange(setRatingTitle, e)}/>
+          <label className="description">Description</label>
+          <textarea rows="3" cols="50" type={"text"} value={ratingDescription}
+                onChange={(e) => handleChange(setRatingDescription, e)}/>
+          <input className="submit" type="submit" value="Submit"/>
+        </form>
+      </div>
+    </div>
   )
 }
 

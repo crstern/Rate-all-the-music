@@ -27,11 +27,11 @@ const Genres = () => {
   }
 
   return (
-    <div className="genres-container">
+    
       <div className="genres-wraper">
         {renderGenres}
       </div>
-    </div>
+    
   )
 }
 

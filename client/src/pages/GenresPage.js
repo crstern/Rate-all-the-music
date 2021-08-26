@@ -20,8 +20,10 @@ const GenresPage = () => {
   return (
     <div>
       <h1>Genres</h1>
+      <div className="genres-container">
       <Genres/>
       <div className="quote"><p>Choose your genres</p></div>
+      </div>
     </div>
   )
 }

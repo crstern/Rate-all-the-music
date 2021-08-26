@@ -4,6 +4,8 @@ import {useArtists} from "../context/ArtistContext";
 import axios from 'axios';
 import {useAlbums} from "../context/AlbumContext";
 import {useGenres} from "../context/GenreContext";
+import {Link} from 'react-router-dom';
+import "./SearchForm.css";
 
 const SearchForm = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,11 +45,20 @@ const SearchForm = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmitSearch}>
-        <input type={"text"} value={searchTerm} onChange={handleChangeSearchTerm}/> <br/>
-        <input type={"submit"} value={"submit"}/>
-      </form>
+    <div className="search-form-wraper">
+      <div className="search-form">
+        <h1>Find an artist, an album or a genre</h1>
+        <form onSubmit={handleSubmitSearch}>
+          <input className="search-input" type={"text"} value={searchTerm} placeholder="ex. Snoop Dogg" onChange={handleChangeSearchTerm}/>
+          <input className="submit-input" type={"submit"} value={"submit"}/>
+        </form>
+      </div>
+      <div className="find-artist-link">
+        <p>You can't find an artist?</p>
+        <Link to={"/import"} >
+          Import an artist
+        </Link>
+      </div>
       {
         albums.length + artists.length + genres.length === 0 && submited===true &&
         <p>Your search - {searchTerm} - did not match any results.</p>
