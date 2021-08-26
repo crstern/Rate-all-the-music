@@ -54,10 +54,12 @@ const SearchForm = () => {
         </form>
       </div>
       <div className="find-artist-link">
-        <p>You can't find an artist?</p>
-        <Link to={"/import"} >
-          Import an artist
-        </Link>
+        <h1>Can't find an artist?</h1>
+        <button className="import-artist-button">
+          <Link to={"/import"} >
+            Import one
+          </Link>
+        </button>
       </div>
       {
         albums.length + artists.length + genres.length === 0 && submited===true &&
