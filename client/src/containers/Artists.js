@@ -15,7 +15,8 @@ const Artists = () => {
     setRenderArtists(data.map(item => (
       <div key={item.id} className="artist">
           <Link to={`/artists/${item.id}`}>
-            <img src={makeURL("/api/images/" + item.image)} alt={item.name + " picture"}/>
+            <img src={makeURL(`/api/images/${item.image}`)}
+                 onError={(e)=>{e.target.onerror = null; e.target.src=makeURL(`/api/images/default_artist.jpg`)}}/>
             <h1>{item.name}</h1>
           </Link>
       </div>

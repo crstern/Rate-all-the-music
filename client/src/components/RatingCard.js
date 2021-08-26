@@ -75,7 +75,8 @@ const RatingCard = ({rating, index, renderItem}) => {
               <Link to={`/artists/${rating.artist.id}`}>
                 <p>{rating.artist.name}</p>
               </Link>
-              <img src={makeURL("/api/images/" + rating.artist.image)} alt={rating.artist.name + " cover"}/>
+              <img src={makeURL(`/api/images/${rating.artist.image}`)}
+                   onError={(e)=>{e.target.onerror = null; e.target.src=makeURL(`/api/images/default_artist.jpg`)}}/>
             </div>}
             {renderItem === true && rating.album.image &&
             <div>

@@ -41,14 +41,14 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className={"search-form"}>
       <h1>Log in</h1>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label><br/>
-        <input type="text" value={username} onChange={handleChangeUsername}/><br/>
+        <input className={"search-input"} type="text" value={username} onChange={handleChangeUsername}/><br/>
         <label htmlFor="password">Password:</label><br/>
-        <input type="password" value={password} onChange={handleChangePassword}/>
+        <input className={"search-input"} type="password" value={password} onChange={handleChangePassword}/>
         <div>
           <input type="submit" value="Submit"/>
         </div>
