@@ -23,7 +23,9 @@ const RatingForm = (props) => {
     const httpMethod = "post"
     const apiUrl = makeURL(`/api/ratings/${props.route}/${props.id}`)
 
-
+    setRatingStars(1);
+    setRatingTitle("");
+    setRatingDescription("");
     axios({
       method: httpMethod,
       data: {

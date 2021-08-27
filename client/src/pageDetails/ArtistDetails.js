@@ -12,10 +12,7 @@ const ArtistDetails = ({match}) => {
     fetchItem(match.params.id);
   }, [])
 
-  const [artist, setArtist] = useState({
-    image: {},
-    genre: {},
-  });
+  const [artist, setArtist] = useState();
 
   const [albums, setAlbums] = useState([]);
   const [ratings, setRatings] = useRatings();
@@ -32,7 +29,8 @@ const ArtistDetails = ({match}) => {
       setAlbums(data.albums.map(item => (
         <div className="albums" key={item.name}>
           <Link to={`/albums/${item.id}`}>
-            <img className="album-images" src={makeURL(`/api/images/${item.image}`)} alt={item.name + " cover"}/>
+            <img className="album-images" src={makeURL(`/api/images/${item.image}`)} alt={item.name + " cover"}
+                 onError={(e)=>{e.target.onerror = null; e.target.src=makeURL(`/api/images/default_album.png`)}}/>
           </Link>
           <h3>{item.name}</h3>
         </div>
@@ -47,13 +45,14 @@ const ArtistDetails = ({match}) => {
       {error &&
         <div>{error}</div>
       }
-      {!error &&
+      {!error && artist &&
         <div className="container">
         <h1>{artist.name}</h1>
           <p>{artist.origin_country}</p>
           <div className="img-description">
             <div className="image">
-              <img src={makeURL(`/api/images/${artist.image}`)}/>
+              <img src={makeURL(`/api/images/${artist.image}`)}
+                onError={(e)=>{e.target.onerror = null; e.target.src=makeURL(`/api/images/default_artist.jpg`)}}/>
               <div className="social-media">
                 <div className="year-name-facebook">
                 <p>{artist.formed_year}</p>
@@ -66,7 +65,7 @@ const ArtistDetails = ({match}) => {
                 }
                 </div>
                   <div className={"total-note-website"}>
-                    <p>{artist.total_note}/5</p>
+                    <p>{artist.total_note.toFixed(2)}/5</p>
                     {artist.website &&
                     <a href={getUrlFor(artist.website)}>{artist.website}</a>
                     }

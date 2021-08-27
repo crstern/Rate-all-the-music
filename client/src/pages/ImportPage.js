@@ -3,6 +3,7 @@ import {makeURL} from "../utils/config";
 import {useHistory} from "react-router-dom";
 import axios from 'axios';
 import './ImportPage.css';
+import {cookies} from "../utils/util";
 
 const ImportPage = () => {
   const [artistName, setArtistName] = useState("");
@@ -20,7 +21,10 @@ const ImportPage = () => {
         url: makeURL("/api/artists/"),
         data: {
           artist_name: artistName
-        }
+        },
+        headers: {
+          'x-access-token': cookies.get('access_token')
+        },
       })
       if (response.status === 200)
         history.push(`/artists/${response.data.data.id}`)

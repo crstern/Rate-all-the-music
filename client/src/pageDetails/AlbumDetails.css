@@ -65,6 +65,10 @@
     max-width: 200px;
 }
 
+.album-image-main {
+    max-width: 350px;
+}
+
 /*for mobile*/
 
 @media (max-width: 800px) {
@@ -76,5 +80,9 @@
     .image {
         margin-right: 0;
         float: none;
+    }
+
+    .album-image-main {
+        max-width: 200px;
     }
 }

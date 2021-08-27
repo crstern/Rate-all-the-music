@@ -64,7 +64,8 @@ def fetch_albums_by_artist_id(artist_id):
                 "description": album.get('strDescriptionEN'),
                 "image": image_obj,
                 "release_year": album.get('intYearReleased'),
-                "genre_id": album_genre.id
+                "genre_id": album_genre.id,
+                "total_note": 0,
             }
 
             try:

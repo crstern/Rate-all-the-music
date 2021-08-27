@@ -28,7 +28,6 @@ const RatingForm = (props) => {
     const httpMethod = "put"
     const apiUrl = makeURL(`/api/ratings/${prevRating.id}`);
 
-
     axios({
       method: httpMethod,
       data: {
@@ -49,7 +48,6 @@ const RatingForm = (props) => {
 
   const handleChange = (setter, event) => {
     setter(event.target.value);
-
   }
 
   return (

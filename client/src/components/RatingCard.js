@@ -66,24 +66,28 @@ const RatingCard = ({rating, index, renderItem}) => {
   
   return (
     <div>
-      {renderItem === true && rating.artist.image &&
-      <div>
-        <Link to={`/artists/${rating.artist.id}`}>
-          <p>{rating.artist.name}</p>
-        </Link>
-        <img src={makeURL("/api/images/" + rating.artist.image)} alt={rating.artist.name + " cover"}/>
-      </div>}
-      {renderItem === true && rating.album.image &&
-      <div>
-        <Link to={`/albums/${rating.album.id}`}>
-          <p>{rating.album.name}</p>
-        </Link>
-        <img src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>
-      </div>}
       <div className="rating-card-container">
         <div className="rating-card-items">
           {updating===false &&
           <div>
+            {renderItem === true && rating.artist.image &&
+            <div>
+              <Link to={`/artists/${rating.artist.id}`}>
+                <p>{rating.artist.name}</p>
+              </Link>
+              <img src={makeURL(`/api/images/${rating.artist.image}`)}
+                   onError={(e)=>{e.target.onerror = null; e.target.src=makeURL(`/api/images/default_artist.jpg`)}}/>
+            </div>}
+            {renderItem === true && rating.album.image &&
+            <div>
+              <Link to={`/albums/${rating.album.id}`}>
+                <p>{rating.album.name}</p>
+              </Link>
+              <img src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>
+            </div>}
+            <Link to={`/profile/${rating.username}`} >
+              <p className={"user"}>{rating.username}</p>
+            </Link>
             <div className="stars"><StarsForCard stars={rating.number_of_stars}/></div>
             {rating.title.length > 0 &&
             <h2>{rating.title}</h2>}
@@ -93,8 +97,8 @@ const RatingCard = ({rating, index, renderItem}) => {
           </div>
           }
           <div className="buttons">
-            {user && user.id == rating.user_id &&
-            <div class="form-and-cancel">
+            {user && user.username === rating.username &&
+            <div className="form-and-cancel">
               {updating &&
               <div>
                 <UpdateRatingForm rating={rating} index={index}/>

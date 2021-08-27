@@ -133,7 +133,8 @@ def get_artist_details_from_fetched(fetched_artist):
         "id": fetched_artist.get('idArtist'),
         "formed_year": fetched_artist.get('intFormedYear'),
         "record_label": fetched_artist.get('strLabel'),
-        "image": image_obj
+        "image": image_obj,
+        "total_note": 0,
     }
 
     return artist_dict, image_obj, genre_obj

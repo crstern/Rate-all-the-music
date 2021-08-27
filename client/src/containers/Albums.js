@@ -13,7 +13,8 @@ const Albums = () => {
     setRenderAlbums(data.map(item => (
       <div key={item.name} className="album">
         <Link to={`/albums/${item.id}`}>
-          <img src={makeURL("/api/images/" + item.image)} alt={item.name + " cover"}/>
+          <img src={makeURL("/api/images/" + item.image)}
+               onError={(e)=>{e.target.onerror = null; e.target.src=makeURL(`/api/images/default_album.png`)}}/>
         </Link>
       </div>
     )));

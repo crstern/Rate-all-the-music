@@ -38,7 +38,7 @@ def add_new_rating(item_id, data, item_type):
         artist = get_artist_details_by_id(rating.artist_id)
         artist.total_note = calculate_total_note_per_artist(rating.artist_id, rating.number_of_stars)
         db.session.commit()
-    rating.user_id = user.id
+    rating.username = user.username
 
     try:
         db.session.add(rating)
