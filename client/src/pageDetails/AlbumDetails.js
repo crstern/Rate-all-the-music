@@ -60,13 +60,15 @@ const AlbumDetails = ({match}) => {
 
           <div className="img-description">
             <div className="image">
-              <img className="album-images" src={makeURL(`/api/images/${album.image}`)} alt={album.name + " cover"}
+              <img className="album-image-main" src={makeURL(`/api/images/${album.image}`)} alt={album.name + " cover"}
                    onError={(e)=>{e.target.onerror = null; e.target.src=makeURL(`/api/images/default_album.png`)}}/>
               <div className="social-media">
                 <div className="year-name-facebook">
                   <p>{album.total_note.toFixed(2)}/5</p>
                   <p><Link to={`/genres/${album.genre.name}`} >{album.genre.name}</Link></p>
                 </div>
+                <p>Release year: {album.release_year ? album.release_year : "Unknown"}</p>
+
               </div>
             </div>
             
