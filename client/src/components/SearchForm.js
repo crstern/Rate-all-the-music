@@ -50,19 +50,22 @@ const SearchForm = () => {
         <h1>Find an artist, an album or a genre</h1>
         <form onSubmit={handleSubmitSearch}>
           <input className="search-input" type={"text"} value={searchTerm} placeholder="ex. Snoop Dogg" onChange={handleChangeSearchTerm}/>
+          {
+            albums.length + artists.length + genres.length === 0 && submited===true &&
+            <p>Your search "{searchTerm}" did not match any results.</p>
+          }
           <input className="submit-input" type={"submit"} value={"submit"}/>
         </form>
+
       </div>
       <div className="find-artist-link">
-        <p>You can't find an artist?</p>
-        <Link to={"/import"} >
-          Import an artist
-        </Link>
+        <h1>Can't find an artist?</h1>
+        <button className="import-artist-button">
+          <Link to={"/import"} >
+            Import one
+          </Link>
+        </button>
       </div>
-      {
-        albums.length + artists.length + genres.length === 0 && submited===true &&
-        <p>Your search - {searchTerm} - did not match any results.</p>
-      }
     </div>
   )
 }
