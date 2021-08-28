@@ -68,6 +68,9 @@ def pull_new_artist(data):
         raise InvalidPayload("artist name is not in payload")
     artist_name = data.get('artist_name')
 
+    if artist_name == "":
+        raise InvalidPayload("Please insert an artist name")
+
     api_link = 'https://www.theaudiodb.com/api/v1/json/1/search.php?s='
 
     fetched_artist = requests.get(api_link + artist_name).json()

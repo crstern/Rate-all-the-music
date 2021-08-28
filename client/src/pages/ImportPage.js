@@ -12,8 +12,13 @@ const ImportPage = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    console.log(artistName)
     e.preventDefault();
+
+    console.log(artistName)
+    if (artistName === "") {
+      setError("Please insert an artist");
+      return false;
+    }
     setLoading(true);
     try{
       const response = await axios({

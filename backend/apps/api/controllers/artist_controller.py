@@ -112,6 +112,8 @@ class ArtistCollection(Resource):
     def post(self):
         data = request.get_json()
 
+
+
         artist = pull_new_artist(data)
         data = api.marshal(artist, _artist_details)
         return response_with(resp.SUCCESS_200, value={'data': data})

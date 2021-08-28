@@ -99,4 +99,3 @@ def get_albums_for_search(search_term):
     albums = Album.query.filter(Album.name.ilike(f"%{search_term}%")).all()[:10]
     return albums
 
-

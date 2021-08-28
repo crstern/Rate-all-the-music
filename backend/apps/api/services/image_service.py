@@ -5,7 +5,6 @@ import numpy as np
 
 from apps.api.utils import (
     path_to_images,
-
 )
 
 
@@ -55,11 +54,5 @@ def extract_art_cover(album):
 def delete_image_by_id(filename):
     path = os.path.join(path_to_images, filename)
     os.remove(path)
-
-
-
-
-def get_image_file_by_id(image_id):
-    image = get_image_by_id(image_id)
 
 

@@ -110,14 +110,14 @@ def delete_rating_by_id(rating_id):
 
 
 def update_rating_by_id(rating_id, data):
-    rating = get_rating_by_id(rating_id)
+    rating = get_rating_by_id(rating_id) # citesc recenzia din baza de date
 
-    rating.number_of_stars = data.get("number_of_stars")
+    rating.number_of_stars = data.get("number_of_stars") # modific receniza existentă
     rating.title = data.get("title")
     rating.description = data.get("description")
 
     try:
-        db.session.commit()
+        db.session.commit() # actualizez baza de date
     except Exception as e:
         print(e)
         raise ServerError("Couldn't update the rating")
