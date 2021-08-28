@@ -4,6 +4,7 @@ import {makeURL} from "../utils/config";
 import axios from 'axios';
 import {UserContext} from "../context/UserContext";
 import {cookies} from "../utils/util";
+import './Login.css';
 
 
 const Login = () => {
@@ -41,19 +42,20 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <h1>Log in</h1>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username:</label><br/>
-        <input type="text" value={username} onChange={handleChangeUsername}/><br/>
-        <label htmlFor="password">Password:</label><br/>
-        <input type="password" value={password} onChange={handleChangePassword}/>
-        <div>
-          <input type="submit" value="Submit"/>
-        </div>
-      </form>
-
+    <div className="login-container">
+      <div className="login-wraper">
+        <h1>Log in</h1>
+        {error && <p>{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username:</label>
+          <input type="text" placeholder="Username" value={username} onChange={handleChangeUsername}/>
+          <label htmlFor="password">Password:</label>
+          <input type="password" placeholder="Password" value={password} onChange={handleChangePassword}/>
+          <div>
+            <input type="submit" value="Log in"/>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
