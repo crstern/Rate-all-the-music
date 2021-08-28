@@ -52,11 +52,11 @@ const ImportPage = () => {
         {loading === false &&
           <form className="form-container" onSubmit={handleSubmit}>
             <input className="import-input" type={"text"} value={artistName} placeholder="ex. Snoop Dogg" onChange={handleChangeArtistName}/>
-            <input className="import-button" type={"submit"} value={"import!"} />
             {error &&
-            <p>
+            <p className="import-error">
               {error}
             </p>}
+            <input className="import-button" type={"submit"} value={"import!"} />
           </form>
         }
 
