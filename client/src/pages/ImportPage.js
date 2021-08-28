@@ -50,7 +50,7 @@ const ImportPage = () => {
       <div className="import-item">
         <h1>Here you can import a new artist</h1>
         {loading === false &&
-          <form className="form-container" onSubmit={handleSubmit}>
+          <form className="form-container-import-page" onSubmit={handleSubmit}>
             <input className="import-input" type={"text"} value={artistName} placeholder="ex. Snoop Dogg" onChange={handleChangeArtistName}/>
             {error &&
             <p className="import-error">

@@ -21,7 +21,7 @@
     padding: 0 1em;
 }
 
-.form-container {
+.form-container-import-page {
     display: flex;
     flex-direction: column;
     justify-content: center;

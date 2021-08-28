@@ -19,24 +19,32 @@ const Register = () => {
     setUsername(event.target.value);
     if (! isUsernameValid(event.target.value)){
       setErrorUsername(true);
-      document.getElementById("username").style.marginBottom = "3rem";
-    }else setErrorUsername(false);
+      document.getElementById("username").classList.add('error');
+    }else {
+      setErrorUsername(false);
+      document.getElementById("username").classList.remove('error');}
   }
 
   const handleChangePassword = async (event) => {
     await setPassword(event.target.value);
     if(! isPasswordValid(event.target.value)){
       setErrorPassword(true);
-      document.getElementById("password").style.marginBottom = "4.5rem";
-    }else setErrorPassword(false);
+      document.getElementById("password").classList.add('error');
+    }else {
+      setErrorPassword(false);
+      document.getElementById("password").classList.remove('error');
+    }
   }
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
     if (! isEmailValid(event.target.value)){
       setErrorEmail(true);
-      document.getElementById("email").style.marginBottom = "3rem";
-    }else setErrorEmail(false);
+      document.getElementById("email").classList.add('error');
+    }else {
+      setErrorEmail(false);
+      document.getElementById("email").classList.remove('error');
+    }
   }
 
   const isUsernameValid = (username) => {
@@ -78,22 +86,22 @@ const Register = () => {
           {error && <p>{error}</p>}
           <form onSubmit={handleSubmit}>
             <div className="form-control">
-            <label htmlFor="username">Username:</label>
-            <input  id="username" type="text" placeholder="Username" value={username} onChange={handleChangeUsername}/>
-            {errorUsername &&
-            <p>Username length must be at least 6 characters</p>}
+              <label htmlFor="username">Username:</label>
+              <input  id="username" type="text" placeholder="Username" value={username} onChange={handleChangeUsername}/>
+              {errorUsername &&
+              <p>Username length must be at least 6 characters</p>}
             </div>
             <div className="form-control">
-            <label>Email:</label>
-            <input id="email" type="email" placeholder="Email Address" value={email} onChange={handleChangeEmail}/>
-            {errorEmail &&
-            <p>The email you provided is incorrect</p>}
+              <label>Email:</label>
+              <input id="email" type="email" placeholder="Email Address" value={email} onChange={handleChangeEmail}/>
+              {errorEmail &&
+              <p>The email you provided is incorrect</p>}
             </div>
             <div className="form-control">
-            <label htmlFor="password">Password:</label>
-            <input id="password" type="password" placeholder="Password" value={password} onChange={handleChangePassword}/>
-            {errorPassword &&
-            <p>Password length must be at least 8 characters and must include at least one number</p>}
+              <label htmlFor="password">Password:</label>
+              <input id="password" type="password" placeholder="Password" value={password} onChange={handleChangePassword}/>
+              {errorPassword &&
+              <p>Password length must be at least 8 characters and must include at least one number</p>}
             </div>
             <input type="submit" value="Sign up!" disabled={errorPassword || errorUsername}/>
             
