@@ -47,6 +47,8 @@ const Register = () => {
     }
   }
 
+
+
   const isUsernameValid = (username) => {
     return username.length >= 6;
   }
@@ -63,18 +65,19 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios({
-      method:"post",
-      url: makeURL("/api/auth/register"),
-      data: {
-        username: username,
-        email: email,
-        password: password
-      }
-    }).then(response => {
-      console.log(response);
-      history.push('/login');
-    }).catch(console.log);
+    if (isEmailValid(email) && isPasswordValid(password) && isUsernameValid(username)) {
+      axios({
+        method: "post",
+        url: makeURL("/api/auth/register"),
+        data: {
+          username: username,
+          email: email,
+          password: password
+        }
+      }).then(() => {
+        history.push('/login');
+      }).catch(console.log);
+    }
   }
 
   return (
