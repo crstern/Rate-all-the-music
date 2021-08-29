@@ -24,6 +24,8 @@ const Login = () => {
 
   const handleSubmit = (e) =>  {
     e.preventDefault();
+    if(username !== "" && password !== ""){
+      console.log("da")
     axios.post(
       makeURL('/api/auth/login'), {
         "username": username,
@@ -39,7 +41,7 @@ const Login = () => {
       setError(err.response.data);
       console.log(err.response.data)
     })
-  }
+  }}
 
   return (
     <div className="login-container">

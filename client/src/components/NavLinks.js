@@ -34,10 +34,7 @@ const NavLinks = (props) => {
           <li><Link to={'/albums'} className="mobile-text" onClick={handleClickLink}>Albums</Link></li>
           <li><Link to={'/genres'} className="mobile-text" onClick={handleClickLink}>Genres</Link></li>
           <li><Link to={'/search'} className="mobile-text" onClick={handleClickLink}>Search</Link></li>
-          {
-            user &&
-            <li><Link to={'/import'} className="mobile-text" onClick={handleClickLink}>Import</Link></li>
-          }
+          <li><Link to={'/import'} className="mobile-text" onClick={handleClickLink}>Import</Link></li>
           {user && user.admin === true &&
           <li><Link to={'/uploadAll'} className="mobile-text" onClick={handleClickLink}>Import All</Link></li>
           }
