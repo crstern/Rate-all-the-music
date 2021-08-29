@@ -21,7 +21,7 @@
     padding: 0 1em;
 }
 
-.form-container {
+.form-container-import-page {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,6 +38,12 @@
     margin: 5rem 0;
     font-family: 'Roboto Mono', monospace;
     letter-spacing: 1px;
+    position: relative;
+}
+
+.import-error {
+    top: 6rem;
+    position: absolute;
 }
 
 .import-button {
