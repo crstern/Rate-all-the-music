@@ -1,12 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400;500&display=swap');
 .greetings {
     display: flex;
+    align-items: center;
     justify-content: center;
+    flex-direction: column;
+    color: #fbfbfb;
+    height: 92vh;
 }
 
 
 .landing-quote {
+    font-family: Lato;
     font-weight: 800;
-    color:white;
-    font-size: 5rem;
-    width: 60rem;
+    font-size: 4rem;
+    max-width: 40rem;
+    margin: 0em .5em 0 .5em;
+}
+
+.greetings h2 {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin: 1em .5em;
+}
+
+.get-started {
+    font-family: 'Roboto Mono';
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 0em;
+    padding: 1em 2em;
+    cursor: pointer;
+    border-top: solid 2px #fbfbfb;
+    border-bottom: solid 2px #fbfbfb;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
+    color: inherit;
+    transition: letter-spacing 400ms,
+                border 400ms;
+}
+
+.get-started:hover {
+    letter-spacing: 2px;
+}
+
+
+.spacer {
+    aspect-ratio: 900/600;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.layer1 {
+    background-image: url('./wave-haikei-2.svg');
+}
+
+.quots-container {
+    margin-bottom: 9em;
+}
+
+.button-container {
+    min-height: 13rem;
+}
+
+@media (max-width: 594px) {
+    .landing-quote {
+        font-size: 2.5rem;
+        margin-top: 1.5em;
+    }
+
+    .greetings h2 {
+        font-size: 1.2rem;
+    }
+
+    .get-started {
+        font-size: 1.2rem;
+        font-weight: 100;
+        letter-spacing: 1px;
+    }
 }
