@@ -26,6 +26,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .import-input {
@@ -36,13 +37,15 @@
     border-left: hidden;
     border-bottom: 2px solid #53488d;
     margin: 5rem 0;
+    padding: 0 1em;
     font-family: 'Roboto Mono', monospace;
     letter-spacing: 1px;
-    position: relative;
+    
 }
 
 .import-error {
-    top: 6rem;
+    color: hsl(0, 97%, 63%);
+    bottom: 3.5rem;
     position: absolute;
 }
 

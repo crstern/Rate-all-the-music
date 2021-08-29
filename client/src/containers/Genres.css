@@ -4,6 +4,7 @@
     display: flex;
     justify-content: flex-start;
     padding-left: 2em;
+    margin-bottom: 2rem;
 }
 
 .genres-wraper {
@@ -30,7 +31,8 @@
 }
 
 .quote {
-    color:#FFF;
+    color: #fbfbfb;
+    
 }
 
 .quote p {
