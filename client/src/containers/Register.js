@@ -104,8 +104,11 @@ const Register = () => {
               <p>Password length must be at least 8 characters and must include at least one number</p>}
             </div>
             <input type="submit" value="Sign up!" disabled={errorPassword || errorUsername}/>
-            
+
           </form>
+          <p className="login-link">
+              Already have an account? <Link to={'./Login'}><span>Log in</span></Link>
+          </p>
         </div>
       </div>
     </div>

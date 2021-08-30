@@ -44,6 +44,10 @@
     transition-duration: 300ms;
 }
 
+.button-show {
+    margin-bottom: 1rem;
+}
+
 .button:hover {
     cursor: pointer;
     background-color: rgba(86, 25, 189, 1);
@@ -66,4 +70,17 @@
 
 .description-submited {
     width: 30rem;
+}
+
+.on-profile-img {
+    width: 100%;
+    max-width: 20rem;
+}
+
+@media (max-width: 406px) {
+    .like {
+        margin-top: 2em;
+        border-radius: 50%;
+        height: 3.5rem;
+    }
 }

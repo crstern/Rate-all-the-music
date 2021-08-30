@@ -50,10 +50,10 @@ const Ratings = (props) => {
       }
     </div>
     {ratings.length > 3 && ratingArraySize === 3 &&
-    <button className={"button"} onClick={handleReadMoreRatings}>Show more ratings</button>
+    <button className={"button button-show"} onClick={handleReadMoreRatings}>Show more ratings</button>
     }
     {ratings.length > 3 && ratingArraySize > 3 &&
-    <button className={"button"} onClick={handleReadLessRatings}>Show less ratings</button>
+    <button className={"button button-show"} onClick={handleReadLessRatings}>Show less ratings</button>
     }
     <br/>
     {user && props.renderForm &&

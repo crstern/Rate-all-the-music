@@ -130,3 +130,10 @@ a:visited {
     }
 
 }
+
+@media (max-width:400px) {
+    .mobile-text {
+        font-size: 2rem;
+    }
+
+}
