@@ -30,7 +30,7 @@ const ProfileDetails = (props) => {
   },[])
 
   return (
-    <div>
+    <div className="donno">
       <Ratings renderForm={false} meanRatings={false} renderItem={true}/>
     </div>
   )
