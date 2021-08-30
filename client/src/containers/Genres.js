@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {useGenres} from "../context/GenreContext";
 import './Genres.css';
+import ScrollToTop from '../components/ScrollToTop';
 
 const Genres = () => {
   const [genres, setGenres] = useGenres();
@@ -30,6 +31,7 @@ const Genres = () => {
     
       <div className="genres-wraper">
         {renderGenres}
+      <ScrollToTop/>
       </div>
     
   )

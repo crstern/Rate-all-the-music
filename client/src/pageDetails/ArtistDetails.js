@@ -51,7 +51,7 @@ const ArtistDetails = ({match}) => {
           <p>{artist.origin_country}</p>
           <div className="img-description">
             <div className="image">
-              <img src={makeURL(`/api/images/${artist.image}`)}
+              <img className="artist-image" src={makeURL(`/api/images/${artist.image}`)}
                 onError={(e)=>{e.target.onerror = null; e.target.src=makeURL(`/api/images/default_artist.jpg`)}}/>
               <div className="social-media">
                 <div className="year-name-facebook">

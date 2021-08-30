@@ -75,7 +75,7 @@ const RatingCard = ({rating, index, renderItem}) => {
               <Link to={`/artists/${rating.artist.id}`}>
                 <p>{rating.artist.name}</p>
               </Link>
-              <img src={makeURL(`/api/images/${rating.artist.image}`)}
+              <img className="on-profile-img" src={makeURL(`/api/images/${rating.artist.image}`)}
                    onError={(e)=>{e.target.onerror = null; e.target.src=makeURL(`/api/images/default_artist.jpg`)}}/>
             </div>}
             {renderItem === true && rating.album.image &&
@@ -83,7 +83,7 @@ const RatingCard = ({rating, index, renderItem}) => {
               <Link to={`/albums/${rating.album.id}`}>
                 <p>{rating.album.name}</p>
               </Link>
-              <img src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>
+              <img className="on-profile-img" src={makeURL("/api/images/" + rating.album.image)} alt={rating.album.name + " cover"}/>
             </div>}
             <Link to={`/profile/${rating.username}`} >
               <p className={"user"}>{rating.username}</p>

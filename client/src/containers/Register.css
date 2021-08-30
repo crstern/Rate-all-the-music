@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;800&display=swap');
 
 .register-container {
     display: flex;
@@ -65,6 +65,7 @@
 }
 
 .register-wraper input[type=submit] {
+    margin-bottom: 0;
     cursor: pointer;
     border: none;
     text-transform: uppercase;
@@ -96,6 +97,15 @@
 
 .register-wraper input[type=password].error {
     margin-bottom: 4.5rem;
+}
+
+.login-link {
+    font-weight: 400;
+    font-size: .9rem;
+}
+
+.login-link span {
+    color: rgb(122, 45, 255);
 }
 
 @media (max-width: 1100px) {
