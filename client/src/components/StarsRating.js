@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Star from "./Star";
 import {useStars} from "../context/StarContext";
 
 

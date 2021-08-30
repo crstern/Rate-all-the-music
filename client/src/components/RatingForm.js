@@ -2,12 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {cookies} from "../utils/util";
 import {makeURL} from "../utils/config";
 import axios from 'axios';
-import RatingCard from "./RatingCard";
 import {useRatings} from "../context/RatingContext";
-import Star from '../components/Star';
 import StarsRating from "./StarsRating";
-import {StarsProvider, useStars} from "../context/StarContext";
-// import "./RatingForm.css";
+import {useStars} from "../context/StarContext";
 
 
 const RatingForm = (props) => {
