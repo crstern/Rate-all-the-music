@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {scrollToTop} from "../utils/util";
 import {useArtists} from "../context/ArtistContext";
 import './Artists.css';
-
+import ScrollToTop from '../components/ScrollToTop';
 
 const Artists = () => {
   const [renderArtists, setRenderArtists] = useState(null);
@@ -35,6 +35,7 @@ const Artists = () => {
         <div className="artists-container">{renderArtists}</div>
         }
       </div>
+      <ScrollToTop />
     </div>
   )
 }

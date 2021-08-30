@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {UserContext} from "../context/UserContext";
 import {useAlbums} from "../context/AlbumContext";
 import './Albums.css';
+import ScrollToTop from '../components/ScrollToTop';
 
 const Albums = () => {
   const [albums, setAlbums] = useAlbums();
@@ -25,12 +26,14 @@ const Albums = () => {
   },[albums]);
 
   return (
+    
     <div>
       <div className="albums-wraper">
         {renderAlbums &&
           <div className="albums-container">{renderAlbums}</div>
         }
       </div>
+      <ScrollToTop />
     </div>
   )
 }
