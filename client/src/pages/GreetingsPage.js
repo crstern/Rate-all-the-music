@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {UserContext, useUser} from "../context/UserContext";
 import './Greetings.css';
 
-const Greetings = () => {
+const GreetingsPage = () => {
   const [user, setUser] = useUser();
 
   return (
@@ -31,4 +31,4 @@ const Greetings = () => {
   )
 }
 
-export default Greetings
+export default GreetingsPage

@@ -6,7 +6,7 @@ import {useAlbums} from "../context/AlbumContext";
 import {scrollToTop} from "../utils/util";
 import Artists from "../containers/Artists";
 import Albums from "../containers/Albums";
-import '../containers/NextPreviousButtons.css';
+import '../components/NextPreviousButtons.css';
 
 const AlbumsPage = () =>{
   const [page, setPage] = useState(1);

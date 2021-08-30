@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useHistory, Link } from "react-router-dom";
 import './Register.css';
 
-const Register = () => {
+const RegisterPage = () => {
   const history = useHistory();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -118,4 +118,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default RegisterPage

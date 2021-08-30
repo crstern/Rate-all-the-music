@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {scrollToTop} from "../utils/util";
 import {useArtists} from "../context/ArtistContext";
 import Artists from "../containers/Artists";
-import '../containers/NextPreviousButtons.css';
+import '../components/NextPreviousButtons.css';
 
 const ArtistsPage = () => {
   const [page, setPage] = useState(1);

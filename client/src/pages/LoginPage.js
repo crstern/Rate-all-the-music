@@ -7,7 +7,7 @@ import {cookies} from "../utils/util";
 import './Login.css';
 
 
-const Login = () => {
+const LoginPage = () => {
   const history = useHistory();
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -58,11 +58,11 @@ const Login = () => {
           </div>
         </form>
         <p className="login-link">
-              Don't have an account? <Link to={'./Login'}><span>Sign up</span></Link>
+              Don't have an account? <Link to={'./register'}><span>Sign up</span></Link>
           </p>
       </div>
     </div>
   )
 }
 
-export default Login;
+export default LoginPage;

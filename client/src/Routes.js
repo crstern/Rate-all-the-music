@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, Switch} from "react-router-dom";
-import Greetings from "./containers/Greetings"
-import Login from "./containers/Login";
-import Register from "./containers/Register";
+import GreetingsPage from "./pages/GreetingsPage"
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import ArtistDetails from "./pageDetails/ArtistDetails";
 import AlbumDetails from "./pageDetails/AlbumDetails";
 import ProfileDetails from "./pageDetails/ProfileDetails";
@@ -19,16 +19,16 @@ const Routes = () => {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={Greetings}/>
+        <Route exact path="/" component={GreetingsPage}/>
         <Route exact path="/artists" component={ArtistsPage} key={Date.now()}/>
         <Route exact path="/albums" component={AlbumsPage}/>
         <Route exact path="/search" component={SearchPage}/>
         <Route exact path="/import" component={ImportPage}/>
         <Route exact path="/uploadAll" component={UploadAll} />
-        <Route exact path="/login" component={Login}/>
+        <Route exact path="/login" component={LoginPage}/>
         <Route exact path="/genres" component={GenresPage}/>
         <Route path="/genres/:name" component={GenreDetails} />
-        <Route path="/register" component={Register}/>
+        <Route path="/register" component={RegisterPage}/>
         <Route path="/artists/:id" component={ArtistDetails} />
         <Route path="/albums/:id" component={AlbumDetails} />
         <Route path="/profile/:username" component={ProfileDetails} />
