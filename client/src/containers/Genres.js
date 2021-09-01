@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {useGenres} from "../context/GenreContext";
 import './Genres.css';
 import ScrollToTop from '../components/ScrollToTop';
+import Spinner from '../components/Spinner';
 
 const Genres = () => {
   const [genres, setGenres] = useGenres();
@@ -30,7 +31,7 @@ const Genres = () => {
   return (
     
       <div className="genres-wraper">
-        {renderGenres}
+        {renderGenres ? renderGenres : <Spinner/>}
       <ScrollToTop/>
       </div>
     

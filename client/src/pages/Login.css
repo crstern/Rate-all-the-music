@@ -12,7 +12,7 @@
 .login-wraper {
     background-color: #fbfbfb;
     width: 20rem;
-    padding: 1em 2em;
+    padding: 1em;
     border-radius: 1rem;
     margin: 0 1rem;
 }
@@ -28,6 +28,9 @@
 
 .login-wraper h1 {
     color: #252525;
+    border-bottom: 1px solid #252525;
+    padding-bottom: .3em;
+    margin-top: 0;
 }
 
 .login-wraper input {

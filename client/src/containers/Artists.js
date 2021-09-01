@@ -5,6 +5,7 @@ import {scrollToTop} from "../utils/util";
 import {useArtists} from "../context/ArtistContext";
 import './Artists.css';
 import ScrollToTop from '../components/ScrollToTop';
+import Spinner from '../components/Spinner';
 
 const Artists = () => {
   const [renderArtists, setRenderArtists] = useState(null);
@@ -29,11 +30,11 @@ const Artists = () => {
 
   return (
     <div>
-      <h3></h3>
+
       <div className="artists-wraper">
-        {renderArtists &&
-        <div className="artists-container">{renderArtists}</div>
-        }
+        
+        <div className="artists-container">{renderArtists ? renderArtists : <Spinner/>}</div>
+        
       </div>
       <ScrollToTop />
     </div>

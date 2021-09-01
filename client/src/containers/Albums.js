@@ -5,6 +5,7 @@ import {UserContext} from "../context/UserContext";
 import {useAlbums} from "../context/AlbumContext";
 import './Albums.css';
 import ScrollToTop from '../components/ScrollToTop';
+import Spinner from '../components/Spinner';
 
 const Albums = () => {
   const [albums, setAlbums] = useAlbums();
@@ -29,9 +30,9 @@ const Albums = () => {
     
     <div>
       <div className="albums-wraper">
-        {renderAlbums &&
-          <div className="albums-container">{renderAlbums}</div>
-        }
+        
+          <div className="albums-container">{renderAlbums ? renderAlbums : <Spinner/>}</div>
+        
       </div>
       <ScrollToTop />
     </div>

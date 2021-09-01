@@ -8,7 +8,6 @@ import {ArtistsProvider} from "./context/ArtistContext";
 import {AlbumsProvider} from "./context/AlbumContext";
 import {GenresProvider} from "./context/GenreContext";
 
-
 function App() {
   return (
     <div className="App">

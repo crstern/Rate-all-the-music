@@ -34,6 +34,10 @@
     color: inherit;
 }
 
+.find-artist-link h1 {
+    padding: 0 2.5em;
+}
+
 .search-input {
     outline: none;
     width: clamp(12rem, 17vw, 17rem);
