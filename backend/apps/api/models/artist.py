@@ -35,3 +35,4 @@ class Artist(Base):
         Artist representation
         """
         return f'<Artist {self.username} {self.email}>'
+

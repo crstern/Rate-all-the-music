@@ -8,8 +8,7 @@ export const UserContext = createContext([]);
 
 export const useUser = () => useContext(UserContext);
 
-
-export const UserProvider = ({children}) => {
+export const UserProvider = (props) => {
   const [user, setUser] = useState(null);
   const [working, setWorking] = useState(true);
 
@@ -51,7 +50,7 @@ export const UserProvider = ({children}) => {
 
   return (
     <UserContext.Provider value={[user, setUser]}>
-      {working ? null : children}
+      {working ? null : props.children}
     </UserContext.Provider>
   )
 }

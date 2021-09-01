@@ -10,16 +10,16 @@ const NavLinks = (props) => {
         textDecoration: 'none'
       }
     
-      const [user, setUser] = useUser();
-    
-      const logout = () => {
-        cookies.remove("access_token");
-        localStorage.removeItem("refresh_token");
-        setUser(null);
-      }
-    
+    const [user, setUser] = useUser();
+
+    const logout = () => {
+      cookies.remove("access_token");
+      localStorage.removeItem("refresh_token");
+      setUser(null);
+    }
+
     const [classNamesLinks, setClassNameLinks] = useState(props.classNameLinks);
-    
+
     const handleClickLink = () => {
       setClassNameLinks("nav-links");
     }

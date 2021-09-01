@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {cookies} from "../utils/util";
 import {makeURL} from "../utils/config";
 import {useUser} from "../context/UserContext";
-import RatingCard from "./RatingCard";
+import RatingCard from "../components/RatingCard";
 import RatingForm from "../components/RatingForm"
 import axios from 'axios';
 import {useRatings} from "../context/RatingContext";

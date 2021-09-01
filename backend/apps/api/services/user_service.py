@@ -34,7 +34,7 @@ def create_new_user(data):
         db.session.commit()
     except Exception as e:
         print(e)
-        return None
+        raise AuthError("User hasn't been saved")
     return new_user
 
 

@@ -98,6 +98,8 @@ def pull_new_artist(data):
     return artist_obj
 
 
+
+
 def delete_artist_by_id(artist_id):
     """
     delete artist by id

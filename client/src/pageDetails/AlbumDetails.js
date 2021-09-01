@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {makeURL} from '../utils/config';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Ratings from "../components/Ratings";
+import Ratings from "../containers/Ratings";
 import {scrollToTop} from "../utils/util";
 import {useRatings} from "../context/RatingContext";
 import "./AlbumDetails.css";

@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {scrollToTop} from "../utils/util";
 import {useArtists} from "../context/ArtistContext";
 import Artists from "../containers/Artists";
+import axios from "axios"
 import '../components/NextPreviousButtons.css';
 
 const ArtistsPage = () => {
@@ -13,16 +14,18 @@ const ArtistsPage = () => {
   const [hasPrev, setHasPrev] = useState(false);
 
   const fetchItems = async (page=1) => {
-    const fetched = await fetch(makeURL(`/api/artists?page=${page}&size=${12}`));
-    const data = await fetched.json();
-    setArtists(data.data);
-    setHasNext(data.pagination.hasNext);
-    setHasPrev(data.pagination.hasPrev);
+    axios({
+      method: "get",
+      url: makeURL(`/api/artists?page=${page}&size=12`)
+    }).then(response => {
+      setArtists(response.data.data);
+      setHasNext(response.data.pagination.hasNext);
+      setHasPrev(response.data.pagination.hasPrev);
+    })
   }
 
   const handleChangePage = async (newPage) => {
     setPage(newPage);
-    await fetchItems(newPage);
     scrollToTop();
   };
 

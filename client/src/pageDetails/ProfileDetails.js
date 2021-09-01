@@ -3,7 +3,7 @@ import RatingCard from "../components/RatingCard";
 import axios from 'axios';
 import {makeURL} from "../utils/config";
 import {useRatings} from "../context/RatingContext";
-import Ratings from "../components/Ratings";
+import Ratings from "../containers/Ratings";
 
 const ProfileDetails = (props) => {
   const [profile, setProfile] = useState({

@@ -92,32 +92,6 @@ class ArtistByIdCollection(Resource):
 
 @api.route('/')
 class ArtistCollection(Resource):
-    """
-    Collection for root - /<artist_id> - endpoints
-
-    Args: Resource(Object)
-
-    Returns:
-        json: data
-    """
-    @api.doc(
-        'Add a new artist manually',
-        responses={
-            200: ('data', _artist_details),
-            404: "Not found",
-            400: "message"
-        }
-    )
-    @token_required
-    def post(self):
-        data = request.get_json()
-
-
-
-        artist = pull_new_artist(data)
-        data = api.marshal(artist, _artist_details)
-        return response_with(resp.SUCCESS_200, value={'data': data})
-
     @api.doc(
         'Retunrs a page with 10 artists',
         responses={
@@ -126,6 +100,23 @@ class ArtistCollection(Resource):
     )
     def get(self):
         return pagination.paginate(get_artists(), _artist_basic)
+
+    @api.doc(
+        'Add a new artist manually',
+        responses={
+            200: ('data', _artist_details),
+            404: "Not found",
+            400: "message",
+            403: "Unauthorized"
+        }
+    )
+    def post(self):
+        data = request.get_json()
+        artist = pull_new_artist(data)
+        data = api.marshal(artist, _artist_details)
+        return response_with(resp.SUCCESS_200, value={'data': data})
+
+
 
 
 @api.route('/search/<search_term>')

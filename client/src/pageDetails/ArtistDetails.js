@@ -3,7 +3,7 @@ import {makeURL} from '../utils/config';
 import {Link} from 'react-router-dom';
 import {getUrlFor} from '../utils/util';
 import axios from 'axios';
-import Ratings from "../components/Ratings";
+import Ratings from "../containers/Ratings";
 import {useRatings} from "../context/RatingContext";
 import "./ArtistDetails.css"
 

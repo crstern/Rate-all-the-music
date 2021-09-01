@@ -9,7 +9,7 @@ import ScrollToTop from '../components/ScrollToTop';
 const Artists = () => {
   const [renderArtists, setRenderArtists] = useState(null);
 
-  const [artists, setArtists] = useArtists();
+  const [artists] = useArtists();
 
   const extractArtists = (data) => {
     setRenderArtists(data.map(item => (
