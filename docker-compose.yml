@@ -1,0 +1,51 @@
+  
+version: '3.5'
+
+services:
+
+  db:
+    image: postgres
+    container_name: my-postgres
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=licenta
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - './db/init:/docker-entrypoint-initdb.d/'
+
+  flask-api:
+    container_name: my-flask-app
+    restart: always
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+      - "465:465"
+    expose:
+      - "5000"
+      - "465"
+    volumes:
+      - ./backend:/usr/src/app
+    depends_on:
+      - "db"
+  
+
+  client:
+    container_name: my-react-app
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - './client:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - "flask-api"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - HOST_URL=http://192.168.0.10:5000

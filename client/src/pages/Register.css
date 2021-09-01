@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;800&display=swap');
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    font-family: Poppins;
+    overflow-x: hidden;
+}
+
+.register-item {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    max-width: 70rem;
+}
+
+.register-wraper {
+    background-color: #fbfbfb;
+    color: #121212;
+    padding: .5em 2em;
+    width: 43%;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.register-wraper h1 {
+    color: #252525;
+    margin: .4em 0 1em 0;
+    padding-bottom: .4em;
+    border-bottom: 1px solid #252525;
+}
+
+.register-wraper label {
+    display: none;
+}
+
+.register-wraper form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-control {
+    width: 100%;
+    position: relative;
+}
+
+.register-wraper input {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 1em 2em;
+    margin-bottom: 2em;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: .3em;
+    transition: border 300ms;
+}
+
+.register-wraper input:focus {
+    border: 1px solid #555;
+}
+
+.register-wraper input[type=submit] {
+    margin-bottom: 0;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+    background-color: hsl(154, 59%, 51%);
+    color: #fbfbfb;
+    box-shadow: inset 0 -.2rem rgba(0, 0, 0, 0.2);
+}
+
+.register-wraper input[type=submit]:hover {
+    opacity: 80%;
+}
+
+.svg-img {
+    content: url('../images/music file2-03.svg');
+    width: 30rem;
+}
+
+.register-wraper form p {
+    font-size: .8rem;
+    color:hsl(0, 100%, 74%);
+    position: absolute;
+    top: 3rem;
+}
+
+.register-wraper input.error {
+    border: 1px solid hsl(0, 100%, 74%);
+    margin-bottom: 3rem;
+}
+
+.register-wraper input[type=password].error {
+    margin-bottom: 4.5rem;
+}
+
+.login-link {
+    font-weight: 400;
+    font-size: .9rem;
+}
+
+.login-link span {
+    color: rgb(122, 45, 255);
+}
+
+@media (max-width: 1100px) {
+    .register-container {
+        padding: 13rem 0 4rem 0;
+    }
+    .register-item {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .register-wraper {
+        width: 80%;
+    }
+
+    .register-item {
+        width: 90%;
+        max-width: 50rem;
+    }
+
+}

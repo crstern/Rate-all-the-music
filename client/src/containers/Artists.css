@@ -1,0 +1,33 @@
+h1 {
+    color: white;
+}
+
+.artists-wraper{
+    display: flex;
+    justify-content: center;
+}
+
+.artists-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-gap: 25px;
+    width: min(90%, 100rem);
+}
+
+.artist img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 8%;
+    transition: transform 400ms;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.artist img:hover {
+    transform: scale(1.03);
+}
+
+@media (max-width: 740px) {
+    .artists-container{
+        max-width: 25rem;
+    }
+}

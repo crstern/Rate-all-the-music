@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+
+.genres-container {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 2em;
+    margin-bottom: 2rem;
+}
+
+.genres-wraper {
+    width: 50%;
+    max-width: 100rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-gap: 20px;
+    padding-top: 2em;
+}
+
+.genres-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+    border-radius: 1rem;
+    transition: transform 300ms;
+}
+
+.genres-item:hover {
+    
+    transform: scale(1.03);
+}
+
+.quote {
+    color: #fbfbfb;
+    
+}
+
+.quote p {
+    position: fixed;
+    font-family: 'Rampart One';
+    font-size: clamp(4rem, 5vw, 5rem);
+    padding: 0 1em;
+}
+
+@media (max-width: 720px) {
+    .quote p {
+        position: unset;
+        font-size: 3rem;
+    }
+
+    .genres-container {
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        padding-left: 0;
+        margin-bottom: 2em;
+    }
+
+    .genres-wraper {
+        width: 90%;
+    }
+}

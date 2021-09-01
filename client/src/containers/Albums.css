@@ -1,0 +1,26 @@
+h3 {
+    color: white;
+}
+
+.albums-wraper{
+    display: flex;
+    justify-content: center;
+}
+
+.albums-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-gap: 25px;
+    width: min(90%, 90rem);
+}
+
+.album img {
+    width: 100%;
+    max-width: 300px;
+    transition: transform 400ms;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.album img:hover {
+    transform: scale(1.03);
+}
