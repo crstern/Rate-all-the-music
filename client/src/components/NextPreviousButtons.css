@@ -4,8 +4,8 @@
 .slide {
     cursor: pointer;
     position: relative;
-    background-color: #ffacac;
-    color: #53488d;
+    background-color: rgb(70, 3, 90);
+    color: #fbfbfb;
     font-family: 'Roboto Mono', monospace;
     font-weight: 300;
     font-size: 1rem;

@@ -1,4 +1,5 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
 .layout-container {
     display:flex;
@@ -29,6 +30,7 @@
 .artist-image {
     width: 100%;
     max-width: 20rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .description {
@@ -40,11 +42,13 @@
     display: flex;
     flex-direction: column;
     min-height: 50px;
+    font-size: 1.1rem;
 }
 
 .year-name-facebook {
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 .total-note-website {
@@ -59,6 +63,24 @@
 
 .website {
     padding:0;
+}
+
+.fa {
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 20px;
+    width: 40px;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white !important;
 }
 
 /*albums styling*/

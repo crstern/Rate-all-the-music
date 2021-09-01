@@ -53,7 +53,7 @@ const AlbumDetails = ({match}) => {
       <div className="container">
         
           <Link to={`/artists/${album.artist.id}`}>
-            <h1>{album.artist.name}</h1>
+            <h1 className="artist-name">{album.artist.name}</h1>
           </Link>
 
           <h1>{album.name}</h1>

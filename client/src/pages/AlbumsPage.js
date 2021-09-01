@@ -34,7 +34,7 @@ const AlbumsPage = () =>{
 
   return (
     <div>
-      <h1>Albums</h1>
+      <h1 className="albums-title">Albums</h1>
       <Albums />
       <button onClick={() => handleChangePage(page - 1)} disabled={!hasPrev} className="slide left">
         <div>Prev</div>

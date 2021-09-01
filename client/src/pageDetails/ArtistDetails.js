@@ -60,7 +60,7 @@ const ArtistDetails = ({match}) => {
             
                 {artist.facebook_link &&
                   <p>
-                    <a className="icon-social-facebook" href={getUrlFor(artist.facebook_link)}></a>
+                    <a className="fa fa-facebook" href={getUrlFor(artist.facebook_link)}></a>
                   </p>
                 }
                 </div>
