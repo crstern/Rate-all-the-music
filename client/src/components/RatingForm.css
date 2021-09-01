@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.title,
+.description,
+.rating-input,
+textarea {
+    font-family: Poppins;
+}
+
+.title,
+.description {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+textarea {
+    font-size: .8rem;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+textarea {
+    resize: none;
+    outline: none;
+    width: 80%;
+    max-width: 30rem;
+}
+
+.rating-input {
+    width: 60%;
+    max-width: 15rem;
+    outline: none;
+}
+
+.title,
+.description {
+    margin: .7em 0;
+}
+
+.submit {
+    background-color: #FFF;
+    margin-right: 1em;
+    margin-top: 1em;
+    padding: .5em 1em;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+    font-size: .8rem;
+    letter-spacing: 1;
+    border: 1px solid rgba(86, 25, 189, 1);
+    border-radius: 1em;
+    transition-duration: 300ms;
+    width: 5rem;
+    margin-top: 1em;
+}
+
+.submit:hover {
+    cursor: pointer;
+    background-color: rgba(86, 25, 189, 1);
+    color: #FFF;
+}
+
+/* submit form styling */
+
+.form-container-submit {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.form-layout-submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-wraper-submit {
+    width: 60%;
+    padding: 2em;
+    border-radius: 1rem;
+    text-align: left;
+    background-color: #FFF;
+    position: relative;
+}

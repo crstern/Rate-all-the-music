@@ -1,0 +1,96 @@
+.import-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3em 2em 0 2em;
+}
+
+.import-item {
+    background-color: #FFF;
+    color: rgb(20, 47, 121);
+    height: 30rem;
+    width: 50%;
+    max-width: 35rem;
+    border-radius: 2em;
+    padding: 2em;
+}
+
+.import-item h1 {
+    color: inherit;
+    font-size: clamp(1.7rem, 3vw, 2.5rem); 
+    padding: 0 1em;
+}
+
+.form-container-import-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.import-input {
+    outline: none;
+    width: clamp(12rem, 17vw, 17rem);
+    border-top: hidden;
+    border-right: hidden;
+    border-left: hidden;
+    border-bottom: 2px solid #53488d;
+    margin: 5rem 0;
+    padding: 0 1em;
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 1px;
+    
+}
+
+.import-error {
+    color: hsl(0, 97%, 63%);
+    bottom: 3.5rem;
+    position: absolute;
+}
+
+.import-button {
+    font-size: .8rem;
+    font-family: 'Roboto Mono', monospace;
+    text-transform: uppercase;
+    padding: .5em 1em;
+    background-color: #FFF;
+    color:   rgb(20, 47, 121);
+    border: 2px solid  rgb(20, 47, 121);
+    letter-spacing: 1px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    transition: transform 300ms;
+}
+
+.import-button:hover {
+    transform: scale(1.05);
+}
+
+.svg-image {
+    content: url('music\ file2-01.svg');
+    max-width: 37rem;
+    height: 37rem;
+}
+
+@media (max-width: 1110px) {
+    .import-container {
+        flex-direction: column-reverse;
+        padding-bottom: 5rem;
+    }
+
+    .import-item {
+        width: 90%;
+        max-width: 60rem;
+        height: 25rem;
+    }
+
+}
+
+@media (max-width: 590px) {
+    .import-container {
+        padding: 1em 2em 2em 2em;
+        overflow-x: hidden;
+    }
+}
