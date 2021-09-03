@@ -1,5 +1,14 @@
-h1 {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+.artist-title {
+    font-family: Roboto;
+    font-weight: 500;
     color: white;
+}
+
+h1 {
+    font-weight: 400;
+    color: #fbfbfb;
 }
 
 .artists-wraper{

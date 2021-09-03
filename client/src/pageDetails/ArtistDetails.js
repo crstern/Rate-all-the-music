@@ -48,7 +48,8 @@ const ArtistDetails = ({match}) => {
       {!error && artist &&
         <div className="container">
         <h1>{artist.name}</h1>
-          <p>{artist.origin_country}</p>
+        <div className="country-wraper"><p className="country">{artist.origin_country}</p></div>
+          
           <div className="img-description">
             <div className="image">
               <img className="artist-image" src={makeURL(`/api/images/${artist.image}`)}
@@ -60,7 +61,7 @@ const ArtistDetails = ({match}) => {
             
                 {artist.facebook_link &&
                   <p>
-                    <a className="icon-social-facebook" href={getUrlFor(artist.facebook_link)}></a>
+                    <a className="fa fa-facebook" href={getUrlFor(artist.facebook_link)}></a>
                   </p>
                 }
                 </div>

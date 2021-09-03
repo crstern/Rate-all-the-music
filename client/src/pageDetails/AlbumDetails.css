@@ -68,6 +68,12 @@
 .album-image-main {
     width: 100%;
     max-width: 20rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.artist-name {
+    font-family: Roboto;
+    font-weight: 500;
 }
 
 /*for mobile*/

@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import axios from 'axios';
 import './ImportPage.css';
 import {cookies} from "../utils/util";
+import Spinner from '../components/Spinner';
 
 const ImportPage = () => {
   const [artistName, setArtistName] = useState("");
@@ -61,7 +62,7 @@ const ImportPage = () => {
         }
 
         {loading === true &&
-          <div>loading</div>
+          <div><Spinner/></div>
         }
 
       </div>
