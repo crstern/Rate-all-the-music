@@ -49,7 +49,7 @@ const SearchForm = () => {
       <div className="search-form">
         <h1>Find an artist, an album or a genre</h1>
         <form onSubmit={handleSubmitSearch}>
-          <input className="search-input" type={"text"} value={searchTerm} placeholder="ex. Snoop Dogg" onChange={handleChangeSearchTerm}/>
+          <input className="search-input" type={"text"} value={searchTerm} placeholder="ex. Orbital" onChange={handleChangeSearchTerm}/>
           {
             albums.length + artists.length + genres.length === 0 && submited===true &&
             <p>Your search "{searchTerm}" did not match any results.</p>

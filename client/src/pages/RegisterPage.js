@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {makeURL} from '../utils/config';
+import {makeAuthURL} from '../utils/config';
 import axios from 'axios';
 import { useHistory, Link } from "react-router-dom";
 import './Register.css';
@@ -68,7 +68,7 @@ const RegisterPage = () => {
     if (isEmailValid(email) && isPasswordValid(password) && isUsernameValid(username)) {
       axios({
         method: "post",
-        url: makeURL("/api/auth/register"),
+        url: makeAuthURL("/api/auth/register"),
         data: {
           username: username,
           email: email,

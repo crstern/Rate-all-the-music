@@ -5,13 +5,19 @@ services:
 
   db:
     image: postgres
-    container_name: my-postgres
+    container_name: my-database
+
     ports:
-      - '5432:5432'
+      - "5432:5432"
+    expose:
+      - "5432"
     environment:
+      - POSTGRES_HOST=localhost
       - POSTGRES_DB=licenta
+      - AUTH_DB=auth_licenta
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
     volumes:
       - './db/init:/docker-entrypoint-initdb.d/'
 
@@ -23,12 +29,26 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
-      - "465:465"
     expose:
       - "5000"
       - "465"
     volumes:
       - ./backend:/usr/src/app
+    depends_on:
+      - "db"
+
+  node-api:
+    container_name: nodejs-app
+    restart: always
+    build:
+      context: ./node-backend/
+      dockerfile: Dockerfile
+    ports:
+      - "5500:5500"
+    expose:
+      - "5000"
+    volumes:
+      - ./node-backend:/usr/src/app
     depends_on:
       - "db"
   
@@ -44,7 +64,7 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      - "flask-api"
+      - "node-api"
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true

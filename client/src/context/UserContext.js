@@ -1,6 +1,6 @@
 import React, {useState, useEffect, createContext, useContext} from "react";
 import axios from 'axios';
-import {makeURL} from "../utils/config";
+import {makeURL, makeAuthURL} from "../utils/config";
 import {cookies} from "../utils/util";
 
 
@@ -16,7 +16,7 @@ export const UserProvider = ({children}) => {
   const refreshToken = () => {
     axios({
       method: 'get',
-      url: makeURL('/api/auth/refresh_token'),
+      url: makeAuthURL('/api/auth/refresh_token'),
       headers: {
         'x-refresh-token': localStorage.getItem('refresh_token')
       }
@@ -25,12 +25,11 @@ export const UserProvider = ({children}) => {
       console.log(cookies.get('access_token'))
       axios({
         method:'get',
-        url: makeURL('/api/auth/get_current_user'),
+        url: makeAuthURL('/api/auth/get_current_user'),
         headers: {
           'x-access-token': cookies.get('access_token')
         }
       }).then(response => {
-        console.log('getting user')
         setUser(response.data.data)
       }).catch(console.log)
 

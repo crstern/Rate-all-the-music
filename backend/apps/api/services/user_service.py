@@ -24,9 +24,6 @@ def create_new_user(data):
     :param data: user related data
     :return: True if the operation was successful, else false
     """
-    hashed_password = generate_password_hash(data['password'], method='sha256')
-    data['hashed_password'] = hashed_password
-    del data['password']
     new_user = User(**data)
 
     try:
@@ -36,55 +33,6 @@ def create_new_user(data):
         print(e)
         return None
     return new_user
-
-
-def get_new_access_token(req):
-    if 'x-refresh-token' not in req.headers:
-        raise AuthError('Refresh token is missing', 403)
-
-    refresh_token = req.headers.get('x-refresh-token')
-    try:
-        data = jwt.decode(refresh_token, SECRET_REFRESH_KEY, algorithms="HS256")
-        user = User.query.filter_by(id=data['id']).first()
-        access_token = jwt.encode({
-            'id': user.id,
-            'username': user.username,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-        }, SECRET_KEY)
-        session['user_id'] = user.id
-        return access_token
-    except Exception as e:
-        print(e)
-        raise AuthError('Authorization is invalid', 401)
-
-
-def get_access_token(data):
-    if not data or 'username' not in data or 'password' not in data:
-        raise AuthError('Username or password not provided', 403)
-    user = User.query.filter_by(username=data['username']).first()
-
-    if not user:
-        raise AuthError('Incorrect credentials', 403)
-
-    if check_password_hash(user.hashed_password, data['password']):
-        token = jwt.encode({
-            'id': user.id,
-            'username': user.username,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-        }, SECRET_KEY)
-        session['user_id'] = user.id
-        return token
-    else:
-        raise AuthError("Incorrect credentials", 403)
-
-
-def get_refresh_token():
-    user = get_current_user()
-    refresh_token = jwt.encode({
-        'id': user.id,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=365)
-    }, SECRET_REFRESH_KEY)
-    return refresh_token
 
 
 def get_current_user():
@@ -110,7 +58,6 @@ def token_required(f):
 
         try:
             data = jwt.decode(token, SECRET_KEY, algorithms="HS256")
-            print(data)
             current_user = User.query.filter_by(id=data['id']).first()
             session['user_id'] = current_user.id
         except Exception as e:

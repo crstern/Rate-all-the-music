@@ -1,0 +1,17 @@
+models for:
+    - audit
+    - user
+
+docker image for node-backend
+connect the new docker container with the client
+
+Authentication routes:
+    -register
+    -login
+    -logout
+
+models for:
+    - album
+    - artist
+    - genre
+    - rating

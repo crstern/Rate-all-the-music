@@ -22,8 +22,8 @@ class UserDto:
 
     user_register_validation = api.model('User register validation', {
         'username': fields.String(description='User username', required=True),
-        'password': fields.String(description='User password', required=True),
         'email':  fields.String(description='User password', required=True),
+        'id': fields.Integer(description='User id', required=True)
     })
 
     user_login_validation = api.model('User login validation', {

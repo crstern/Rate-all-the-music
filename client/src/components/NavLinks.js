@@ -27,7 +27,7 @@ const NavLinks = (props) => {
     useEffect(() => {
       setClassNameLinks(props.classNameLinks);
     }, [props])
-
+    console.log("user", user);
     return (
         <ul className={classNamesLinks}>
           <li><Link to={'/artists'} className="mobile-text" onClick={handleClickLink}>Artists</Link></li>
@@ -52,7 +52,7 @@ const NavLinks = (props) => {
           }}>Log out</Link></li>
         }
         {user &&
-            <li className="user"><Link to={`/profile/${user.username}`} style={linkNavStyle} onClick={handleClickLink}>{user.username}</Link></li>
+            <li ><Link to={`/profile/${user.username}`} style={linkNavStyle} onClick={handleClickLink}>{user.username}</Link></li>
         }
       </ul>
     )

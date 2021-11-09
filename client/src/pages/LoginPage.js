@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { useHistory, Link } from "react-router-dom";
-import {makeURL} from "../utils/config";
+import {makeURL, makeAuthURL} from "../utils/config";
 import axios from 'axios';
 import {UserContext} from "../context/UserContext";
 import {cookies} from "../utils/util";
@@ -27,7 +27,7 @@ const LoginPage = () => {
     if(username !== "" && password !== ""){
       console.log("da")
     axios.post(
-      makeURL('/api/auth/login'), {
+      makeAuthURL('/api/auth/login'), {
         "username": username,
         "password": password
       })
@@ -38,8 +38,9 @@ const LoginPage = () => {
         localStorage.setItem('refresh_token', data.refresh_token);
         history.push('/')
       }).catch(err => {
-      setError(err.response.data);
-      console.log(err.response.data)
+      console.log("eroare", err)
+
+      // setError(err.response.data);
     })
   }}
 
