@@ -47,7 +47,7 @@ def fetch_albums_by_artist_id(artist_id):
     :param artist_id: id of the artist
     :return:
     """
-    link = f'https://theaudiodb.com/api/v1/json/1/album.php?i={artist_id}'
+    link = f'https://theaudiodb.com/api/v1/json/2/album.php?i={artist_id}'
     albums = requests.get(link).json()['album']
     if albums is not None:
         for album in albums:

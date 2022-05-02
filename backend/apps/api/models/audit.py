@@ -2,7 +2,6 @@
 Audit base class related model
 """
 from apps.extensions import db
-import uuid
 
 
 class Base(db.Model):

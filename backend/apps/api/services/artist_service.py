@@ -71,7 +71,7 @@ def pull_new_artist(data):
     if artist_name == "":
         raise InvalidPayload("Please insert an artist name")
 
-    api_link = 'https://www.theaudiodb.com/api/v1/json/1/search.php?s='
+    api_link = 'https://www.theaudiodb.com/api/v1/json/2/search.php?s='
 
     fetched_artist = requests.get(api_link + artist_name).json()
 
